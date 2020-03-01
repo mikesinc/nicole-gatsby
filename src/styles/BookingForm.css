@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "pysch";
+    src: url("../assets/fonts/QuicksandlightRegular-WJpz.otf");
+  }
+  
+  .myModal {
+    font-family: pysch;
+  }
+  

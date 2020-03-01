@@ -1,0 +1,29 @@
+@font-face {
+    font-family: "pysch";
+    src: url('../assets/fonts/timeburnernormal.ttf');
+}
+
+.navy {
+    font-family: pysch;
+    font-size: 20pt;
+    transition: 1s;
+}
+
+.nav-link {
+    padding: 30px !important;
+    transition: 0.5s;
+}
+
+.nav-link:hover {
+    color: black !important;
+    background: rgba(255, 255, 255, 1);
+}
+
+.black {
+    padding: 10px !important;
+}
+
+.black:hover {
+    color: white !important;
+    background: rgb(255, 208, 0);
+}
