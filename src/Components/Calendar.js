@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Calendar, momentLocalizer, Views } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import MyWeek from "./MyWeek";
-import BookingForm from "./BookingForm";
-import axios from "axios";
-import { UserContext } from "../Context/Store";
-import Button from "react-bootstrap/Button";
-import emailjs from 'emailjs-com';
+import React, { useState, useEffect, useContext } from "react"
+import { Calendar, momentLocalizer, Views } from "react-big-calendar"
+import moment from "moment"
+import "react-big-calendar/lib/css/react-big-calendar.css"
+import MyWeek from "./MyWeek"
+import BookingForm from "./BookingForm"
+import axios from "axios"
+import { UserContext } from "../Context/Store"
+import emailjs from "emailjs-com"
 
-// const { emailjs } = window;
-const localizer = momentLocalizer(moment);
+const localizer = momentLocalizer(moment)
 const monthNames = [
   "January",
   "February",
@@ -23,39 +21,41 @@ const monthNames = [
   "September",
   "October",
   "November",
-  "December"
-];
+  "December",
+]
 
 const BookingCalendar = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [myEvents, setMyEvents] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
-  const [bookingDetails, setBookingDetails] = useState({});
-  const [userDetails] = useContext(UserContext);
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [myEvents, setMyEvents] = useState([])
+  const [modalShow, setModalShow] = useState(false)
+  // const [mainCalEventId, setMainCalEventId] = useState("neg")
+  const [bookingDetails, setBookingDetails] = useState({})
+  const [userDetails] = useContext(UserContext)
+
+  const getEvents = async () => {
+    let res = await fetch("http://localhost:3001/")
+    let data = await res.json()
+    data.events.forEach(event => {
+      event.start = new Date(event.start)
+      event.end = new Date(event.end)
+    })
+    setMyEvents(data.events)
+    setIsLoaded(true)
+  }
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/")
-      .then(res => {
-        res.data.events.forEach(event => {
-          event.start = new Date(event.start);
-          event.end = new Date(event.end);
-        });
-        setMyEvents(res.data.events);
-        setIsLoaded(true);
-      })
-      .catch(err => console.log(err.detail));
-  }, [isLoaded]);
+    getEvents()
+  }, [modalShow, isLoaded])
 
   const setDay = date => {
-    date = new Date(date.getTime());
-    date.setDate(date.getDate() + ((4 + 7 - date.getDay()) % 7));
-    return date;
-  };
+    date = new Date(date.getTime())
+    date.setDate(date.getDate() + ((4 + 7 - date.getDay()) % 7))
+    return date
+  }
 
   const handleSelect = event => {
     if (event.title === "booked") {
-      return null;
+      return null
     } else {
       setBookingDetails({
         title: "50 minute consultation with Dr. Papadopolous",
@@ -70,42 +70,57 @@ const BookingCalendar = () => {
             ? event.end.getMinutes() + "0"
             : event.end.getMinutes()
         }`,
-        event: event
-      });
-      setModalShow(true);
-    }
-  };
-
-  const confirmBooking = event => {
-    setIsLoaded(false);
-    axios
-      .post("http://localhost:3001/patch", {
-        eventId: event.eventId,
-        title: "booked",
-        resource: {
-          summary: `${userDetails.userName} at ${event.start.getHours()}:${
-            event.start.getMinutes() < 10
-              ? event.start.getMinutes() + "0"
-              : event.start.getMinutes()
-          } to ${event.end.getHours()}:${
-            event.end.getMinutes() < 10
-              ? event.end.getMinutes() + "0"
-              : event.end.getMinutes()
-          }`,
-          start: {
-            dateTime: event.start.toISOString()
-          },
-          end: {
-            dateTime: event.end.toISOString()
-          }
-        }
+        event: event,
       })
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
-
-    const handleClick = () => {
-        console.log('clicked');
+      setModalShow(true)
     }
+  }
+
+  const confirmBooking = async () => {
+    const event = myEvents.filter(
+      e => e.eventId === bookingDetails.event.eventId
+    )[0]
+    if (event.title === "booked") {
+      alert("This session is no longer available. Please book another time.")
+      return null
+    }
+
+    let res = await axios.post("http://localhost:3001/patch", {
+      eventId: event.eventId,
+      title: "booked",
+      resource: {
+        summary: `${userDetails.userName} at ${event.start.getHours()}:${
+          event.start.getMinutes() < 10
+            ? event.start.getMinutes() + "0"
+            : event.start.getMinutes()
+        } to ${event.end.getHours()}:${
+          event.end.getMinutes() < 10
+            ? event.end.getMinutes() + "0"
+            : event.end.getMinutes()
+        }`,
+        start: {
+          dateTime: event.start.toISOString(),
+        },
+        end: {
+          dateTime: event.end.toISOString(),
+        },
+      },
+    })
+    let data = await res.data
+    let mainCalEventId = data.result.data.id
+
+    let eventStart = `${event.start.getHours()}${
+      event.start.getMinutes() < 10
+        ? event.start.getMinutes() + "0"
+        : event.start.getMinutes()
+    }`
+    let eventEnd = `${event.end.getHours()}${
+      event.end.getMinutes() < 10
+        ? event.end.getMinutes() + "0"
+        : event.end.getMinutes()
+    }`
+    let eventMonth = `${monthNames[event.start.getMonth()]}`
+    let eventDay = `${event.start.getDate()}`
 
     const templateParams = {
       to: userDetails.userEmail,
@@ -115,20 +130,12 @@ const BookingCalendar = () => {
             userDetails.userName
           }, please see below confirmation of your booking with
           Dr. Nicole Papadopolous.</h1>
-          <h2>${event.start.getHours()}:${
-        event.start.getMinutes() < 10
-          ? event.start.getMinutes() + "0"
-          : event.start.getMinutes()
-      }
-          to ${event.end.getHours()}:${
-        event.end.getMinutes() < 10
-          ? event.end.getMinutes() + "0"
-          : event.end.getMinutes()
-      }
-          on ${monthNames[event.start.getMonth()]} ${event.start.getDate()}</h2>
+          <h2>${eventStart} to ${eventEnd} on ${eventMonth} ${eventDay}</h2>
           <p>If you would like to cancel your booking, please click the below button</p>
-          <a href="http://localhost:8000/cancel/"><Button onclick={handleClick()}>Cancel Booking</Button></a>`
-    };
+          <a href="http://localhost:8000/cancel/:${
+            event.eventId
+          }&${mainCalEventId}+${userDetails.userName.replace(/ +/g, "-")}=${userDetails.userEmail}%${eventStart}*${eventEnd}~${eventMonth}!${eventDay}"><button>Cancel Booking</button></a>`,
+    }
 
     emailjs
       .send(
@@ -139,11 +146,11 @@ const BookingCalendar = () => {
       )
       .then(
         response => {
-          console.log("sent", response.status, response.text);
+          console.log("sent", response.status, response.text)
         },
         err => console.log(err, "error")
-      );
-  };
+      )
+  }
 
   if (isLoaded) {
     return (
@@ -165,22 +172,23 @@ const BookingCalendar = () => {
             style: {
               backgroundColor: event.title === "booked" ? "grey" : "#ffbd00",
               color: "black",
-              cursor: event.title === "booked" ? "default" : "pointer"
-            }
+              cursor: event.title === "booked" ? "default" : "pointer",
+            },
           })}
         />
         <BookingForm
           show={modalShow}
           onHide={() => setModalShow(false)}
           onConfirm={e => {
-            e.preventDefault();
-            confirmBooking(bookingDetails.event);
-            setModalShow(false);
+            e.preventDefault()
+            confirmBooking()
+            setModalShow(false)
+            setIsLoaded(false)
           }}
           details={bookingDetails}
         />
       </div>
-    );
+    )
   } else {
     return (
       <>
@@ -190,7 +198,7 @@ const BookingCalendar = () => {
           src={require("../assets/images/ajax-loader.gif")}
         ></img>
       </>
-    );
+    )
   }
-};
-export default BookingCalendar;
+}
+export default BookingCalendar
