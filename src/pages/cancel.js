@@ -3,8 +3,9 @@ import Container from "react-bootstrap/Container"
 import axios from "axios"
 import { useLax, useLaxElement } from "use-lax"
 import emailjs from "emailjs-com"
+import { graphql } from "gatsby"
 
-export default ({ location: { pathname } }) => {
+export default ({ location: { pathname }, data }) => {
   useLax()
   const ref = useLaxElement()
 
@@ -54,6 +55,7 @@ export default ({ location: { pathname } }) => {
 
     const templateParams = {
       to: email,
+      bcc: data.contentfulWebsiteInformation.email,
       subject: `${username}, your booking has been cancelled`,
       html: `
             <h1>${username}, you have cancelled your booking with Dr. Papadopolous: </h1>
@@ -72,19 +74,35 @@ export default ({ location: { pathname } }) => {
         },
         err => console.log(err, "error")
       )
+    // eslint-disable-next-line
   }, [])
 
   return (
     <Container fluid className="overall" style={{ margin: "0", padding: "0" }}>
       <Container
+        style={{backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`}}
         fluid
-        className="header "
+        className="header lax"
         data-lax-bg-pos-y="1000 500, 0 0"
         ref={ref}
       ></Container>
       <Container fluid className="scrollDown">
         <h1>Booking Cancelled</h1>
+        <h2>You may close this window.</h2>
       </Container>
     </Container>
   )
 }
+
+export const query = graphql`
+  {
+    contentfulWebsiteInformation {
+      email
+      bannerImage {
+        file {
+          url
+        }
+      }
+    }
+  }
+`

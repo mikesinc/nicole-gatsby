@@ -4,13 +4,21 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import { useStaticQuery, graphql } from "gatsby"
 
 const ContactForm = () => {
+  const data = useStaticQuery(graphql`
+    {
+      contentfulWebsiteInformation {
+        email
+      }
+    }
+  `)
   return (
     <div>
       <Container fluid className="form_container" style={{ padding: "0" }}>
         <Form
-          action="https://formspree.io/mas.sinclair@gmail.com"
+          action={`https://formspree.io/${data.contentfulWebsiteInformation.email}`}
           method="POST"
         >
           <Form.Group as={Row}>

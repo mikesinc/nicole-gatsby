@@ -7,6 +7,7 @@ import BookingForm from "./BookingForm"
 import axios from "axios"
 import { UserContext } from "../Context/Store"
 import emailjs from "emailjs-com"
+import { useStaticQuery, graphql } from "gatsby"
 
 const localizer = momentLocalizer(moment)
 const monthNames = [
@@ -25,10 +26,17 @@ const monthNames = [
 ]
 
 const BookingCalendar = () => {
+  const queryData = useStaticQuery(graphql`
+    {
+      contentfulWebsiteInformation {
+        email
+      }
+    }
+  `)
+
   const [isLoaded, setIsLoaded] = useState(false)
   const [myEvents, setMyEvents] = useState([])
   const [modalShow, setModalShow] = useState(false)
-  // const [mainCalEventId, setMainCalEventId] = useState("neg")
   const [bookingDetails, setBookingDetails] = useState({})
   const [userDetails] = useContext(UserContext)
 
@@ -124,6 +132,7 @@ const BookingCalendar = () => {
 
     const templateParams = {
       to: userDetails.userEmail,
+      bcc: queryData.contentfulWebsiteInformation.email,
       subject: "Your booking confirmation",
       html: `
           <h1>${
@@ -134,7 +143,9 @@ const BookingCalendar = () => {
           <p>If you would like to cancel your booking, please click the below button</p>
           <a href="http://localhost:8000/cancel/:${
             event.eventId
-          }&${mainCalEventId}+${userDetails.userName.replace(/ +/g, "-")}=${userDetails.userEmail}%${eventStart}*${eventEnd}~${eventMonth}!${eventDay}"><button>Cancel Booking</button></a>`,
+          }&${mainCalEventId}+${userDetails.userName.replace(/ +/g, "-")}=${
+        userDetails.userEmail
+      }%${eventStart}*${eventEnd}~${eventMonth}!${eventDay}"><button>Cancel Booking</button></a>`,
     }
 
     emailjs

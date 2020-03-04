@@ -7,93 +7,150 @@ import Calendar from "../Components/Calendar"
 import { Store } from "../Context/Store"
 import { Router } from "@reach/router"
 import Cancel from "./cancel"
+import { graphql } from "gatsby"
 
-export default () => {
+export default ({ data }) => {
   useLax()
   const ref = useLaxElement()
 
   return (
-    <div>
-    <Router basepath="/">
-      <Cancel path="/cancel/:id" />
-    </Router>
+    <>
+      <Router basepath="/">
+        <Cancel path="/cancel/:id" />
+      </Router>
       <Store>
-        <Container
-          fluid
-          className="overall"
-          style={{ margin: "0", padding: "0" }}
-        >
-          <Navbar />
-
+        <Navbar />
+        <Container fluid className="overall">
           <Container
+            style={{
+              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
+            }}
             fluid
-            className="header "
-            data-lax-bg-pos-y="1000 500, 0 0"
+            className="header lax"
+            data-lax-bg-pos-y="5000 500, 150 -50"
             ref={ref}
           >
-            <h1>Affordable, private counseling</h1>
+            <h1>{data.contentfulWebsiteInformation.banner}</h1>
           </Container>
 
           <Container fluid className="scrollDown">
-            <h1>Professional Clinical Psychologist</h1>
-            <h2>Book your first consultation today and rediscover yourself</h2>
+            <h1>{data.contentfulWebsiteInformation.header}</h1>
+            <h2>{data.contentfulWebsiteInformation.subHeader}</h2>
           </Container>
 
           <Container fluid className="about">
             <img
               alt="Nicole Papadopolous"
-              src={require("../assets/images/nicole_papa.jpg")}
+              src={data.contentfulWebsiteInformation.nicoleImage.file.url}
             ></img>
-            <h1>Doctor Nicole Papadopolous</h1>
-            <h2>[Qualifications]</h2>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </p>
+            <h1>{data.contentfulWebsiteInformation.name}</h1>
+            <h2>{data.contentfulWebsiteInformation.qualifications}</h2>
+            <p>{data.contentfulWebsiteInformation.blurb.internal.content}</p>
           </Container>
 
           <Container fluid className="payment">
             <div>
-              <h1>Consulting Days</h1>
-              <h4>Thursday: 4.30pm - 7.30pm</h4>
-              <h4>Friday: 10am - 7.00pm</h4>
+              <h1>
+                {
+                  data.contentfulWebsiteInformation.workingDays.content[0]
+                    .content[0].value
+                }
+              </h1>
+              {data.contentfulWebsiteInformation.workingDays.content.map(
+                item => {
+                  if (
+                    data.contentfulWebsiteInformation.workingDays.content.indexOf(
+                      item
+                    ) !== 0
+                  ) {
+                    return <h4>{item.content[0].value}</h4>
+                  }
+                  return null
+                }
+              )}
             </div>
             <div>
-              <h1>Pricing</h1>
-              <h4>50 minute consultation: $200</h4>
-              <h4>$26.50 medicare rebate available</h4>
+              <h1>
+                {
+                  data.contentfulWebsiteInformation.pricing.content[0]
+                    .content[0].value
+                }
+              </h1>
+              {data.contentfulWebsiteInformation.pricing.content.map(item => {
+                if (
+                  data.contentfulWebsiteInformation.pricing.content.indexOf(
+                    item
+                  ) !== 0
+                ) {
+                  return <h4>{item.content[0].value}</h4>
+                }
+                return null
+              })}
             </div>
           </Container>
 
           <Container fluid className="booking">
-            <h1>Book your consultation</h1>
+            <h1>{data.contentfulWebsiteInformation.bookingTitle}</h1>
             <Calendar />
           </Container>
 
           <Container fluid className="location">
             <div className="leftBox">
-              <h4>
-                If you would prefer to simply just get in touch, please don't
-                hesitate to contact me below and I will get back to you as soon
-                as possible.
-              </h4>
+              <h4>{data.contentfulWebsiteInformation.contactHeader}</h4>
               <ContactForm />
             </div>
             <div className="rightBox">
-              <h1>Blackburn South Medical Centre</h1>
-              <h2>5/195 Whitehorse Rd, Blackburn VIC 3130, Australia</h2>
+              <h1>{data.contentfulWebsiteInformation.address}</h1>
+              <h2>{data.contentfulWebsiteInformation.addressLine2}</h2>
             </div>
           </Container>
         </Container>
       </Store>
-    </div>
+    </>
   )
 }
+
+export const query = graphql`
+  {
+    contentfulWebsiteInformation {
+      banner
+      bookingTitle
+      contactHeader
+      header
+      name
+      qualifications
+      subHeader
+      address
+      addressLine2
+      pricing {
+        content {
+          content {
+            value
+          }
+        }
+      }
+      workingDays {
+        content {
+          content {
+            value
+          }
+        }
+      }
+      blurb {
+        internal {
+          content
+        }
+      }
+      bannerImage {
+        file {
+          url
+        }
+      }
+      nicoleImage {
+        file {
+          url
+        }
+      }
+    }
+  }
+`

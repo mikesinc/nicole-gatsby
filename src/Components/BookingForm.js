@@ -5,7 +5,6 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-// import "../styles/BookingForm.css";
 import { UserContext } from "../Context/Store";
 
 const BookingForm = props => {
@@ -27,8 +26,6 @@ const BookingForm = props => {
         <p>Please fill in your details below to confirm your booking.</p>
         <Container fluid className="form_container" style={{ padding: "0" }}>
           <Form
-          // action="https://formspree.io/mas.sinclair@gmail.com"
-          // method="POST"
           onSubmit={props.onConfirm}
           >
             <fieldset>

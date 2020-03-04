@@ -1,117 +1,134 @@
 @font-face {
-    font-family: "pysch";
-    src: url('../assets/fonts/QuicksandlightRegular-WJpz.otf');
-  }
-  
-  .overall {
-    font-family: pysch;
-    background-color: #f3f3f3;
-    margin: 0;
-    padding: 0;
-  }
-  
+  font-family: "pysch";
+  src: url("../assets/fonts/QuicksandlightRegular-WJpz.otf");
+}
+
+.overall {
+  font-family: pysch;
+  background-color: #f3f3f3;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-blend-mode: darken;
+  background-attachment: fixed;
+  background-position: bottom;
+  background-size: cover;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: wheat;
+  opacity: 85%;
+}
+
+@media screen and (max-width: 800 px) {
   .header {
-    background-image: url('../assets/images/background2.jpg'), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6));
-    background-blend-mode: darken;
-    background-position: top;
-    background-size: cover;
-    height: 70vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: wheat;
-  }
-  
-  .header h1 {
-    font-size: 36pt;
-  }
-  
-  .scrollDown {
-    height: 40vh;
-    display: flex;
-    flex-direction: column;
-    padding-top: 100px;
-    align-items: center;
-  
-    border: solid;
-  }
-  
-  .scrollDown h1 {
-    padding-bottom: 30px;
-  }
-  
-  .about img {
-    float: left;
-    margin: 20px;
-    border-radius: 1%;
-    height: 250px;
-  }
-  
-  .about {
-    height: 80vh;
-    text-align: center;
-    width: 40%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-  
-    border: solid;
-  }
-  
-  .payment {
-    height: 80vh;
-    text-align: center;
-    background-blend-mode: lighten;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-  
-    border: solid;
-  }
-  
-  .booking {
-    height: 90vh;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  
-    border: solid;
-  }
-  
-  .booking h1 {
-    margin-bottom: 50px;
-  }
-  
-  .location {
     height: 100vh;
-    padding: 2%;
-    display: flex;
-    justify-content: space-between;
-  
-    border: solid;
   }
-  
-  .location h4 {
-    padding-bottom: 50px;
+  .header h1 {
+    font-size: 12pt;
   }
-  
-  .leftBox {
-    width: 50%;
-  
-    border: solid;
-  }
-  
-  .rightBox {
-    width: 50%;
-    background: url('../assets/images/blackburn.png'), radial-gradient(circle at center, rgba(255,255,255,0), rgba(243,243,243,1), rgba(243,243,243,1));
-    background-blend-mode: lighten;
-    background-size: 150%;
-    background-position: center;
-    text-align: center;
-  
-    border: solid;
-  }
+}
+
+.header h1 {
+  font-size: 36pt;
+}
+
+.scrollDown {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+  align-items: center;
+  background: #f3f3f3;
+
+  border: solid;
+}
+
+.scrollDown h1 {
+  padding-bottom: 30px;
+}
+
+.about img {
+  float: left;
+  margin: 20px;
+  border-radius: 1%;
+  height: 250px;
+}
+
+.about {
+  height: 80vh;
+  text-align: center;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  border: solid;
+}
+
+.payment {
+  height: 80vh;
+  text-align: center;
+  background-blend-mode: lighten;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+
+  border: solid;
+}
+
+.booking {
+  height: 90vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  border: solid;
+}
+
+.booking h1 {
+  margin-bottom: 50px;
+}
+
+.location {
+  height: 100vh;
+  padding: 2%;
+  display: flex;
+  justify-content: space-between;
+
+  border: solid;
+}
+
+.location h4 {
+  padding-bottom: 50px;
+}
+
+.leftBox {
+  width: 50%;
+
+  border: solid;
+}
+
+.rightBox {
+  width: 50%;
+  background: url("../assets/images/blackburn.png"),
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0),
+      rgba(243, 243, 243, 1),
+      rgba(243, 243, 243, 1)
+    );
+  background-blend-mode: lighten;
+  background-size: 150%;
+  background-position: center;
+  text-align: center;
+
+  border: solid;
+}
