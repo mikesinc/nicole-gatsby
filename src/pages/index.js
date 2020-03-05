@@ -8,10 +8,18 @@ import { Store } from "../Context/Store"
 import { Router } from "@reach/router"
 import Cancel from "./cancel"
 import { graphql } from "gatsby"
+import Button from "react-bootstrap/Button"
 
 export default ({ data }) => {
   useLax()
   const ref = useLaxElement()
+
+  const setTop = height => {
+    document.querySelector(height).scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    })
+  }
 
   return (
     <>
@@ -27,15 +35,29 @@ export default ({ data }) => {
             }}
             fluid
             className="header lax"
-            data-lax-bg-pos-y="5000 500, 150 -50"
+            data-lax-bg-pos-y="5000 -500, 0 -50"
             ref={ref}
           >
-            <h1>{data.contentfulWebsiteInformation.banner}</h1>
+            <Container
+              className="lax bannerText"
+              data-lax-translate-y="0 0, 1000 900"
+              data-lax-scale="5000 -1, 1 1"
+              data-lax-opacity="0 1, 450 0"
+            >
+              <h1>{data.contentfulWebsiteInformation.banner}</h1>
+            </Container>
           </Container>
 
           <Container fluid className="scrollDown">
             <h1>{data.contentfulWebsiteInformation.header}</h1>
             <h2>{data.contentfulWebsiteInformation.subHeader}</h2>
+            <Button
+              onClick={() => setTop(".booking")}
+              style={{ marginTop: "20px" }}
+              variant="warning"
+            >
+              Book Now
+            </Button>
           </Container>
 
           <Container fluid className="about">
@@ -46,6 +68,20 @@ export default ({ data }) => {
             <h1>{data.contentfulWebsiteInformation.name}</h1>
             <h2>{data.contentfulWebsiteInformation.qualifications}</h2>
             <p>{data.contentfulWebsiteInformation.blurb.internal.content}</p>
+          </Container>
+
+          <Container
+            style={{
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
+            }}
+            fluid
+            className="header lax"
+            data-lax-bg-pos-y="2000 -100, -500 50"
+            ref={ref}
+          >
+            <Container className="bannerText">
+              <h1>{data.contentfulWebsiteInformation.banner2}</h1>
+            </Container>
           </Container>
 
           <Container fluid className="payment">
@@ -89,9 +125,37 @@ export default ({ data }) => {
             </div>
           </Container>
 
+          <Container
+            style={{
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner3Image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
+            }}
+            fluid
+            className="header lax"
+            data-lax-bg-pos-y="5000 -100, -500 50"
+            ref={ref}
+          >
+            <Container className="bannerText">
+              <h1>{data.contentfulWebsiteInformation.banner3}</h1>
+            </Container>
+          </Container>
+
           <Container fluid className="booking">
             <h1>{data.contentfulWebsiteInformation.bookingTitle}</h1>
             <Calendar />
+          </Container>
+          
+          <Container
+            style={{
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
+            }}
+            fluid
+            className="header lax"
+            data-lax-bg-pos-y="5000 -200, -500 50"
+            ref={ref}
+          >
+            <Container className="bannerText">
+              <h1>{data.contentfulWebsiteInformation.banner4}</h1>
+            </Container>
           </Container>
 
           <Container fluid className="location">
@@ -104,6 +168,19 @@ export default ({ data }) => {
               <h2>{data.contentfulWebsiteInformation.addressLine2}</h2>
             </div>
           </Container>
+          <Container
+            style={{
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner5Image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
+            }}
+            fluid
+            className="header lax"
+            data-lax-bg-pos-y="0 0, 0 0"
+            ref={ref}
+          >
+            <Container className="bannerText">
+              <h1>{data.contentfulWebsiteInformation.banner5}</h1>
+            </Container>
+          </Container>
         </Container>
       </Store>
     </>
@@ -114,6 +191,10 @@ export const query = graphql`
   {
     contentfulWebsiteInformation {
       banner
+      banner2
+      banner3
+      banner4
+      banner5
       bookingTitle
       contactHeader
       header
@@ -142,6 +223,26 @@ export const query = graphql`
         }
       }
       bannerImage {
+        file {
+          url
+        }
+      }
+      banner2image {
+        file {
+          url
+        }
+      }
+      banner3Image {
+        file {
+          url
+        }
+      }
+      banner4Image {
+        file {
+          url
+        }
+      }
+      banner5Image {
         file {
           url
         }

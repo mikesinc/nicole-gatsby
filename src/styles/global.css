@@ -13,14 +13,29 @@
 .header {
   background-blend-mode: darken;
   background-attachment: fixed;
-  background-position: bottom;
+  background-position: center;
   background-size: cover;
-  height: 70vh;
+  height: 65vh;
+  opacity: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: wheat;
-  opacity: 85%;
+
+  /* border: solid; */
+}
+
+.bannerText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f3f3f3;
+  text-align: center;
+
+  /* border: solid; */
+}
+
+.bannerText h1 {
+  font-size: 48pt;
 }
 
 @media screen and (max-width: 800 px) {
@@ -32,10 +47,6 @@
   }
 }
 
-.header h1 {
-  font-size: 36pt;
-}
-
 .scrollDown {
   height: 40vh;
   display: flex;
@@ -44,7 +55,7 @@
   align-items: center;
   background: #f3f3f3;
 
-  border: solid;
+  /* border: solid; */
 }
 
 .scrollDown h1 {
@@ -59,7 +70,7 @@
 }
 
 .about {
-  height: 80vh;
+  height: 70vh;
   text-align: center;
   width: 40%;
   display: flex;
@@ -67,11 +78,11 @@
   flex-direction: column;
   justify-content: center;
 
-  border: solid;
+  /* border: solid; */
 }
 
 .payment {
-  height: 80vh;
+  height: 50vh;
   text-align: center;
   background-blend-mode: lighten;
   display: flex;
@@ -79,7 +90,7 @@
   justify-content: space-evenly;
   flex-direction: column;
 
-  border: solid;
+  /* border: solid; */
 }
 
 .booking {
@@ -90,11 +101,12 @@
   justify-content: center;
   flex-direction: column;
 
-  border: solid;
+  /* border: solid; */
 }
 
 .booking h1 {
   margin-bottom: 50px;
+  font-size: 36pt;
 }
 
 .location {
@@ -103,7 +115,7 @@
   display: flex;
   justify-content: space-between;
 
-  border: solid;
+  /* border: solid; */
 }
 
 .location h4 {
@@ -113,7 +125,7 @@
 .leftBox {
   width: 50%;
 
-  border: solid;
+  /* border: solid; */
 }
 
 .rightBox {
@@ -130,5 +142,5 @@
   background-position: center;
   text-align: center;
 
-  border: solid;
+  /* border: solid; */
 }

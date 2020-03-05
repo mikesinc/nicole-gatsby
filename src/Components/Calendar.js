@@ -8,6 +8,7 @@ import axios from "axios"
 import { UserContext } from "../Context/Store"
 import emailjs from "emailjs-com"
 import { useStaticQuery, graphql } from "gatsby"
+import Toolbar from 'react-big-calendar/lib/Toolbar';
 
 const localizer = momentLocalizer(moment)
 const monthNames = [
@@ -172,6 +173,7 @@ const BookingCalendar = () => {
           events={myEvents}
           defaultView={Views.WEEK}
           defaultDate={setDay(new Date(moment().startOf("day")))}
+          components = {{toolbar : CustomToolbar}}
           views={{ week: MyWeek }}
           style={{ height: "60vh", width: "30vw" }}
           onSelectEvent={event => handleSelect(event)}
@@ -212,4 +214,23 @@ const BookingCalendar = () => {
     )
   }
 }
+
+class CustomToolbar extends Toolbar {
+  render() {
+    return (
+      <div className='rbc-toolbar'>
+        <span className="rbc-btn-group">
+          <button type="button" onClick={() => this.navigate('TODAY')} >This Week</button>
+          <button type="button" onClick={() => this.navigate('PREV')}>Back</button>
+          <button type="button" onClick={() => this.navigate('NEXT')}>Next</button>
+        </span>
+        <span className="rbc-toolbar-label">{this.props.label}</span>
+      </div>
+    );
+  }
+  navigate = action => {
+      
+      this.props.onNavigate(action)
+    }
+  }
 export default BookingCalendar
