@@ -66,7 +66,7 @@ export default ({ location: { pathname }, data }) => {
         "default_service",
         "cancel",
         templateParams,
-        process.env.GATSBY_USER_ID
+        process.env.GATSBY_EMAILJS_USER_ID
       )
       .then(
         response => {
@@ -83,7 +83,7 @@ export default ({ location: { pathname }, data }) => {
         style={{backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`}}
         fluid
         className="header lax"
-        data-lax-bg-pos-y="1000 500, 0 0"
+        data-lax-bg-pos-y="8000 100, 0 -400"
         ref={ref}
       ></Container>
       <Container fluid className="scrollDown">

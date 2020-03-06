@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { UserContext } from "../Context/Store";
+import React, { useContext } from "react"
+import Modal from "react-bootstrap/Modal"
+import Button from "react-bootstrap/Button"
+import Container from "react-bootstrap/Container"
+import Form from "react-bootstrap/Form"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
+import { UserContext } from "../Context/Store"
 
 const BookingForm = props => {
-  const [, setUserDetails] = useContext(UserContext);
+  const [, setUserDetails] = useContext(UserContext)
   return (
     <Modal
       {...props}
@@ -25,9 +25,7 @@ const BookingForm = props => {
       <Modal.Body>
         <p>Please fill in your details below to confirm your booking.</p>
         <Container fluid className="form_container" style={{ padding: "0" }}>
-          <Form
-          onSubmit={props.onConfirm}
-          >
+          <Form onSubmit={props.onConfirm}>
             <fieldset>
               <Form.Group as={Row}>
                 <Form.Label as="legend" column sm={{ span: 2, offset: 0 }}>
@@ -58,11 +56,34 @@ const BookingForm = props => {
                   placeholder="Full Name"
                   required
                   onInput={e => {
-                    setUserDetails({ type: "NAME", payload: [e.target.value] });
+                    setUserDetails({ type: "NAME", payload: [e.target.value] })
                   }}
                 />
                 <Form.Control.Feedback>Valid!</Form.Control.Feedback>
               </Col>
+            </Form.Group>
+            <Form.Group>
+              <Form.Control
+                style={{
+                  background: "transparent",
+                  opacity: "0",
+                  position: "absolute",
+                  top: "0",
+                  left: "0",
+                  height: "0",
+                  width: "0",
+                  zIndex: "-1",
+                }}
+                tabindex="-1"
+                name="email"
+                autoComplete="off"
+                placeholder="Your e-mail here"
+                id="email"
+                type="email"
+                onInput={e => {
+                  setUserDetails({ type: "HUNAY", payload: [e.target.value] })
+                }}
+              />
             </Form.Group>
             <Form.Group as={Row}>
               <Form.Label column sm={{ span: 2, offset: 0 }}>
@@ -115,7 +136,7 @@ const BookingForm = props => {
         <Button onClick={props.onHide}>Cancel</Button>
       </Modal.Footer>
     </Modal>
-  );
-};
+  )
+}
 
-export default BookingForm;
+export default BookingForm

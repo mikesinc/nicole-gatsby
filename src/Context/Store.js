@@ -6,7 +6,8 @@ export const UserContext = createContext();
 const initialState = {
   userName: undefined,
   userEmail: undefined,
-  userPhone: undefined
+  userPhone: undefined,
+  honey: 'clean'
 };
 
 export const Store = props => {

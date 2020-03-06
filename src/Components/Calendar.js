@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"
 import { Calendar, momentLocalizer, Views } from "react-big-calendar"
-import moment from "moment"
+import moment from "moment-timezone"
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import MyWeek from "./MyWeek"
 import BookingForm from "./BookingForm"
@@ -8,7 +8,7 @@ import axios from "axios"
 import { UserContext } from "../Context/Store"
 import emailjs from "emailjs-com"
 import { useStaticQuery, graphql } from "gatsby"
-import Toolbar from 'react-big-calendar/lib/Toolbar';
+import Toolbar from "react-big-calendar/lib/Toolbar"
 
 const localizer = momentLocalizer(moment)
 const monthNames = [
@@ -41,12 +41,28 @@ const BookingCalendar = () => {
   const [bookingDetails, setBookingDetails] = useState({})
   const [userDetails] = useContext(UserContext)
 
+  const adjustTime = (time, zone) => {
+    const timeZoneOffset = -(time.getTimezoneOffset() / 60)
+    const melbOffset =
+      moment(time)
+        .tz("Australia/Melbourne")
+        .utcOffset() / 60
+    if (zone === "melb") {
+      time.setHours(time.getHours() + (melbOffset - timeZoneOffset))
+    } else {
+      time.setHours(time.getHours() - (melbOffset - timeZoneOffset))
+    }
+    return time
+  }
+
   const getEvents = async () => {
     let res = await fetch("http://localhost:3001/")
     let data = await res.json()
     data.events.forEach(event => {
       event.start = new Date(event.start)
+      adjustTime(event.start, "melb")
       event.end = new Date(event.end)
+      adjustTime(event.end, "melb")
     })
     setMyEvents(data.events)
     setIsLoaded(true)
@@ -89,7 +105,7 @@ const BookingCalendar = () => {
     const event = myEvents.filter(
       e => e.eventId === bookingDetails.event.eventId
     )[0]
-    if (event.title === "booked") {
+    if (event.title === "booked" || userDetails.honey !== "clean") {
       alert("This session is no longer available. Please book another time.")
       return null
     }
@@ -108,10 +124,10 @@ const BookingCalendar = () => {
             : event.end.getMinutes()
         }`,
         start: {
-          dateTime: event.start.toISOString(),
+          dateTime: adjustTime(new Date(event.start), "origin").toISOString(),
         },
         end: {
-          dateTime: event.end.toISOString(),
+          dateTime: adjustTime(new Date(event.end), "origin").toISOString(),
         },
       },
     })
@@ -152,9 +168,9 @@ const BookingCalendar = () => {
     emailjs
       .send(
         "default_service",
-        "template_E2Z1PJQP",
+        "template_iAFYVnVx",
         templateParams,
-        process.env.GATSBY_USER_ID
+        process.env.GATSBY_EMAILJS_USER_ID
       )
       .then(
         response => {
@@ -162,6 +178,9 @@ const BookingCalendar = () => {
         },
         err => console.log(err, "error")
       )
+    alert(
+      "Booking confirmed, a confirmation email will be sent to you shortly."
+    )
   }
 
   if (isLoaded) {
@@ -173,9 +192,9 @@ const BookingCalendar = () => {
           events={myEvents}
           defaultView={Views.WEEK}
           defaultDate={setDay(new Date(moment().startOf("day")))}
-          components = {{toolbar : CustomToolbar}}
+          components={{ toolbar: CustomToolbar }}
           views={{ week: MyWeek }}
-          style={{ height: "60vh", width: "30vw" }}
+          style={{ height: "70vh", width: "30vw" }}
           onSelectEvent={event => handleSelect(event)}
           getNow={() => setDay(new Date(moment().startOf("day")))}
           min={new Date(0, 0, 0, 10, 0, 0)}
@@ -189,6 +208,7 @@ const BookingCalendar = () => {
             },
           })}
         />
+        <p>All times shown are in AET</p>
         <BookingForm
           show={modalShow}
           onHide={() => setModalShow(false)}
@@ -218,19 +238,24 @@ const BookingCalendar = () => {
 class CustomToolbar extends Toolbar {
   render() {
     return (
-      <div className='rbc-toolbar'>
+      <div className="rbc-toolbar">
         <span className="rbc-btn-group">
-          <button type="button" onClick={() => this.navigate('TODAY')} >This Week</button>
-          <button type="button" onClick={() => this.navigate('PREV')}>Back</button>
-          <button type="button" onClick={() => this.navigate('NEXT')}>Next</button>
+          <button type="button" onClick={() => this.navigate("TODAY")}>
+            This Week
+          </button>
+          <button type="button" onClick={() => this.navigate("PREV")}>
+            Back
+          </button>
+          <button type="button" onClick={() => this.navigate("NEXT")}>
+            Next
+          </button>
         </span>
         <span className="rbc-toolbar-label">{this.props.label}</span>
       </div>
-    );
+    )
   }
   navigate = action => {
-      
-      this.props.onNavigate(action)
-    }
+    this.props.onNavigate(action)
   }
+}
 export default BookingCalendar
