@@ -74,7 +74,7 @@ const BookingForm = props => {
                   width: "0",
                   zIndex: "-1",
                 }}
-                tabindex="-1"
+                tabIndex="-1"
                 name="email"
                 autoComplete="off"
                 placeholder="Your e-mail here"

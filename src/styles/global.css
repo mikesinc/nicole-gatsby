@@ -48,11 +48,12 @@
 }
 
 .scrollDown {
-  height: 40vh;
+  height: 35vh;
   display: flex;
   flex-direction: column;
-  padding-top: 100px;
+  padding: 50px;
   align-items: center;
+  justify-content: space-around;
   background: #f3f3f3;
 
   /* border: solid; */

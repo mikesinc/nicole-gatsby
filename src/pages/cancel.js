@@ -49,6 +49,7 @@ export default ({ location: { pathname }, data }) => {
       .post("http://localhost:3001/cancel", {
         eventId: id,
         mainCalEventId: mainCalEventId,
+        calId: data.contentfulWebsiteInformation.email
       })
       .then(response => console.log(response))
       .catch(error => console.log(error))

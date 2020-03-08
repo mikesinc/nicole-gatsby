@@ -26,6 +26,26 @@ const monthNames = [
   "December",
 ]
 
+const adjustTime = (time, zone) => {
+  const timeZoneOffset = -(time.getTimezoneOffset() / 60)
+  const melbOffset =
+    moment(time)
+      .tz("Australia/Melbourne")
+      .utcOffset() / 60
+  if (zone === "melb") {
+    time.setHours(time.getHours() + (melbOffset - timeZoneOffset))
+  } else {
+    time.setHours(time.getHours() - (melbOffset - timeZoneOffset))
+  }
+  return time
+}
+
+const setDay = date => {
+  date = new Date(date.getTime())
+  date.setDate(date.getDate() + ((4 + 7 - date.getDay()) % 7))
+  return date
+}
+
 const BookingCalendar = () => {
   const queryData = useStaticQuery(graphql`
     {
@@ -35,48 +55,62 @@ const BookingCalendar = () => {
     }
   `)
 
+  const [week, setWeek] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
   const [myEvents, setMyEvents] = useState([])
   const [modalShow, setModalShow] = useState(false)
   const [bookingDetails, setBookingDetails] = useState({})
   const [userDetails] = useContext(UserContext)
 
-  const adjustTime = (time, zone) => {
-    const timeZoneOffset = -(time.getTimezoneOffset() / 60)
-    const melbOffset =
-      moment(time)
-        .tz("Australia/Melbourne")
-        .utcOffset() / 60
-    if (zone === "melb") {
-      time.setHours(time.getHours() + (melbOffset - timeZoneOffset))
-    } else {
-      time.setHours(time.getHours() - (melbOffset - timeZoneOffset))
-    }
-    return time
-  }
+  useEffect(() => {
+    
+
+    getEvents()
+    setIsLoaded(true)
+  }, [])
 
   const getEvents = async () => {
-    let res = await fetch("http://localhost:3001/")
-    let data = await res.json()
+    console.log(week)
+    let res = await axios.post('http://localhost:3001/',{
+      week: week
+    })
+    let data = await res.data
+    console.log(data.events, 'fetched')
+    data.events.forEach(async event => {
+      let res = await axios.post("http://localhost:3001/checkbusy", {
+            start: {
+              dateTime: adjustTime(new Date(event.start), "melb"),
+            },
+            end: {
+              dateTime: adjustTime(new Date(event.end), "melb"),
+            },
+            id: queryData.contentfulWebsiteInformation.email,
+        })
+        let busyData = await res.data
+    
+        if (busyData.busyStatus === 1) {
+          axios.post("http://localhost:3001/patch", {
+            eventId: event.eventId,
+            title: "Not Available"
+        })
+       } else if (busyData.busyStatus === 0 && event.title !== "Not Available") {
+        axios.post("http://localhost:3001/patch", {
+          eventId: event.eventId,
+          title: "Available"
+      })
+       } 
+    })
     data.events.forEach(event => {
       event.start = new Date(event.start)
       adjustTime(event.start, "melb")
       event.end = new Date(event.end)
       adjustTime(event.end, "melb")
     })
+    console.log(data.events, 'state events')
     setMyEvents(data.events)
-    setIsLoaded(true)
   }
 
-  useEffect(() => {
-    getEvents()
-  }, [modalShow, isLoaded])
-
-  const setDay = date => {
-    date = new Date(date.getTime())
-    date.setDate(date.getDate() + ((4 + 7 - date.getDay()) % 7))
-    return date
-  }
+  
 
   const handleSelect = event => {
     if (event.title === "booked") {
@@ -105,14 +139,14 @@ const BookingCalendar = () => {
     const event = myEvents.filter(
       e => e.eventId === bookingDetails.event.eventId
     )[0]
-    if (event.title === "booked" || userDetails.honey !== "clean") {
+    if (event.title === "Not Available" || userDetails.honey !== "clean") {
       alert("This session is no longer available. Please book another time.")
       return null
     }
 
     let res = await axios.post("http://localhost:3001/patch", {
       eventId: event.eventId,
-      title: "booked",
+      title: "Not Available",
       resource: {
         summary: `${userDetails.userName} at ${event.start.getHours()}:${
           event.start.getMinutes() < 10
@@ -165,19 +199,19 @@ const BookingCalendar = () => {
       }%${eventStart}*${eventEnd}~${eventMonth}!${eventDay}"><button>Cancel Booking</button></a>`,
     }
 
-    emailjs
-      .send(
-        "default_service",
-        "template_iAFYVnVx",
-        templateParams,
-        process.env.GATSBY_EMAILJS_USER_ID
-      )
-      .then(
-        response => {
-          console.log("sent", response.status, response.text)
-        },
-        err => console.log(err, "error")
-      )
+    // emailjs
+    //   .send(
+    //     "default_service",
+    //     "template_iAFYVnVx",
+    //     templateParams,
+    //     process.env.GATSBY_EMAILJS_USER_ID
+    //   )
+    //   .then(
+    //     response => {
+    //       console.log("sent", response.status, response.text)
+    //     },
+    //     err => console.log(err, "error")
+    //   )
     alert(
       "Booking confirmed, a confirmation email will be sent to you shortly."
     )
@@ -187,6 +221,10 @@ const BookingCalendar = () => {
     return (
       <div>
         <Calendar
+          onNavigate={(e) => {
+            setWeek(e)
+            getEvents()
+          }}
           localizer={localizer}
           now={new Date(0)}
           events={myEvents}
@@ -202,9 +240,9 @@ const BookingCalendar = () => {
           scrollToTime={new Date(0, 0, 0, 0, 0, 0)}
           eventPropGetter={event => ({
             style: {
-              backgroundColor: event.title === "booked" ? "grey" : "#ffbd00",
+              backgroundColor: event.title === "Not Available" ? "grey" : "#ffbd00",
               color: "black",
-              cursor: event.title === "booked" ? "default" : "pointer",
+              cursor: event.title === "Not Available" ? "default" : "pointer",
             },
           })}
         />

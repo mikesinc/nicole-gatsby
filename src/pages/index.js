@@ -53,7 +53,7 @@ export default ({ data }) => {
             <h2>{data.contentfulWebsiteInformation.subHeader}</h2>
             <Button
               onClick={() => setTop(".booking")}
-              style={{ marginTop: "20px" }}
+              style={{ marginTop: "20px", fontSize: '20pt' }}
               variant="warning"
             >
               Book Now
