@@ -63,54 +63,57 @@ const BookingCalendar = () => {
   const [userDetails] = useContext(UserContext)
 
   useEffect(() => {
-    
+    const getEvents = async week => {
+      let fetchEvents = await axios.post("http://localhost:3001/", {
+        week: week,
+      })
+      let res = await fetchEvents.data
+      // console.log(res.events, "fetched events")
+      checkEvents(res.events)
+    }
 
-    getEvents()
-    setIsLoaded(true)
-  }, [])
-
-  const getEvents = async () => {
-    console.log(week)
-    let res = await axios.post('http://localhost:3001/',{
-      week: week
-    })
-    let data = await res.data
-    console.log(data.events, 'fetched')
-    data.events.forEach(async event => {
-      let res = await axios.post("http://localhost:3001/checkbusy", {
-            start: {
-              dateTime: adjustTime(new Date(event.start), "melb"),
-            },
-            end: {
-              dateTime: adjustTime(new Date(event.end), "melb"),
-            },
-            id: queryData.contentfulWebsiteInformation.email,
+    const checkEvents = async events => {
+      events.forEach(async event => {
+        let res = await axios.post("http://localhost:3001/checkbusy", {
+          start: {
+            dateTime: new Date(event.start),
+          },
+          end: {
+            dateTime: new Date(event.end),
+          },
+          id: queryData.contentfulWebsiteInformation.email,
         })
         let busyData = await res.data
-    
         if (busyData.busyStatus === 1) {
           axios.post("http://localhost:3001/patch", {
             eventId: event.eventId,
-            title: "Not Available"
-        })
-       } else if (busyData.busyStatus === 0 && event.title !== "Not Available") {
-        axios.post("http://localhost:3001/patch", {
-          eventId: event.eventId,
-          title: "Available"
+            title: "Not Available",
+          })
+        } else if (busyData.busyStatus === 0 && event.title !== "Available") {
+          axios.post("http://localhost:3001/patch", {
+            eventId: event.eventId,
+            title: "Available",
+          })
+        }
       })
-       } 
-    })
-    data.events.forEach(event => {
-      event.start = new Date(event.start)
-      adjustTime(event.start, "melb")
-      event.end = new Date(event.end)
-      adjustTime(event.end, "melb")
-    })
-    console.log(data.events, 'state events')
-    setMyEvents(data.events)
-  }
+      // console.log(events, "checked events")
+      localiseEvents(events)
+    }
 
-  
+    const localiseEvents = events => {
+      events.forEach(event => {
+        event.start = new Date(event.start)
+        adjustTime(event.start, "melb")
+        event.end = new Date(event.end)
+        adjustTime(event.end, "melb")
+      })
+      // console.log(events, "localised + checked events (state)")
+      setMyEvents(events)
+      setIsLoaded(true)
+    }
+
+    getEvents(week)
+  }, [week, queryData.contentfulWebsiteInformation.email, isLoaded])
 
   const handleSelect = event => {
     if (event.title === "booked") {
@@ -129,7 +132,7 @@ const BookingCalendar = () => {
             ? event.end.getMinutes() + "0"
             : event.end.getMinutes()
         }`,
-        event: event,
+        id: event.eventId,
       })
       setModalShow(true)
     }
@@ -137,16 +140,29 @@ const BookingCalendar = () => {
 
   const confirmBooking = async () => {
     const event = myEvents.filter(
-      e => e.eventId === bookingDetails.event.eventId
+      e => e.eventId === bookingDetails.id
     )[0]
-    if (event.title === "Not Available" || userDetails.honey !== "clean") {
+      //make sure cant double book
+    let checkEvent = await axios.post("http://localhost:3001/checkbusy", {
+      start: {
+        dateTime: adjustTime(new Date(event.start), "origin"),
+      },
+      end: {
+        dateTime:  adjustTime(new Date(event.end), "origin"),
+      },
+      id: queryData.contentfulWebsiteInformation.email,
+    })
+    let busyEvent = await checkEvent.data
+    console.log(busyEvent)
+    if (busyEvent.busyStatus === 1 || event.title === "Not Available" || userDetails.honey !== "clean") {
       alert("This session is no longer available. Please book another time.")
       return null
     }
 
-    let res = await axios.post("http://localhost:3001/patch", {
+    let res = await axios.post("http://localhost:3001/book", {
       eventId: event.eventId,
       title: "Not Available",
+      calId: queryData.contentfulWebsiteInformation.email,
       resource: {
         summary: `${userDetails.userName} at ${event.start.getHours()}:${
           event.start.getMinutes() < 10
@@ -166,6 +182,7 @@ const BookingCalendar = () => {
       },
     })
     let data = await res.data
+    console.log(data)
     let mainCalEventId = data.result.data.id
 
     let eventStart = `${event.start.getHours()}${
@@ -215,21 +232,35 @@ const BookingCalendar = () => {
     alert(
       "Booking confirmed, a confirmation email will be sent to you shortly."
     )
+    setIsLoaded(true)
   }
 
-  if (isLoaded) {
+  if (!isLoaded) {
+    return (
+      <>
+        <h1>Loading</h1>
+        <img
+          alt="loading"
+          src={require("../assets/images/ajax-loader.gif")}
+        ></img>
+      </>
+    )
+  } else {
     return (
       <div>
         <Calendar
-          onNavigate={(e) => {
+          onNavigate={e => {
+            if(e < Date.now()) return null
             setWeek(e)
-            getEvents()
+            setIsLoaded(false)
           }}
           localizer={localizer}
           now={new Date(0)}
           events={myEvents}
           defaultView={Views.WEEK}
-          defaultDate={setDay(new Date(moment().startOf("day")))}
+          defaultDate={
+            week === 0 ? setDay(new Date(moment().startOf("day"))) : week
+          }
           components={{ toolbar: CustomToolbar }}
           views={{ week: MyWeek }}
           style={{ height: "70vh", width: "30vw" }}
@@ -240,7 +271,8 @@ const BookingCalendar = () => {
           scrollToTime={new Date(0, 0, 0, 0, 0, 0)}
           eventPropGetter={event => ({
             style: {
-              backgroundColor: event.title === "Not Available" ? "grey" : "#ffbd00",
+              backgroundColor:
+                event.title === "Not Available" ? "grey" : "#ffbd00",
               color: "black",
               cursor: event.title === "Not Available" ? "default" : "pointer",
             },
@@ -249,7 +281,9 @@ const BookingCalendar = () => {
         <p>All times shown are in AET</p>
         <BookingForm
           show={modalShow}
-          onHide={() => setModalShow(false)}
+          onHide={() => {
+            setModalShow(false)
+          }}
           onConfirm={e => {
             e.preventDefault()
             confirmBooking()
@@ -259,16 +293,6 @@ const BookingCalendar = () => {
           details={bookingDetails}
         />
       </div>
-    )
-  } else {
-    return (
-      <>
-        <h1>Loading</h1>
-        <img
-          alt="loading"
-          src={require("../assets/images/ajax-loader.gif")}
-        ></img>
-      </>
     )
   }
 }

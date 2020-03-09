@@ -25,6 +25,7 @@ const BookingForm = props => {
       <Modal.Body>
         <p>Please fill in your details below to confirm your booking.</p>
         <Container fluid className="form_container" style={{ padding: "0" }}>
+          {/* eslint-disable-next-line */}
           <Form onSubmit={props.onConfirm}>
             <fieldset>
               <Form.Group as={Row}>

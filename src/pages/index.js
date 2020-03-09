@@ -93,13 +93,13 @@ export default ({ data }) => {
                 }
               </h1>
               {data.contentfulWebsiteInformation.workingDays.content.map(
-                item => {
+                (item, index) => {
                   if (
                     data.contentfulWebsiteInformation.workingDays.content.indexOf(
                       item
                     ) !== 0
                   ) {
-                    return <h4>{item.content[0].value}</h4>
+                    return <h4 key={index}>{item.content[0].value}</h4>
                   }
                   return null
                 }
@@ -112,13 +112,13 @@ export default ({ data }) => {
                     .content[0].value
                 }
               </h1>
-              {data.contentfulWebsiteInformation.pricing.content.map(item => {
+              {data.contentfulWebsiteInformation.pricing.content.map((item, index) => {
                 if (
                   data.contentfulWebsiteInformation.pricing.content.indexOf(
                     item
                   ) !== 0
                 ) {
-                  return <h4>{item.content[0].value}</h4>
+                  return <h4 key={index}>{item.content[0].value}</h4>
                 }
                 return null
               })}

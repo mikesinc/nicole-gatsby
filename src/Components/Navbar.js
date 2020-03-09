@@ -21,7 +21,7 @@ const NavBar = () => {
   const setTop = height => {
     document.querySelector(height).scrollIntoView({
       behavior: "smooth",
-      block: "center",
+      block: "center"
     })
   }
 

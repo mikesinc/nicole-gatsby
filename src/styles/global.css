@@ -96,6 +96,7 @@
 }
 
 .booking {
+  padding-top: 20px;
   height: 100vh;
   text-align: center;
   display: flex;
@@ -114,6 +115,7 @@
 .location {
   height: 100vh;
   padding: 2%;
+  padding-top: 100px;
   display: flex;
   justify-content: space-between;
 
@@ -143,7 +145,6 @@
   background-size: 150%;
   background-position: center;
   text-align: center;
-
   /* border: solid; */
 }
 

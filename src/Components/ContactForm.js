@@ -27,7 +27,7 @@ const ContactForm = () => {
             </Form.Label>
             <Col xs={10} sm={5} lg={5}>
               <Form.Control
-                style={{ background: "transparent", color: "yellow" }}
+                style={{ background: "transparent", color: "black" }}
                 type="name"
                 placeholder="Full Name"
                 required
@@ -40,7 +40,7 @@ const ContactForm = () => {
             </Form.Label>
             <Col xs={10} sm={5} lg={5}>
               <Form.Control
-                style={{ background: "transparent", color: "yellow" }}
+                style={{ background: "transparent", color: "black" }}
                 type="email"
                 name="_replyto"
                 placeholder="Email"
@@ -54,7 +54,7 @@ const ContactForm = () => {
             </Form.Label>
             <Col xs={10} sm={5} lg={5}>
               <Form.Control
-                style={{ background: "transparent", color: "yellow" }}
+                style={{ background: "transparent", color: "black" }}
                 type="tel"
                 name="tel"
                 placeholder="(optional)"
@@ -67,7 +67,7 @@ const ContactForm = () => {
             </Form.Label>
             <Col xs={10} sm={8} lg={10}>
               <Form.Control
-                style={{ background: "transparent", color: "yellow" }}
+                style={{ background: "transparent", color: "black" }}
                 name="description"
                 size="md"
                 as="textarea"
