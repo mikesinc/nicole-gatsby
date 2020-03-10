@@ -57,63 +57,81 @@ const BookingCalendar = () => {
 
   const [week, setWeek] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [fetchError, setFetchError] = useState("")
   const [myEvents, setMyEvents] = useState([])
   const [modalShow, setModalShow] = useState(false)
   const [bookingDetails, setBookingDetails] = useState({})
   const [userDetails] = useContext(UserContext)
 
   useEffect(() => {
-    const getEvents = async week => {
-      let fetchEvents = await axios.post("http://localhost:3001/", {
-        week: week,
-      })
-      let res = await fetchEvents.data
-      // console.log(res.events, "fetched events")
-      checkEvents(res.events)
+    const getEvents = week => {
+      axios
+        .post("http://localhost:3001/", {
+          week: week,
+        })
+        .then(res => {
+          // console.log(res.data.events, "fetched events")
+          checkEvents(res.data.events)
+        })
+        .catch(err => {
+          setFetchError(err.message)
+          setIsLoaded(true)
+        })
     }
 
-    const checkEvents = async events => {
-      events.forEach(async event => {
-        let res = await axios.post("http://localhost:3001/checkbusy", {
-          start: {
-            dateTime: new Date(event.start),
-          },
-          end: {
-            dateTime: new Date(event.end),
-          },
+    const checkEvents = events => {
+      axios
+        .post("http://localhost:3001/checkbusybatch", {
+          events: events,
           id: queryData.contentfulWebsiteInformation.email,
         })
-        let busyData = await res.data
-        if (busyData.busyStatus === 1) {
-          axios.post("http://localhost:3001/patch", {
-            eventId: event.eventId,
-            title: "Not Available",
+        .then(res => {
+          const checkEvents = res.data.busyArray
+          checkEvents.forEach(checkedEvent => {
+            // console.log(checkedEvent, "checked event")
+            if (checkedEvent.busyStatus === 1) {
+              axios
+                .post("http://localhost:3001/patch", {
+                  eventId: checkedEvent.eventId,
+                  title: "Not Available",
+                })
+                .catch(err => {
+                  setFetchError(err.message)
+                  setIsLoaded(true)
+                })
+            } else if (
+              checkedEvent.busyStatus === 0 &&
+              events.filter(event => event.eventId === checkedEvent.eventId)
+                .title !== "Available"
+            ) {
+              axios
+                .post("http://localhost:3001/patch", {
+                  eventId: checkedEvent.eventId,
+                  title: "Available",
+                })
+                .catch(err => {
+                  setFetchError(err.message)
+                  setIsLoaded(true)
+                })
+            }
           })
-        } else if (busyData.busyStatus === 0 && event.title !== "Available") {
-          axios.post("http://localhost:3001/patch", {
-            eventId: event.eventId,
-            title: "Available",
+          events.forEach(event => {
+            event.start = new Date(event.start)
+            adjustTime(event.start, "melb")
+            event.end = new Date(event.end)
+            adjustTime(event.end, "melb")
           })
-        }
-      })
-      // console.log(events, "checked events")
-      localiseEvents(events)
+          // console.log(events, "checked events")
+          setMyEvents(events)
+          setIsLoaded(true)
+        })
+        .catch(err => {
+          setFetchError(err.message)
+          setIsLoaded(true)
+        })
     }
-
-    const localiseEvents = events => {
-      events.forEach(event => {
-        event.start = new Date(event.start)
-        adjustTime(event.start, "melb")
-        event.end = new Date(event.end)
-        adjustTime(event.end, "melb")
-      })
-      // console.log(events, "localised + checked events (state)")
-      setMyEvents(events)
-      setIsLoaded(true)
-    }
-
     getEvents(week)
-  }, [week, queryData.contentfulWebsiteInformation.email, isLoaded])
+  }, [week, queryData.contentfulWebsiteInformation.email])
 
   const handleSelect = event => {
     if (event.title === "booked") {
@@ -139,23 +157,24 @@ const BookingCalendar = () => {
   }
 
   const confirmBooking = async () => {
-    const event = myEvents.filter(
-      e => e.eventId === bookingDetails.id
-    )[0]
-      //make sure cant double book
+    const event = myEvents.filter(e => e.eventId === bookingDetails.id)[0]
     let checkEvent = await axios.post("http://localhost:3001/checkbusy", {
       start: {
         dateTime: adjustTime(new Date(event.start), "origin"),
       },
       end: {
-        dateTime:  adjustTime(new Date(event.end), "origin"),
+        dateTime: adjustTime(new Date(event.end), "origin"),
       },
       id: queryData.contentfulWebsiteInformation.email,
     })
     let busyEvent = await checkEvent.data
-    console.log(busyEvent)
-    if (busyEvent.busyStatus === 1 || event.title === "Not Available" || userDetails.honey !== "clean") {
+    if (
+      busyEvent.busyStatus === 1 ||
+      event.title === "Not Available" ||
+      userDetails.honey !== "clean"
+    ) {
       alert("This session is no longer available. Please book another time.")
+      setIsLoaded(true)
       return null
     }
 
@@ -245,12 +264,14 @@ const BookingCalendar = () => {
         ></img>
       </>
     )
+  } else if (fetchError) {
+    return <p>{fetchError.message}</p>
   } else {
     return (
       <div>
         <Calendar
           onNavigate={e => {
-            if(e < Date.now()) return null
+            if (e < Date.now()) return null
             setWeek(e)
             setIsLoaded(false)
           }}
