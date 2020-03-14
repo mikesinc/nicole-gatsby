@@ -182,7 +182,7 @@ export default ({ data }) => {
               rel="noopener noreferrer"
             >
               <img
-                src={require("../assets/images/github_rs.png")}
+                src={require("../assets/images/github.png")}
                 alt="GitHubLogo"
                 width="50px"
               ></img>
