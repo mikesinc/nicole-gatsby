@@ -4,6 +4,7 @@ import axios from "axios"
 import { useLax, useLaxElement } from "use-lax"
 import emailjs from "emailjs-com"
 import { graphql } from "gatsby"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default ({ location: { pathname }, data }) => {
   useLax()

@@ -10,6 +10,7 @@ import Cancel from "./cancel"
 import { graphql } from "gatsby"
 import Button from "react-bootstrap/Button"
 import SEO from '../Components/Seo'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default ({ data }) => {
   useLax()
