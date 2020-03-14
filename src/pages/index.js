@@ -64,7 +64,7 @@ export default ({ data }) => {
 
           <Container fluid className="about">
             <img
-              alt="Nicole Papadopolous"
+              alt="Nicole Papadopoulos"
               src={data.contentfulWebsiteInformation.nicoleImage.file.url}
             ></img>
             <h1>{data.contentfulWebsiteInformation.name}</h1>

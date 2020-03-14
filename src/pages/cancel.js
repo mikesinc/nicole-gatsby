@@ -59,7 +59,7 @@ export default ({ location: { pathname }, data }) => {
       bcc: data.contentfulWebsiteInformation.email,
       subject: `${username}, your booking has been cancelled`,
       html: `
-            <h1>${username}, you have cancelled your booking with Dr. Papadopolous: </h1>
+            <h1>${username}, you have cancelled your booking with Dr. Papadopoulos: </h1>
             <h2>${start} to ${end} on ${month} ${day}</h2 `,
     }
     emailjs

@@ -4,9 +4,9 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `Dr. Nicole Papadopolous Private Clinical Psychologist`,
+    title: `Dr. Nicole Papadopoulos Private Clinical Psychologist`,
     author: `Michael Sinclair`,
-    description: `Private Clinical Psychologist Counselling services by Dr. Nicole Papadopolous in Melbourne.`,
+    description: `Private Clinical Psychologist Counselling services by Dr. Nicole Papadopoulos in Melbourne.`,
     // siteUrl: ``
   },
   plugins: [

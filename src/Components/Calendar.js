@@ -9,7 +9,6 @@ import { UserContext } from "../Context/Store"
 import emailjs from "emailjs-com"
 import { useStaticQuery, graphql } from "gatsby"
 import Toolbar from "react-big-calendar/lib/Toolbar"
-// import "!style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.css"
 import "../styles/Calendar.css"
 
 const localizer = momentLocalizer(moment)
@@ -250,7 +249,7 @@ const BookingCalendar = () => {
           <h1>${
             userDetails.userName
           }, please see below confirmation of your booking with
-          Dr. Nicole Papadopolous.</h1>
+          Dr. Nicole Papadopoulos.</h1>
           <h2>${eventStart} to ${eventEnd} on ${eventMonth} ${eventDay}</h2>
           <p>If you would like to cancel your booking, please click the below button</p>
           <a href="http://localhost:8000/cancel/:${
