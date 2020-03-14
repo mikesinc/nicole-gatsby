@@ -1,29 +1,45 @@
 @font-face {
-    font-family: "pysch";
-    src: url('../assets/fonts/timeburnernormal.ttf');
+  font-family: "pysch";
+  src: url("../assets/fonts/timeburnernormal.ttf");
 }
 
 .navy {
-    font-family: pysch;
-    font-size: 20pt;
-    transition: 1s;
+  font-family: pysch;
+  font-size: 20px;
+  transition: 1s;
 }
 
 .nav-link {
-    padding: 30px !important;
-    transition: 0.5s;
+  padding: 30px !important;
+  transition: 0.5s;
 }
 
 .nav-link:hover {
-    color: black !important;
-    background: rgba(255, 255, 255, 1);
+  color: black !important;
+  background: rgba(255, 255, 255, 1);
 }
 
 .black {
-    padding: 10px !important;
+  padding: 10px !important;
 }
 
 .black:hover {
-    color: white !important;
-    background: rgb(255, 208, 0);
+  color: white !important;
+  background: rgb(255, 208, 0);
+}
+
+@media screen and (max-width: 997px) {
+  .nav-link {
+    background: whitesmoke !important;
+    color: black !important;
+    padding: 20px !important;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-height: 414px) {
+  .nav-link {
+    padding: 5px !important;
+    font-size: 12px;
+  }
 }

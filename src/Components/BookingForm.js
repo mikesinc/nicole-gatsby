@@ -25,19 +25,18 @@ const BookingForm = props => {
       <Modal.Body>
         <p>Please fill in your details below to confirm your booking.</p>
         <Container fluid className="form_container" style={{ padding: "0" }}>
-          {/* //eslint-disable-next-line */}
           <Form onSubmit={props.onConfirm}>
             <fieldset>
               <Form.Group as={Row}>
                 <Form.Label as="legend" column sm={{ span: 2, offset: 0 }}>
                   Session
                 </Form.Label>
-                <Col xs={10} sm={5} lg={10}>
+                <Col xs={12} sm={10} lg={10}>
                   <Form.Check
                     type="checkbox"
-                    label={`Consulation ${props.details.start} to ${props.details.end} on ${props.details.day}`}
+                    label={`${props.details.start} to ${props.details.end} on ${props.details.day}`}
                     name="description"
-                    value={`Consulation ${props.details.start} to ${props.details.end} on ${props.details.day}`}
+                    value={`${props.details.start} to ${props.details.end} on ${props.details.day}`}
                     id="formHorizontalRadios1"
                     checked
                     readOnly
@@ -49,7 +48,7 @@ const BookingForm = props => {
               <Form.Label column sm={{ span: 2, offset: 0 }}>
                 Name*
               </Form.Label>
-              <Col xs={10} sm={5} lg={5}>
+              <Col xs={12} sm={8} lg={5}>
                 <Form.Control
                   style={{ background: "transparent" }}
                   type="name"
@@ -90,7 +89,7 @@ const BookingForm = props => {
               <Form.Label column sm={{ span: 2, offset: 0 }}>
                 Email*
               </Form.Label>
-              <Col xs={10} sm={5} lg={5}>
+              <Col xs={12} sm={8} lg={5}>
                 <Form.Control
                   style={{ background: "transparent" }}
                   type="email"
@@ -108,7 +107,7 @@ const BookingForm = props => {
               <Form.Label column sm={{ span: 2, offset: 0 }}>
                 Phone
               </Form.Label>
-              <Col xs={10} sm={5} lg={5}>
+              <Col xs={12} sm={8} lg={5}>
                 <Form.Control
                   style={{ background: "transparent" }}
                   type="tel"
@@ -124,7 +123,7 @@ const BookingForm = props => {
               (*) required fields
             </p>
             <Form.Group as={Row}>
-              <Col sm={{ span: 3, offset: 2 }} lg={{ span: 3, offset: 2 }}>
+              <Col sm={{ span: 5, offset: 2 }} lg={{ span: 3, offset: 2 }}>
                 <Button type="submit" variant="warning">
                   confirm booking
                 </Button>
@@ -134,7 +133,7 @@ const BookingForm = props => {
         </Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Cancel</Button>
+        <Button variant="danger" onClick={props.onHide}>Cancel</Button>
       </Modal.Footer>
     </Modal>
   )

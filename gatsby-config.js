@@ -1,14 +1,12 @@
-const dotenv = require('dotenv')
-
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config()
-}
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 module.exports = {
   siteMetadata: {
-    title: `Dr. Nicole Papadopolous`,
+    title: `Dr. Nicole Papadopolous Private Clinical Psychologist`,
     author: `Michael Sinclair`,
-    description: `A website for Dr. Nicole Papadopolous`,
+    description: `Private Clinical Psychologist Counselling services by Dr. Nicole Papadopolous in Melbourne.`,
     // siteUrl: ``
   },
   plugins: [
@@ -16,8 +14,26 @@ module.exports = {
       resolve: `gatsby-source-contentful`,
       options: {
         spaceId: `nqr02billrod`,
-        accessToken: process.env.CONTENTFUL_DELIVERY_API
+        accessToken: process.env.GATSBY_CONTENTFUL_DELIVERY_API
       }
-    }
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `GatsbyJS`,
+        short_name: `GatsbyJS`,
+        start_url: `/`,
+        background_color: `#6b37bf`,
+        theme_color: `#6b37bf`,
+        // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
+        // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
+        display: `standalone`,
+        icon: `src/assets/images/favicon.png`, // This path is relative to the root of the site.
+      },
+    },
+    `gatsby-plugin-offline`,
+    `gatsby-plugin-react-helmet`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`
   ]
 }

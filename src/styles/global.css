@@ -11,17 +11,43 @@
 }
 
 .header {
+  background-color: linear-gradient(to bottom, rgb(0, 0, 0, 1), rgb(0, 0, 0, 0.6));
   background-blend-mode: darken;
   background-attachment: fixed;
   background-position: center;
-  background-size: cover;
-  height: 65vh;
+  background-size: 390vmin;
+  height: 70vh;
   opacity: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* border: solid; */
+}
+.header h2 {
+  font-size: 18px;
+}
+@media screen and (min-width: 765px) {
+  .header {
+    background-size: 180vmax;
+  }
+  .header h2 {
+    font-size: 26px;
+  }
+}
+@media screen and (min-width: 1350px) {
+  .header {
+    background-size: 150vmax;
+  }
+  .header h2 {
+    font-size: 36px;
+  }
+}
+@media screen and (min-width: 1650px) {
+  .header {
+    background-size: 100vmax;
+  }
+  .header h2 {
+    font-size: 36px;
+  }
 }
 
 .bannerText {
@@ -30,110 +56,200 @@
   align-items: center;
   color: #f3f3f3;
   text-align: center;
-
-  /* border: solid; */
 }
-
 .bannerText h1 {
-  font-size: 48pt;
+  font-size: 24px;
 }
-
-@media screen and (max-width: 800 px) {
-  .header {
-    height: 100vh;
+@media screen and (min-width: 765px) {
+  .bannerText h1 {
+    font-size: 42px;
   }
-  .header h1 {
-    font-size: 12pt;
+}
+@media screen and (min-width: 1350px) {
+  .bannerText h1 {
+    font-size: 56px;
   }
 }
 
 .scrollDown {
-  height: 35vh;
+  height: 100px;
   display: flex;
   flex-direction: column;
-  padding: 50px;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   background: #f3f3f3;
-
-  /* border: solid; */
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
-
 .scrollDown h1 {
-  padding-bottom: 30px;
+  font-size: 19px;
+  padding: 50px 0px 5px;
 }
-
-.about img {
-  float: left;
-  margin: 20px;
-  border-radius: 1%;
-  height: 250px;
+.scrollDown h2 {
+  font-size: 14px;
+}
+.bookButton {
+  font-size: 14px;
+}
+@media screen and (min-width: 320px) and (min-height: 565px) {
+  .scrollDown {
+    height: 160px;
+  }
+  .scrollDown h1 {
+    padding: 25px 0px 5px;
+  }
+}
+@media screen and (min-width: 325px) {
+  .scrollDown {
+    height: 200px;
+  }
+}
+@media screen and (min-width: 765px) {
+  .scrollDown {
+    height: 300px;
+  }
+  .scrollDown h1 {
+    font-size: 36px;
+    padding-bottom: 20px;
+  }
+  .scrollDown h2 {
+    font-size: 24px;
+    padding-bottom: 30px;
+  }
+  .bookButton {
+    font-size: 24px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .scrollDown {
+    height: 200px;
+  }
+}
+@media screen and (min-width: 1000px) and (min-height: 1000px) {
+  .scrollDown {
+    height: 400px;
+  }
+}
+@media screen and (min-width: 1350px) {
+  .scrollDown {
+    height: 300px;
+  }
 }
 
 .about {
-  height: 70vh;
   text-align: center;
-  width: 70%;
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
-  margin-bottom: 100px;
-
-  /* border: solid; */
+  margin-bottom: 50px;
+}
+.about img {
+  margin: 50px 0px 50px;
+  border-radius: 1%;
+  height: 200px;
+}
+.about h1 {
+  font-size: 24px;
+}
+.about h2 {
+  font-size: 14px;
+}
+.about p {
+  font-size: 12px;
+  text-align: center;
+}
+@media screen and (min-width: 765px) {
+  .about {
+    margin-bottom: 100px;
+    width: 50%;
+  }
+  .about img {
+    height: 300px;
+  }
+  .about h1 {
+    font-size: 36px;
+    padding-bottom: 10px;
+  }
+  .about h2 {
+    font-size: 20px;
+    padding-bottom: 20px;
+  }
+  .about p {
+    font-size: 16px;
+  }
 }
 
 .payment {
-  height: 50vh;
+  height: 700px;
   text-align: center;
-  background-blend-mode: lighten;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-
-  /* border: solid; */
+}
+.payment h1 {
+  font-size: 18px;
+}
+.payment h4 {
+  font-size: 14px;
+}
+@media screen and (min-width: 765px) {
+  .payment {
+    height: 1200px;
+  }
+  .payment h1 {
+    font-size: 36px;
+  }
+  .payment h4 {
+    font-size: 20px;
+  }
 }
 
 .booking {
-  padding-top: 20px;
-  height: 100vh;
+  padding: 50px 0px 50px;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
-  /* border: solid; */
 }
-
 .booking h1 {
   margin-bottom: 50px;
-  font-size: 36pt;
+  font-size: 18px;
+}
+@media screen and (min-width: 765px) {
+  .booking {
+    padding: 100px 0px 100px;
+  }
+  .booking h1 {
+    font-size: 36px;
+  }
 }
 
 .location {
-  height: 100vh;
-  padding: 2%;
-  padding-top: 100px;
+  padding: 20px;
+  padding-top: 50px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 
-  /* border: solid; */
+  /* border-color: pink; */
 }
-
 .location h4 {
+  font-size: 14px;
   padding-bottom: 50px;
+  text-align: center;
 }
-
 .leftBox {
-  width: 50%;
-
-  /* border: solid; */
+  width: 100%;
 }
-
 .rightBox {
-  width: 50%;
+  width: 100%;
+  height: 120vmax;
+  padding-top: 50px;
   background: url("../assets/images/blackburn.png"),
     radial-gradient(
       circle at center,
@@ -142,19 +258,73 @@
       rgba(243, 243, 243, 1)
     );
   background-blend-mode: lighten;
-  background-size: 150%;
+  background-size: 350%;
   background-position: center;
   text-align: center;
-  /* border: solid; */
+}
+.rightBox h1{
+  font-size: 24px;
+}
+.rightBox h2{
+  font-size: 12px;
+}
+@media screen and (min-width: 765px) {
+  .location {
+    padding: 50px;
+  }
+  .location h4 {
+    font-size: 20px;
+  }
+  .rightBox {
+    width: 100%;
+    height: 80vmax;
+    background-size: 200%;
+  }
+  .rightBox h1{
+    font-size: 36px;
+  }
+  .rightBox h2{
+    font-size: 24px;
+  }
+}
+@media screen and (min-width: 1350px) {
+  .location {
+    flex-direction: row;
+    height: fit-content;
+  }
+  .location h4 {
+    font-size: 22px;
+    text-align: justify;
+  }
+  .leftBox {
+    width: 50%;
+  }
+  .rightBox {
+    width: 50%;
+    height: 70vh;
+    padding: 0px;
+    background-size: 190%;
+  }
+  .rightBox h1{
+    font-size: 22px;
+  }
+  .rightBox h2{
+    font-size: 18px;
+  }
 }
 
 .author {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  padding-bottom: 10px;
+  margin: 0;
+  padding: 0;
 }
-
+.author img {
+  width: 30px;
+}
 .author p {
-  margin: 5px;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 5px;
 }

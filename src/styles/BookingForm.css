@@ -6,4 +6,12 @@
   .myModal {
     font-family: pysch;
   }
-  
+
+  .myModal p {
+    text-align: center;
+    font-size: 12pt;
+  }
+
+  #contained-modal-title-vcenter {
+    text-align: center;
+  }

@@ -9,20 +9,22 @@ import { Router } from "@reach/router"
 import Cancel from "./cancel"
 import { graphql } from "gatsby"
 import Button from "react-bootstrap/Button"
+import SEO from '../Components/Seo'
 
 export default ({ data }) => {
   useLax()
   const ref = useLaxElement()
 
   const setTop = height => {
-    document.querySelector(height).scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    })
+      document.querySelector(height).scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      })    
   }
 
   return (
     <>
+    <SEO title={data.contentfulWebsiteInformation.name} />
       <Router basepath="/">
         <Cancel path="/cancel/:id" />
       </Router>
@@ -53,7 +55,7 @@ export default ({ data }) => {
             <h2>{data.contentfulWebsiteInformation.subHeader}</h2>
             <Button
               onClick={() => setTop(".booking")}
-              style={{ marginTop: "20px", fontSize: '20pt' }}
+              className="bookButton"
               variant="warning"
             >
               Book Now
@@ -170,18 +172,22 @@ export default ({ data }) => {
           </Container>
 
           <Container fluid className="author">
+            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'right'}}>
             <p>website by mikesinc</p>
+            <a href="https://icons8.com/"><p style={{fontSize: '6px'}}>icon by icons8</p></a>
+            </div>
             <a
               href="https://github.com/mikesinc"
               target="_blank"
               rel="noopener noreferrer"
             >
               <img
-                src={require("../assets/images/github.png")}
+                src={require("../assets/images/github_rs.png")}
                 alt="GitHubLogo"
                 width="50px"
               ></img>
             </a>
+            
           </Container>
         </Container>
       </Store>

@@ -25,7 +25,7 @@ const ContactForm = () => {
             <Form.Label column sm={{ span: 2, offset: 0 }}>
               Name*
             </Form.Label>
-            <Col xs={10} sm={5} lg={5}>
+            <Col xs={12} sm={10} lg={10} xl={5}>
               <Form.Control
                 style={{ background: "transparent", color: "black" }}
                 type="name"
@@ -38,7 +38,7 @@ const ContactForm = () => {
             <Form.Label column sm={{ span: 2, offset: 0 }}>
               Email*
             </Form.Label>
-            <Col xs={10} sm={5} lg={5}>
+            <Col xs={12} sm={10} lg={10} xl={5}>
               <Form.Control
                 style={{ background: "transparent", color: "black" }}
                 type="email"
@@ -52,7 +52,7 @@ const ContactForm = () => {
             <Form.Label column sm={{ span: 2, offset: 0 }}>
               Phone
             </Form.Label>
-            <Col xs={10} sm={5} lg={5}>
+            <Col xs={12} sm={10} lg={10} xl={5}>
               <Form.Control
                 style={{ background: "transparent", color: "black" }}
                 type="tel"
@@ -65,13 +65,13 @@ const ContactForm = () => {
             <Form.Label column sm={{ span: 2, offset: 0 }}>
               Message*
             </Form.Label>
-            <Col xs={10} sm={8} lg={10}>
+            <Col xs={12} sm={10} lg={10}>
               <Form.Control
                 style={{ background: "transparent", color: "black" }}
                 name="description"
                 size="md"
                 as="textarea"
-                rows="15"
+                rows="10"
                 placeholder={`Your message... `}
                 required
               />
@@ -81,7 +81,7 @@ const ContactForm = () => {
             </Col>
           </Form.Group>
           <Form.Group as={Row}>
-            <Col sm={{ span: 3, offset: 2 }} lg={{ span: 3, offset: 2 }}>
+            <Col sm={{ span: 3, offset: 2 }} lg={{ span: 5, offset: 2 }}>
               <Button type="submit" variant="warning">
                 send message
               </Button>

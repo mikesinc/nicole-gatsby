@@ -21,13 +21,13 @@ const NavBar = () => {
   const setTop = height => {
     document.querySelector(height).scrollIntoView({
       behavior: "smooth",
-      block: "center"
+      block: "center",
     })
   }
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 450) {
+      if (window.scrollY > window.innerHeight * 0.4) {
         setIsTop(false)
         document.querySelectorAll(".nav-link").forEach(item => {
           item.classList.add("black")
@@ -49,7 +49,7 @@ const NavBar = () => {
         bg={isTop ? "transparent" : "light"}
         variant={isTop ? "dark" : "light"}
         collapseonselect="true"
-        expand="sm"
+        expand="lg"
       >
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse className="toggled" id="responsive-navbar-nav">

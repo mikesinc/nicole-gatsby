@@ -9,6 +9,8 @@ import { UserContext } from "../Context/Store"
 import emailjs from "emailjs-com"
 import { useStaticQuery, graphql } from "gatsby"
 import Toolbar from "react-big-calendar/lib/Toolbar"
+// import "!style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.css"
+import "../styles/Calendar.css"
 
 const localizer = momentLocalizer(moment)
 const monthNames = [
@@ -42,7 +44,18 @@ const adjustTime = (time, zone) => {
 
 const setDay = date => {
   date = new Date(date.getTime())
-  date.setDate(date.getDate() + ((4 + 7 - date.getDay()) % 7))
+  if(date.getDay() === 5) {
+    date.setDate(date.getDate() - ((6 + 7 - date.getDay()) % 7))
+  } else {
+    date.setDate(date.getDate() + ((4 + 7 - date.getDay()) % 7))
+  }
+  return date
+}
+
+const matchHours = date => {
+  date = new Date(date.getTime())
+  date.setDate(new Date().getDate())
+  date.setHours(new Date().getHours(), new Date().getMinutes(), 0)
   return date
 }
 
@@ -66,7 +79,7 @@ const BookingCalendar = () => {
   useEffect(() => {
     const getEvents = week => {
       axios
-        .post("http://localhost:3001/", {
+        .post("https://nicole-papa-server.herokuapp.com/", {
           week: week,
         })
         .then(res => {
@@ -81,7 +94,7 @@ const BookingCalendar = () => {
 
     const checkEvents = events => {
       axios
-        .post("http://localhost:3001/checkbusybatch", {
+        .post("https://nicole-papa-server.herokuapp.com/checkbusybatch", {
           events: events,
           id: queryData.contentfulWebsiteInformation.email,
         })
@@ -90,8 +103,9 @@ const BookingCalendar = () => {
           checkEvents.forEach(checkedEvent => {
             // console.log(checkedEvent, "checked event")
             if (checkedEvent.busyStatus === 1) {
+              // console.log("patching, 1")
               axios
-                .post("http://localhost:3001/patch", {
+                .post("https://nicole-papa-server.herokuapp.com/patch", {
                   eventId: checkedEvent.eventId,
                   title: "Not Available",
                 })
@@ -101,11 +115,12 @@ const BookingCalendar = () => {
                 })
             } else if (
               checkedEvent.busyStatus === 0 &&
-              events.filter(event => event.eventId === checkedEvent.eventId)
+              events.filter(event => event.eventId === checkedEvent.eventId)[0]
                 .title !== "Available"
             ) {
+              // console.log("patching, 2")
               axios
-                .post("http://localhost:3001/patch", {
+                .post("https://nicole-papa-server.herokuapp.com/patch", {
                   eventId: checkedEvent.eventId,
                   title: "Available",
                 })
@@ -122,7 +137,10 @@ const BookingCalendar = () => {
             adjustTime(event.end, "melb")
           })
           // console.log(events, "checked events")
-          setMyEvents(events)
+
+          if (JSON.stringify(myEvents) !== JSON.stringify(events)) {
+            setMyEvents(events)
+          }
           setIsLoaded(true)
         })
         .catch(err => {
@@ -130,6 +148,7 @@ const BookingCalendar = () => {
           setIsLoaded(true)
         })
     }
+    setIsLoaded(false)
     getEvents(week)
   }, [week, queryData.contentfulWebsiteInformation.email])
 
@@ -140,15 +159,15 @@ const BookingCalendar = () => {
       setBookingDetails({
         title: "50 minute consultation with Dr. Papadopolous",
         day: `${monthNames[event.start.getMonth()]} ${event.start.getDate()}`,
-        start: `${event.start.getHours()}:${
+        start: `${event.start.getHours() > 12 ? event.start.getHours() - 12 : event.start.getHours()}:${
           event.start.getMinutes() < 10
-            ? event.start.getMinutes() + "0"
-            : event.start.getMinutes()
+            ? event.start.getHours() > 12 ? `${event.start.getMinutes()}0 pm`: `${event.start.getMinutes()}0 am`
+            : event.start.getHours() > 12 ? `${event.start.getMinutes()} pm` : `${event.start.getMinutes()}am`
         }`,
-        end: `${event.end.getHours()}:${
+        end: `${event.end.getHours() > 12 ? event.end.getHours() - 12 : event.end.getHours()}:${
           event.end.getMinutes() < 10
-            ? event.end.getMinutes() + "0"
-            : event.end.getMinutes()
+            ? event.end.getHours() > 12 ? `${event.end.getMinutes()}0 pm`: `${event.end.getMinutes()}0 am`
+            : event.end.getHours() > 12 ? `${event.end.getMinutes()} pm` : `${event.end.getMinutes()}am`
         }`,
         id: event.eventId,
       })
@@ -158,15 +177,18 @@ const BookingCalendar = () => {
 
   const confirmBooking = async () => {
     const event = myEvents.filter(e => e.eventId === bookingDetails.id)[0]
-    let checkEvent = await axios.post("http://localhost:3001/checkbusy", {
-      start: {
-        dateTime: adjustTime(new Date(event.start), "origin"),
-      },
-      end: {
-        dateTime: adjustTime(new Date(event.end), "origin"),
-      },
-      id: queryData.contentfulWebsiteInformation.email,
-    })
+    let checkEvent = await axios.post(
+      "https://nicole-papa-server.herokuapp.com/checkbusy",
+      {
+        start: {
+          dateTime: adjustTime(new Date(event.start), "origin"),
+        },
+        end: {
+          dateTime: adjustTime(new Date(event.end), "origin"),
+        },
+        id: queryData.contentfulWebsiteInformation.email,
+      }
+    )
     let busyEvent = await checkEvent.data
     if (
       busyEvent.busyStatus === 1 ||
@@ -178,30 +200,33 @@ const BookingCalendar = () => {
       return null
     }
 
-    let res = await axios.post("http://localhost:3001/book", {
-      eventId: event.eventId,
-      title: "Not Available",
-      calId: queryData.contentfulWebsiteInformation.email,
-      resource: {
-        summary: `${userDetails.userName} at ${event.start.getHours()}:${
-          event.start.getMinutes() < 10
-            ? event.start.getMinutes() + "0"
-            : event.start.getMinutes()
-        } to ${event.end.getHours()}:${
-          event.end.getMinutes() < 10
-            ? event.end.getMinutes() + "0"
-            : event.end.getMinutes()
-        }`,
-        start: {
-          dateTime: adjustTime(new Date(event.start), "origin").toISOString(),
+    let res = await axios.post(
+      "https://nicole-papa-server.herokuapp.com/book",
+      {
+        eventId: event.eventId,
+        title: "Not Available",
+        calId: queryData.contentfulWebsiteInformation.email,
+        resource: {
+          summary: `${userDetails.userName} at ${event.start.getHours()}:${
+            event.start.getMinutes() < 10
+              ? event.start.getMinutes() + "0"
+              : event.start.getMinutes()
+          } to ${event.end.getHours()}:${
+            event.end.getMinutes() < 10
+              ? event.end.getMinutes() + "0"
+              : event.end.getMinutes()
+          }`,
+          start: {
+            dateTime: adjustTime(new Date(event.start), "origin").toISOString(),
+          },
+          end: {
+            dateTime: adjustTime(new Date(event.end), "origin").toISOString(),
+          },
         },
-        end: {
-          dateTime: adjustTime(new Date(event.end), "origin").toISOString(),
-        },
-      },
-    })
+      }
+    )
     let data = await res.data
-    console.log(data)
+    // console.log(data)
     let mainCalEventId = data.result.data.id
 
     let eventStart = `${event.start.getHours()}${
@@ -235,22 +260,27 @@ const BookingCalendar = () => {
       }%${eventStart}*${eventEnd}~${eventMonth}!${eventDay}"><button>Cancel Booking</button></a>`,
     }
 
-    // emailjs
-    //   .send(
-    //     "default_service",
-    //     "template_iAFYVnVx",
-    //     templateParams,
-    //     process.env.GATSBY_EMAILJS_USER_ID
-    //   )
-    //   .then(
-    //     response => {
-    //       console.log("sent", response.status, response.text)
-    //     },
-    //     err => console.log(err, "error")
-    //   )
+    emailjs
+      .send(
+        "default_service",
+        "template_iAFYVnVx",
+        templateParams,
+        process.env.GATSBY_EMAILJS_USER_ID
+      )
+      .then(
+        response => {
+          console.log("sent", response.status, response.text)
+        },
+        err => console.log(err, "error")
+      )
     alert(
       "Booking confirmed, a confirmation email will be sent to you shortly."
     )
+    let newEventsList = myEvents.map(a => {
+      return { ...a }
+    })
+    newEventsList.find(a => a.eventId === event.eventId).title = "Not Available"
+    setMyEvents(newEventsList)
     setIsLoaded(true)
   }
 
@@ -265,22 +295,31 @@ const BookingCalendar = () => {
       </>
     )
   } else if (fetchError) {
-    return <p>{fetchError.message}</p>
+    return (
+      <p>{fetchError}.. cannot load calendar.. please refresh and try again.</p>
+    )
   } else {
     return (
       <div>
         <Calendar
           onNavigate={e => {
-            if (e < Date.now()) return null
+            if (
+              new Date().getDate() === e.getDate() ||
+              new Date().getDate() === e.getDate() + 1
+            ) {
+              return setWeek(matchHours(e))
+            } else if (e < new Date()) {
+              return null
+            }
             setWeek(e)
-            setIsLoaded(false)
           }}
           localizer={localizer}
-          now={new Date(0)}
           events={myEvents}
           defaultView={Views.WEEK}
           defaultDate={
-            week === 0 ? setDay(new Date(moment().startOf("day"))) : week
+            week === 0
+              ? setDay(new Date(moment().startOf("day")))
+              : setDay(new Date(moment(week).startOf("day")))
           }
           components={{ toolbar: CustomToolbar }}
           views={{ week: MyWeek }}
