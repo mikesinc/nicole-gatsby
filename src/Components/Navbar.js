@@ -17,12 +17,14 @@ const NavBar = () => {
   `)
 
   const [isTop, setIsTop] = useState(true)
+  const [isExpanded, setIsExpanded] = useState(false)
 
   const setTop = height => {
     document.querySelector(height).scrollIntoView({
       behavior: "smooth",
       block: "center",
     })
+    setIsExpanded(false)
   }
 
   useEffect(() => {
@@ -49,10 +51,11 @@ const NavBar = () => {
         fixed="top"
         bg={isTop ? "transparent" : "light"}
         variant={isTop ? "dark" : "light"}
-        collapseonselect="true"
+        collapseOnSelect="true"
         expand="lg"
+        expanded={isExpanded}
       >
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setIsExpanded(!isExpanded)} />
         <Navbar.Collapse className="toggled" id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Navbar.Brand>

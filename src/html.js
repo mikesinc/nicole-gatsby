@@ -18,7 +18,6 @@ export default function HTML(props) {
           dangerouslySetInnerHTML={{ __html: props.body }}
         />
         {props.postBodyComponents}
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=Array.from%2CArray.prototype.forEach%2CArray.prototype.map%2CElement.prototype.scrollIntoView%2CNodeList.prototype.forEach%2CscrollIntoView%2CscrollY%2Ces7%2Ces6%2Ces5"></script>
       </body>
     </html>
   )

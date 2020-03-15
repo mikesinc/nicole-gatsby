@@ -359,7 +359,7 @@
 }
 .black:hover {
   color: white !important;
-  background: rgb(255, 208, 0);
+  background: rgb(255, 208, 0) !important;
 }
 @media screen and (max-width: 997px) {
   .nav-link {
@@ -377,6 +377,9 @@
 }
 
 /*Calendar*/
+.rbc-current-time-indicator {
+  display: none;
+}
 .rbc-timeslot-group {
   min-height: 60px !important;
 }

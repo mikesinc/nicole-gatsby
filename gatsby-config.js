@@ -1,4 +1,4 @@
-require('dotenv').config({
+require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
@@ -11,11 +11,27 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-polyfill-io`,
+      options: {
+        features: [
+          `Array.from`,
+          `Array.prototype.map`,
+          `Element.prototype.scrollIntoView`,
+          `NodeList.prototype.forEach`,
+          `scrollIntoView`,
+          `scrollY`,
+          `es7`,
+          `es6`,
+          `es5`,
+        ],
+      },
+    },
+    {
       resolve: `gatsby-source-contentful`,
       options: {
         spaceId: `nqr02billrod`,
-        accessToken: process.env.GATSBY_CONTENTFUL_DELIVERY_API
-      }
+        accessToken: process.env.GATSBY_CONTENTFUL_DELIVERY_API,
+      },
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -35,6 +51,5 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-polyfill-io`
-  ]
+  ],
 }
