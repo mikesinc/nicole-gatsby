@@ -4,7 +4,7 @@ import axios from "axios"
 import { useLax, useLaxElement } from "use-lax"
 import emailjs from "emailjs-com"
 import { graphql } from "gatsby"
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css"
 
 export default ({ location: { pathname }, data }) => {
   useLax()
@@ -47,10 +47,10 @@ export default ({ location: { pathname }, data }) => {
     const id = ids.split("&").shift()
 
     axios
-      .post("http://localhost:3001/cancel", {
+      .post("https://nicole-papa-server.herokuapp.com/cancel", {
         eventId: id,
         mainCalEventId: mainCalEventId,
-        calId: data.contentfulWebsiteInformation.email
+        calId: data.contentfulWebsiteInformation.email,
       })
       .then(response => console.log(response))
       .catch(error => console.log(error))
@@ -82,7 +82,10 @@ export default ({ location: { pathname }, data }) => {
   return (
     <Container fluid className="overall" style={{ margin: "0", padding: "0" }}>
       <Container
-        style={{backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`}}
+        style={{
+          backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
+          opacity: "85%",
+        }}
         fluid
         className="header lax"
         data-lax-bg-pos-y="8000 100, 0 -400"

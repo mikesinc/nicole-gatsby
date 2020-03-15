@@ -205,15 +205,7 @@ const BookingCalendar = () => {
         title: "Not Available",
         calId: queryData.contentfulWebsiteInformation.email,
         resource: {
-          summary: `${userDetails.userName} at ${event.start.getHours()}:${
-            event.start.getMinutes() < 10
-              ? event.start.getMinutes() + "0"
-              : event.start.getMinutes()
-          } to ${event.end.getHours()}:${
-            event.end.getMinutes() < 10
-              ? event.end.getMinutes() + "0"
-              : event.end.getMinutes()
-          }`,
+          summary: `${userDetails.userName} at ${bookingDetails.start} to ${bookingDetails.end}`,
           start: {
             dateTime: adjustTime(new Date(event.start), "origin").toISOString(),
           },
@@ -225,7 +217,6 @@ const BookingCalendar = () => {
     )
     let data = await res.data
     // console.log(data)
-    let mainCalEventId = data.result.data.id
 
     let eventStart = `${event.start.getHours()}${
       event.start.getMinutes() < 10
@@ -237,8 +228,6 @@ const BookingCalendar = () => {
         ? event.end.getMinutes() + "0"
         : event.end.getMinutes()
     }`
-    let eventMonth = `${monthNames[event.start.getMonth()]}`
-    let eventDay = `${event.start.getDate()}`
 
     const templateParams = {
       to: userDetails.userEmail,
@@ -249,13 +238,13 @@ const BookingCalendar = () => {
             userDetails.userName
           }, please see below confirmation of your booking with
           Dr. Nicole Papadopoulos.</h1>
-          <h2>${eventStart} to ${eventEnd} on ${eventMonth} ${eventDay}</h2>
+          <h2>${bookingDetails.start} to ${bookingDetails.end} on ${monthNames[event.start.getMonth()]} ${event.start.getDate()}</h2>
           <p>If you would like to cancel your booking, please click the below button</p>
-          <a href="http://localhost:8000/cancel/:${
+          <a href="https://drnicolepapadopoulos.netlify.com/cancel/:${ // update this for host site.
             event.eventId
-          }&${mainCalEventId}+${userDetails.userName.replace(/ +/g, "-")}=${
+          }&${data.result.data.id}+${userDetails.userName.replace(/ +/g, "-")}=${
         userDetails.userEmail
-      }%${eventStart}*${eventEnd}~${eventMonth}!${eventDay}"><button>Cancel Booking</button></a>`,
+      }%${eventStart}*${eventEnd}~${monthNames[event.start.getMonth()]}!${event.start.getDate()}"><button>Cancel Booking</button></a>`,
     }
 
     emailjs
@@ -284,13 +273,13 @@ const BookingCalendar = () => {
 
   if (!isLoaded) {
     return (
-      <>
+      <div style={{height: "100vmin"}}>
         <h1>Loading</h1>
         <img
           alt="loading"
           src={require("../assets/images/ajax-loader.gif")}
         ></img>
-      </>
+      </div>
     )
   } else if (fetchError) {
     return (
