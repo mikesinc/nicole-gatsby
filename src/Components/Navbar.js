@@ -30,26 +30,13 @@ const NavBar = () => {
       if (window.scrollY > window.innerHeight * 0.4) {
         setIsTop(false)
 
-        for (let i = 0; i < document.querySelectorAll(".nav-link").length; i++) {
-        // document.querySelectorAll(".nav-link").forEach(item => {
-          document.querySelectorAll(".nav-link")[i].classList.add("black")
-        // })
-      }
-
-        // document.querySelectorAll(".nav-link").forEach(item => {
-        //   item.classList.add("black")
-        // })
+        document.querySelectorAll(".nav-link").forEach(item => {
+          item.classList.add("black")
+        })
       } else {
-
-        for (let i = 0; i < document.querySelectorAll(".nav-link").length; i++) {
-          // document.querySelectorAll(".nav-link").forEach(item => {
-            document.querySelectorAll(".nav-link")[i].classList.remove("black")
-          // })
-        }
-
-        // document.querySelectorAll(".nav-link").forEach(item => {
-        //   item.classList.remove("black")
-        // })
+        document.querySelectorAll(".nav-link").forEach(item => {
+          item.classList.remove("black")
+        })
         setIsTop(true)
       }
     })

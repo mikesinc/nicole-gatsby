@@ -35,7 +35,7 @@ export default ({ data }) => {
           <Container
             fluid
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`
+              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
             }}
             className="header lax"
             data-lax-bg-pos-y="8000 100, 0 -400"
@@ -71,12 +71,14 @@ export default ({ data }) => {
             ></img>
             <h1>{data.contentfulWebsiteInformation.name}</h1>
             <h2>{data.contentfulWebsiteInformation.qualifications}</h2>
+            <div className="iewrap-fix">
             <p>{data.contentfulWebsiteInformation.blurb.internal.content}</p>
+            </div>
           </Container>
 
           <Container
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
             }}
             fluid
             className="header lax"
@@ -133,7 +135,7 @@ export default ({ data }) => {
 
           <Container
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner3Image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner3Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
             }}
             fluid
             className="header lax"
@@ -152,7 +154,7 @@ export default ({ data }) => {
 
           <Container
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
             }}
             fluid
             className="header lax"
