@@ -29,13 +29,27 @@ const NavBar = () => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > window.innerHeight * 0.4) {
         setIsTop(false)
-        document.querySelectorAll(".nav-link").forEach(item => {
-          item.classList.add("black")
-        })
+
+        for (let i = 0; i < document.querySelectorAll(".nav-link").length; i++) {
+        // document.querySelectorAll(".nav-link").forEach(item => {
+          document.querySelectorAll(".nav-link")[i].classList.add("black")
+        // })
+      }
+
+        // document.querySelectorAll(".nav-link").forEach(item => {
+        //   item.classList.add("black")
+        // })
       } else {
-        document.querySelectorAll(".nav-link").forEach(item => {
-          item.classList.remove("black")
-        })
+
+        for (let i = 0; i < document.querySelectorAll(".nav-link").length; i++) {
+          // document.querySelectorAll(".nav-link").forEach(item => {
+            document.querySelectorAll(".nav-link")[i].classList.remove("black")
+          // })
+        }
+
+        // document.querySelectorAll(".nav-link").forEach(item => {
+        //   item.classList.remove("black")
+        // })
         setIsTop(true)
       }
     })

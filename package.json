@@ -20,6 +20,7 @@
     "dotenv": "^8.2.0",
     "emailjs": "^2.2.0",
     "emailjs-com": "^2.4.1",
+    "event-source-polyfill": "^1.0.12",
     "gatsby": "^2.19.43",
     "gatsby-background-image": "^0.10.2",
     "gatsby-plugin-manifest": "^2.2.47",

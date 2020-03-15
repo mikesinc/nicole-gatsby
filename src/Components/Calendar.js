@@ -98,13 +98,15 @@ const BookingCalendar = () => {
         })
         .then(res => {
           const checkEvents = res.data.busyArray
-          checkEvents.forEach(checkedEvent => {
+
+          for(let i = 0; i < checkEvents.length; i++) {
+          // checkEvents.forEach(checkedEvent => {
             // console.log(checkedEvent, "checked event")
-            if (checkedEvent.busyStatus === 1) {
+            if (checkEvents[i].busyStatus === 1) {
               // console.log("patching, 1")
               axios
                 .post("https://nicole-papa-server.herokuapp.com/patch", {
-                  eventId: checkedEvent.eventId,
+                  eventId: checkEvents[i].eventId,
                   title: "Not Available",
                 })
                 .catch(err => {
@@ -112,14 +114,14 @@ const BookingCalendar = () => {
                   setIsLoaded(true)
                 })
             } else if (
-              checkedEvent.busyStatus === 0 &&
-              events.filter(event => event.eventId === checkedEvent.eventId)[0]
+              checkEvents[i].busyStatus === 0 &&
+              events.filter(event => event.eventId === checkEvents[i].eventId)[0]
                 .title !== "Available"
             ) {
               // console.log("patching, 2")
               axios
                 .post("https://nicole-papa-server.herokuapp.com/patch", {
-                  eventId: checkedEvent.eventId,
+                  eventId: checkEvents[i].eventId,
                   title: "Available",
                 })
                 .catch(err => {
@@ -127,13 +129,55 @@ const BookingCalendar = () => {
                   setIsLoaded(true)
                 })
             }
-          })
-          events.forEach(event => {
-            event.start = new Date(event.start)
-            adjustTime(event.start, "melb")
-            event.end = new Date(event.end)
-            adjustTime(event.end, "melb")
-          })
+          // })
+        }
+
+          // checkEvents.forEach(checkedEvent => {
+          //   // console.log(checkedEvent, "checked event")
+          //   if (checkedEvent.busyStatus === 1) {
+          //     // console.log("patching, 1")
+          //     axios
+          //       .post("https://nicole-papa-server.herokuapp.com/patch", {
+          //         eventId: checkedEvent.eventId,
+          //         title: "Not Available",
+          //       })
+          //       .catch(err => {
+          //         setFetchError(err.message)
+          //         setIsLoaded(true)
+          //       })
+          //   } else if (
+          //     checkedEvent.busyStatus === 0 &&
+          //     events.filter(event => event.eventId === checkedEvent.eventId)[0]
+          //       .title !== "Available"
+          //   ) {
+          //     // console.log("patching, 2")
+          //     axios
+          //       .post("https://nicole-papa-server.herokuapp.com/patch", {
+          //         eventId: checkedEvent.eventId,
+          //         title: "Available",
+          //       })
+          //       .catch(err => {
+          //         setFetchError(err.message)
+          //         setIsLoaded(true)
+          //       })
+          //   }
+          // })
+
+          for(let i = 0; i < events.length; i++) {
+          // events.forEach(event => {
+            events[i].start = new Date(events[i].start)
+            adjustTime(events[i].start, "melb")
+            events[i].end = new Date(events[i].end)
+            adjustTime(events[i].end, "melb")
+          // })
+        }
+
+          // events.forEach(event => {
+          //   event.start = new Date(event.start)
+          //   adjustTime(event.start, "melb")
+          //   event.end = new Date(event.end)
+          //   adjustTime(event.end, "melb")
+          // })
           // console.log(events, "checked events")
 
           if (JSON.stringify(myEvents) !== JSON.stringify(events)) {

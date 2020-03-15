@@ -19,6 +19,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  filter: opacity(0.85)
+  
 }
 .header h2 {
   font-size: 18px;
@@ -248,7 +250,6 @@
   padding-top: 50px;
   background: url("../assets/images/blackburn.png"),
     radial-gradient(
-      circle at center,
       rgba(255, 255, 255, 0),
       rgba(243, 243, 243, 1),
       rgba(243, 243, 243, 1)

@@ -35,8 +35,7 @@ export default ({ data }) => {
           <Container
             fluid
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
-              opacity: '85%'
+              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`
             }}
             className="header lax"
             data-lax-bg-pos-y="8000 100, 0 -400"
@@ -77,8 +76,7 @@ export default ({ data }) => {
 
           <Container
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
-              opacity: '85%'
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`
             }}
             fluid
             className="header lax"
@@ -135,8 +133,7 @@ export default ({ data }) => {
 
           <Container
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner3Image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
-              opacity: '85%'
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner3Image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`
             }}
             fluid
             className="header lax"
@@ -155,8 +152,7 @@ export default ({ data }) => {
 
           <Container
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
-              opacity: '85%'
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`
             }}
             fluid
             className="header lax"
