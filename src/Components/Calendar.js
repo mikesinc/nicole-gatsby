@@ -9,7 +9,6 @@ import { UserContext } from "../Context/Store"
 import emailjs from "emailjs-com"
 import { useStaticQuery, graphql } from "gatsby"
 import Toolbar from "react-big-calendar/lib/Toolbar"
-import "../styles/Calendar.css"
 
 const localizer = momentLocalizer(moment)
 const monthNames = [

@@ -9,23 +9,23 @@ import { Router } from "@reach/router"
 import Cancel from "./cancel"
 import { graphql } from "gatsby"
 import Button from "react-bootstrap/Button"
-import SEO from '../Components/Seo'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import SEO from "../Components/Seo"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 export default ({ data }) => {
   useLax()
   const ref = useLaxElement()
 
   const setTop = height => {
-      document.querySelector(height).scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      })    
+    document.querySelector(height).scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    })
   }
 
   return (
     <>
-    <SEO title={data.contentfulWebsiteInformation.name} />
+      <SEO title={data.contentfulWebsiteInformation.name} />
       <Router basepath="/">
         <Cancel path="/cancel/:id" />
       </Router>
@@ -33,10 +33,11 @@ export default ({ data }) => {
         <Navbar />
         <Container fluid className="overall">
           <Container
+            fluid
             style={{
               backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
+              opacity: '85%'
             }}
-            fluid
             className="header lax"
             data-lax-bg-pos-y="8000 100, 0 -400"
             ref={ref}
@@ -46,6 +47,7 @@ export default ({ data }) => {
               data-lax-translate-y="0 0, 1000 900"
               data-lax-scale="5000 -1, 1 1"
               data-lax-opacity="0 1, 450 0"
+              ref={ref}
             >
               <h1>{data.contentfulWebsiteInformation.banner}</h1>
             </Container>
@@ -76,6 +78,7 @@ export default ({ data }) => {
           <Container
             style={{
               backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
+              opacity: '85%'
             }}
             fluid
             className="header lax"
@@ -115,22 +118,25 @@ export default ({ data }) => {
                     .content[0].value
                 }
               </h1>
-              {data.contentfulWebsiteInformation.pricing.content.map((item, index) => {
-                if (
-                  data.contentfulWebsiteInformation.pricing.content.indexOf(
-                    item
-                  ) !== 0
-                ) {
-                  return <h4 key={index}>{item.content[0].value}</h4>
+              {data.contentfulWebsiteInformation.pricing.content.map(
+                (item, index) => {
+                  if (
+                    data.contentfulWebsiteInformation.pricing.content.indexOf(
+                      item
+                    ) !== 0
+                  ) {
+                    return <h4 key={index}>{item.content[0].value}</h4>
+                  }
+                  return null
                 }
-                return null
-              })}
+              )}
             </div>
           </Container>
 
           <Container
             style={{
               backgroundImage: `url(${data.contentfulWebsiteInformation.banner3Image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
+              opacity: '85%'
             }}
             fluid
             className="header lax"
@@ -150,6 +156,7 @@ export default ({ data }) => {
           <Container
             style={{
               backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(to bottom, rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6))`,
+              opacity: '85%'
             }}
             fluid
             className="header lax"
@@ -173,9 +180,17 @@ export default ({ data }) => {
           </Container>
 
           <Container fluid className="author">
-            <div style={{display: 'flex', flexDirection: 'column', textAlign: 'right'}}>
-            <p>website by mikesinc</p>
-            <a href="https://icons8.com/"><p style={{fontSize: '6px'}}>icon by icons8</p></a>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "right",
+              }}
+            >
+              <p>website by mikesinc</p>
+              <a href="https://icons8.com/">
+                <p style={{ fontSize: "6px" }}>icon by icons8</p>
+              </a>
             </div>
             <a
               href="https://github.com/mikesinc"
@@ -188,7 +203,6 @@ export default ({ data }) => {
                 width="50px"
               ></img>
             </a>
-            
           </Container>
         </Container>
       </Store>
