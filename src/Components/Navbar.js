@@ -22,7 +22,7 @@ const NavBar = () => {
   const setTop = height => {
     document.querySelector(height).scrollIntoView({
       behavior: "smooth",
-      block: "center",
+      block: "start",
     })
     setIsExpanded(false)
   }
@@ -31,7 +31,6 @@ const NavBar = () => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > window.innerHeight * 0.4) {
         setIsTop(false)
-
         document.querySelectorAll(".nav-link").forEach(item => {
           item.classList.add("black")
         })
@@ -55,7 +54,10 @@ const NavBar = () => {
         expand="lg"
         expanded={isExpanded}
       >
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setIsExpanded(!isExpanded)} />
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          onClick={() => setIsExpanded(!isExpanded)}
+        />
         <Navbar.Collapse className="toggled" id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Navbar.Brand>

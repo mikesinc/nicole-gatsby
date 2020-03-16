@@ -5,9 +5,16 @@
 
 .overall {
   font-family: pysch;
+  font-weight: bold;
   background-color: #f3f3f3;
   margin: 0 !important;
   padding: 0 !important;
+}
+
+@media screen and (min-width: 765px) {
+  .overall {
+    font-weight: normal;
+  }
 }
 
 .header {
@@ -17,122 +24,84 @@
   background-size: 390vmin;
   height: 70vh;
   display: flex;
+  flex: 0 1 auto;
   justify-content: center;
   align-items: center;
   filter: opacity(0.85);
 }
 .header h2 {
-  font-size: 18px;
+  font-size: 24px;
 }
-@media screen and (min-width: 765px) {
+@media screen and (min-width: 760px) {
   .header {
-    background-size: 180vmax;
-  }
-  .header h2 {
-    font-size: 26px;
-  }
-}
-@media screen and (min-width: 1350px) {
-  .header {
-    background-size: 150vmax;
+    background-size: 280vmin;
   }
   .header h2 {
     font-size: 36px;
   }
 }
-@media screen and (min-width: 1650px) {
+@media screen and (min-width: 1020px) {
   .header {
-    background-size: 100vmax;
+    background-size: 240vmin;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .header {
+    background-size: 200vmin;
   }
   .header h2 {
-    font-size: 36px;
+    font-size: 42px;
   }
 }
 
 .bannerText {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: #f3f3f3;
   text-align: center;
 }
 .bannerText h1 {
-  font-size: 32px;
+  font-size: 34px;
 }
 @media screen and (min-width: 765px) {
   .bannerText h1 {
-    font-size: 42px;
+    font-size: 68px;
   }
 }
 @media screen and (min-width: 1350px) {
   .bannerText h1 {
-    font-size: 56px;
+    font-size: 74px;
   }
 }
 
 .scrollDown {
-  height: 100px;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
   text-align: center;
-  margin: 0;
-  padding: 0;
+  padding-bottom: 20px;
 }
 .scrollDown h1 {
-  font-size: 19px;
-  padding: 50px 0px 5px;
+  font-size: 21px;
+  padding: 50px 0px 20px;
 }
 .scrollDown h2 {
-  font-size: 14px;
+  font-size: 16px;
+  padding: 0px 0px 20px;
 }
 .bookButton {
-  font-size: 14px;
-}
-@media screen and (min-width: 320px) and (min-height: 565px) {
-  .scrollDown {
-    height: 160px;
-  }
-  .scrollDown h1 {
-    padding: 25px 0px 5px;
-  }
-}
-@media screen and (min-width: 325px) {
-  .scrollDown {
-    height: 200px;
-  }
+  font-size: 20px !important;
 }
 @media screen and (min-width: 765px) {
   .scrollDown {
-    height: 300px;
+    padding-bottom: 50px;
   }
   .scrollDown h1 {
-    font-size: 36px;
-    padding-bottom: 20px;
+    font-size: 42px;
+    padding: 50px 0px 30px;
   }
   .scrollDown h2 {
-    font-size: 24px;
-    padding-bottom: 30px;
+    font-size: 26px;
+    padding: 0px 0px 40px;
   }
   .bookButton {
     font-size: 24px !important;
-  }
-}
-@media screen and (min-width: 1000px) {
-  .scrollDown {
-    height: 200px;
-  }
-}
-@media screen and (min-width: 1000px) and (min-height: 1000px) {
-  .scrollDown {
-    height: 400px;
-  }
-}
-@media screen and (min-width: 1350px) {
-  .scrollDown {
-    height: 300px;
-    justify-content: center;
   }
 }
 
@@ -140,6 +109,7 @@
   text-align: center;
   width: 100%;
   display: flex;
+  flex: 0 1 auto;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
@@ -148,20 +118,20 @@
 .about img {
   margin: 50px 0px 50px;
   border-radius: 1%;
-  height: 200px;
+  height: 250px;
 }
 .about h1 {
-  font-size: 24px;
+  font-size: 28px;
 }
 .about h2 {
-  font-size: 14px;
+  font-size: 18px;
 }
 .about p {
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
 }
 
-@media screen and (min-width: 765px) {
+@media screen and (min-width: 1025px) {
   .about {
     margin-bottom: 100px;
     width: 50% !important;
@@ -183,22 +153,23 @@
 }
 
 .payment {
-  height: 700px;
+  height: 600px;
   text-align: center;
   display: flex;
+  flex: 0 1 auto;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   flex-direction: column;
 }
 .payment h1 {
-  font-size: 18px;
+  font-size: 32px;
 }
 .payment h4 {
-  font-size: 14px;
+  font-size: 18px;
 }
 @media screen and (min-width: 765px) {
   .payment {
-    height: 1200px;
+    height: 1000px;
   }
   .payment h1 {
     font-size: 36px;
@@ -212,13 +183,14 @@
   padding: 50px 0px 50px;
   text-align: center;
   display: flex;
+  flex: 0 1 auto;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 .booking h1 {
   margin-bottom: 50px;
-  font-size: 18px;
+  font-size: 28px;
 }
 @media screen and (min-width: 765px) {
   .booking {
@@ -230,40 +202,40 @@
 }
 
 .location {
-  padding: 0px;
-  padding-top: 50px;
+  padding: 50px 0px 0px !important;
   display: flex;
+  flex: 0 1 auto;
   flex-direction: column;
   justify-content: space-between;
 }
 .location h4 {
-  font-size: 14px;
+  font-size: 18px;
   padding-bottom: 50px;
-  text-align: center;
+  text-align: justify;
 }
 .leftBox {
-  width: 100%;
+  padding: 0px 20px 0px;
 }
 .rightBox {
-  width: 100%;
-  height: 120vmax;
+  height: 50rem;
   padding-top: 50px;
-  background: url("../assets/images/blackburn.png"),
+  background: url("../assets/images/blackburnzoom.png"),
     radial-gradient(
-      rgba(255, 255, 255, 0),
-      rgba(243, 243, 243, 1),
+      rgba(243, 243, 243, 0.2),
       rgba(243, 243, 243, 1)
+      /* rgba(243, 243, 243, 1) */
     );
   background-blend-mode: lighten;
-  background-size: 350%;
+  background-size: 50rem;
   background-position: center;
+  background-repeat: no-repeat;
   text-align: center;
 }
 .rightBox h1 {
   font-size: 24px;
 }
 .rightBox h2 {
-  font-size: 12px;
+  font-size: 14px;
 }
 @media screen and (min-width: 765px) {
   .location {
@@ -274,8 +246,6 @@
   }
   .rightBox {
     width: 100%;
-    height: 80vmax;
-    background-size: 200%;
   }
   .rightBox h1 {
     font-size: 36px;
@@ -298,9 +268,6 @@
   }
   .rightBox {
     width: 50%;
-    height: 70vh;
-    padding: 0px;
-    background-size: 190%;
   }
   .rightBox h1 {
     font-size: 22px;
@@ -312,6 +279,7 @@
 
 .author {
   display: flex;
+  flex: 0 1 auto;
   justify-content: center;
   align-items: center;
   margin: 0;
@@ -385,11 +353,11 @@
 }
 .rbc-time-view {
   display: flex;
+  flex: 0 1 auto !important;
   flex-direction: column;
-  flex: 1;
   width: 30vw;
   border: 1px solid #ddd;
-  min-height: 0;
+  min-height: 100% !important;
   font-size: 16px;
 }
 .rbc-calendar {
@@ -419,10 +387,10 @@ p {
   .rbc-time-view {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 0 1 auto !important;
     width: 90vw;
     border: 1px solid #ddd;
-    min-height: 0;
+    min-height: 100% !important;
     font-size: 12px;
   }
   .rbc-calendar {
@@ -438,11 +406,11 @@ p {
   }
   .rbc-toolbar {
     width: 90vw !important;
-    font-size: 10px !important;
+    font-size: 14px !important;
     flex-wrap: nowrap;
   }
   p {
     padding-top: 10px;
-    font-size: 8px;
+    font-size: 12px;
   }
 }
