@@ -35,10 +35,10 @@ export default ({ data }) => {
           <Container
             fluid
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
+              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
             }}
-            className="header lax"
-            data-lax-bg-pos-y="8000 100, 0 -400"
+            className="banner lax"
+            data-lax-bg-pos-y="8000 100, 0 -250"
             ref={ref}
           >
             <Container
@@ -72,17 +72,17 @@ export default ({ data }) => {
             <h1>{data.contentfulWebsiteInformation.name}</h1>
             <h2>{data.contentfulWebsiteInformation.qualifications}</h2>
             <div className="iewrap-fix">
-            <p>{data.contentfulWebsiteInformation.blurb.internal.content}</p>
+              <p>{data.contentfulWebsiteInformation.blurb.internal.content}</p>
             </div>
           </Container>
 
           <Container
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
             }}
             fluid
-            className="header lax"
-            data-lax-bg-pos-y="4000 -200, -5000 0"
+            className="banner lax"
+            data-lax-bg-pos-y="5000 -100, -500 50"
             ref={ref}
           >
             <Container className="bannerText">
@@ -135,11 +135,11 @@ export default ({ data }) => {
 
           <Container
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner3Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner3Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
             }}
             fluid
-            className="header lax"
-            data-lax-bg-pos-y="5000 -100, -500 50"
+            className="banner lax"
+            data-lax-bg-pos-y="7000 -100, -500 50"
             ref={ref}
           >
             <Container className="bannerText">
@@ -154,11 +154,11 @@ export default ({ data }) => {
 
           <Container
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
+              backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
             }}
             fluid
-            className="header lax"
-            data-lax-bg-pos-y="5000 -200, -500 50"
+            className="banner lax"
+            data-lax-bg-pos-y="9000 -50, -3000 200"
             ref={ref}
           >
             <Container className="bannerText">
@@ -178,29 +178,18 @@ export default ({ data }) => {
           </Container>
 
           <Container fluid className="author">
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                textAlign: "right",
-              }}
-            >
-              <p>website by mikesinc</p>
+            <div>
+              <a
+                href="https://github.com/mikesinc"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <p>website by mikesinc</p>
+              </a>
               <a href="https://icons8.com/">
                 <p style={{ fontSize: "6px" }}>icon by icons8</p>
               </a>
             </div>
-            <a
-              href="https://github.com/mikesinc"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src={require("../assets/images/github.png")}
-                alt="GitHubLogo"
-                width="50px"
-              ></img>
-            </a>
           </Container>
         </Container>
       </Store>

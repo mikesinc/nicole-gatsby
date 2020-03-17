@@ -17,7 +17,7 @@
   }
 }
 
-.header {
+.banner {
   background-blend-mode: darken;
   background-attachment: fixed;
   background-position: center;
@@ -29,27 +29,27 @@
   align-items: center;
   filter: opacity(0.85);
 }
-.header h2 {
+.banner h2 {
   font-size: 24px;
 }
 @media screen and (min-width: 760px) {
-  .header {
+  .banner {
     background-size: 280vmin;
   }
-  .header h2 {
+  .banner h2 {
     font-size: 36px;
   }
 }
 @media screen and (min-width: 1020px) {
-  .header {
+  .banner {
     background-size: 240vmin;
   }
 }
 @media screen and (min-width: 1280px) {
-  .header {
+  .banner {
     background-size: 200vmin;
   }
-  .header h2 {
+  .banner h2 {
     font-size: 42px;
   }
 }
@@ -214,18 +214,12 @@
   text-align: justify;
 }
 .leftBox {
-  padding: 0px 20px 0px;
+  padding: 0px 20px 50px;
 }
 .rightBox {
   height: 50rem;
-  padding-top: 50px;
-  background: url("../assets/images/blackburnzoom.png"),
-    radial-gradient(
-      rgba(243, 243, 243, 0.2),
-      rgba(243, 243, 243, 1)
-      /* rgba(243, 243, 243, 1) */
-    );
-  background-blend-mode: lighten;
+  padding-top: 0px;
+  background: url("../assets/images/blackburnfilter.png");
   background-size: 50rem;
   background-position: center;
   background-repeat: no-repeat;
@@ -279,14 +273,16 @@
 
 .author {
   display: flex;
+  flex-direction: column;
+  text-align: center;
   flex: 0 1 auto;
   justify-content: center;
   align-items: center;
   margin: 0;
   padding: 0;
 }
-.author img {
-  width: 30px;
+.author a {
+  color: black;
 }
 .author p {
   margin: 0;
