@@ -19,12 +19,11 @@
 
 .banner {
   background-blend-mode: darken;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
   background-position: center;
-  background-size: 390vmin;
+  /* background-size: cover; */
   height: 70vh;
   display: flex;
-  flex: 0 1 auto;
   justify-content: center;
   align-items: center;
   filter: opacity(0.85);
@@ -32,7 +31,7 @@
 .banner h2 {
   font-size: 24px;
 }
-@media screen and (min-width: 760px) {
+/* @media screen and (min-width: 760px) {
   .banner {
     background-size: 280vmin;
   }
@@ -52,7 +51,7 @@
   .banner h2 {
     font-size: 42px;
   }
-}
+} */
 
 .bannerText {
   color: #f3f3f3;
@@ -109,7 +108,6 @@
   text-align: center;
   width: 100%;
   display: flex;
-  flex: 0 1 auto;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
@@ -156,7 +154,6 @@
   height: 600px;
   text-align: center;
   display: flex;
-  flex: 0 1 auto;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
@@ -183,7 +180,6 @@
   padding: 50px 0px 50px;
   text-align: center;
   display: flex;
-  flex: 0 1 auto;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -204,7 +200,6 @@
 .location {
   padding: 50px 0px 0px !important;
   display: flex;
-  flex: 0 1 auto;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -275,7 +270,6 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  flex: 0 1 auto;
   justify-content: center;
   align-items: center;
   margin: 0;
@@ -349,7 +343,7 @@
 }
 .rbc-time-view {
   display: flex;
-  flex: 0 1 auto !important;
+  flex: 1;
   flex-direction: column;
   width: 30vw;
   border: 1px solid #ddd;
@@ -383,7 +377,7 @@ p {
   .rbc-time-view {
     display: flex;
     flex-direction: column;
-    flex: 0 1 auto !important;
+    flex: 1;
     width: 90vw;
     border: 1px solid #ddd;
     min-height: 100% !important;
