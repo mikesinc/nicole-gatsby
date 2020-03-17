@@ -19,9 +19,9 @@
 
 .banner {
   background-blend-mode: darken;
-  /* background-attachment: fixed; */
+  background-attachment: fixed;
   background-position: center;
-  /* background-size: cover; */
+  background-size: cover;
   height: 70vh;
   display: flex;
   justify-content: center;
@@ -31,31 +31,21 @@
 .banner h2 {
   font-size: 24px;
 }
-/* @media screen and (min-width: 760px) {
-  .banner {
-    background-size: 280vmin;
-  }
+@media screen and (min-width: 760px) {
   .banner h2 {
     font-size: 36px;
   }
 }
-@media screen and (min-width: 1020px) {
-  .banner {
-    background-size: 240vmin;
-  }
-}
 @media screen and (min-width: 1280px) {
-  .banner {
-    background-size: 200vmin;
-  }
   .banner h2 {
     font-size: 42px;
   }
-} */
+}
 
 .bannerText {
   color: #f3f3f3;
   text-align: center;
+  position: absolute;
 }
 .bannerText h1 {
   font-size: 34px;
@@ -67,7 +57,7 @@
 }
 @media screen and (min-width: 1350px) {
   .bannerText h1 {
-    font-size: 74px;
+    font-size: 72px;
   }
 }
 

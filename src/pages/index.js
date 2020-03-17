@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react"
-// import { useLax, useLaxElement } from "use-lax"
+import React, { useState, useEffect } from "react"
+import { useLax, useLaxElement } from "use-lax"
 import Container from "react-bootstrap/Container"
 import Navbar from "../Components/Navbar"
 import ContactForm from "../Components/ContactForm"
@@ -11,44 +11,10 @@ import { graphql } from "gatsby"
 import Button from "react-bootstrap/Button"
 import SEO from "../Components/Seo"
 import "bootstrap/dist/css/bootstrap.min.css"
-import Plx from "react-plx"
-
-const parallaxData = [
-  {
-    start: 0,
-    end: 1500,
-    properties: [
-      {
-        startValue: 0,
-        endValue: 800,
-        property: "translateY",
-      },
-    ],
-  },
-]
-
-const textparallaxData = [
-  {
-    start: 0,
-    end: 1500,
-    properties: [
-      {
-        startValue: 0,
-        endValue: 500,
-        property: "translateY",
-      },
-      {
-        startValue: 1,
-        endValue: 0.1,
-        property: "scale",
-      },
-    ],
-  },
-]
 
 export default ({ data }) => {
-  // useLax()
-  // const ref = useLaxElement()
+  useLax()
+  const ref = useLaxElement()
 
   const setTop = height => {
     document.querySelector(height).scrollIntoView({
@@ -65,31 +31,31 @@ export default ({ data }) => {
       </Router>
       <Store>
         <Navbar />
-        <Container fluid className="overall">
-          <div style={{ overflow: "hidden" }}>
-            <Plx
+        <Container fluid ref={ref} className="overall">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Container
               fluid
-              parallaxData={parallaxData}
               style={{
                 backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
               }}
-              className="banner"
-              // className="banner lax"
-              // data-lax-bg-pos-y="8000 100, 0 -250"
-              // ref={ref}
+              className="banner lax"
+              data-lax-bg-pos-y="0 -300, 1500 -250"
+            ></Container>
+            <Container
+              className="lax bannerText"
+              data-lax-translate-y="0 0, 1500 1000"
+              data-lax-scale="0 1, 1500 0.5"
+              data-lax-opacity="0 1, 500 0"
             >
-              <Plx
-                // className="lax bannerText"
-                className="bannerText"
-                parallaxData={textparallaxData}
-                // data-lax-translate-y="0 0, 1000 900"
-                // data-lax-scale="5000 -1, 1 1"
-                // data-lax-opacity="0 1, 450 0"
-                // ref={ref}
-              >
-                <h1>{data.contentfulWebsiteInformation.banner}</h1>
-              </Plx>
-            </Plx>
+              <h1>{data.contentfulWebsiteInformation.banner}</h1>
+            </Container>
           </div>
 
           <Container fluid className="scrollDown">
@@ -121,10 +87,9 @@ export default ({ data }) => {
               backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
             }}
             fluid
-            className="banner"
-            // className="banner lax"
-            // data-lax-bg-pos-y="5000 -100, -500 50"
-            // ref={ref}
+            className="banner lax"
+            data-lax-bg-pos-y="vh -10, -vh 10"
+            data-lax-anchor="self"
           >
             <Container className="bannerText">
               <h2>{data.contentfulWebsiteInformation.banner2}</h2>
@@ -179,10 +144,9 @@ export default ({ data }) => {
               backgroundImage: `url(${data.contentfulWebsiteInformation.banner3Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
             }}
             fluid
-            className="banner"
-            // className="banner lax"
-            // data-lax-bg-pos-y="7000 -100, -500 50"
-            // ref={ref}
+            className="banner lax"
+            data-lax-bg-pos-y="vh -10, -vh 10"
+            data-lax-anchor="self"
           >
             <Container className="bannerText">
               <h2>{data.contentfulWebsiteInformation.banner3}</h2>
@@ -199,10 +163,9 @@ export default ({ data }) => {
               backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
             }}
             fluid
-            className="banner"
-            // className="banner lax"
-            // data-lax-bg-pos-y="9000 -50, -3000 200"
-            // ref={ref}
+            className="banner lax"
+            data-lax-bg-pos-y="vh -10, -vh 10"
+            data-lax-anchor="self"
           >
             <Container className="bannerText">
               <h2>{data.contentfulWebsiteInformation.banner4}</h2>
