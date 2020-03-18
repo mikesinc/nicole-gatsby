@@ -41,6 +41,11 @@
     font-size: 42px;
   }
 }
+@supports (-webkit-overflow-scrolling: touch) {
+  .banner {
+    background-attachment: scroll;
+  }
+}
 
 .bannerText {
   color: #f3f3f3;
@@ -300,18 +305,18 @@
 }
 .nav-link:hover {
   color: black !important;
-  background: #f3f3f3;
+  background: rgb(243, 243, 243);
 }
 .black {
   padding: 10px !important;
 }
 .black:hover {
-  color: #f3f3f3 !important;
+  color: rgb(243, 243, 243) !important;
   background: rgb(255, 208, 0) !important;
 }
 @media screen and (max-width: 997px) {
   .nav-link {
-    background: #f3f3f3 !important;
+    background: rgb(243, 243, 243) !important;
     color: black !important;
     padding: 20px !important;
     font-size: 18px;

@@ -22,7 +22,7 @@ const ContactForm = () => {
           method="POST"
         >
           <Form.Group as={Row}>
-            <Form.Label column sm={{ span: 2, offset: 0 }}>
+            <Form.Label column sm={{ span: 2, offset: 0 }} style={{fontWeight: 'normal'}}>
               Name*
             </Form.Label>
             <Col xs={12} sm={10} lg={10} xl={5}>
@@ -35,7 +35,7 @@ const ContactForm = () => {
             </Col>
           </Form.Group>
           <Form.Group as={Row}>
-            <Form.Label column sm={{ span: 2, offset: 0 }}>
+            <Form.Label column sm={{ span: 2, offset: 0 }} style={{fontWeight: 'normal'}}>
               Email*
             </Form.Label>
             <Col xs={12} sm={10} lg={10} xl={5}>
@@ -49,7 +49,7 @@ const ContactForm = () => {
             </Col>
           </Form.Group>
           <Form.Group as={Row}>
-            <Form.Label column sm={{ span: 2, offset: 0 }}>
+            <Form.Label column sm={{ span: 2, offset: 0 }} style={{fontWeight: 'normal'}}>
               Phone
             </Form.Label>
             <Col xs={12} sm={10} lg={10} xl={5}>
@@ -62,7 +62,7 @@ const ContactForm = () => {
             </Col>
           </Form.Group>
           <Form.Group as={Row} id="description">
-            <Form.Label column sm={{ span: 2, offset: 0 }}>
+            <Form.Label column sm={{ span: 2, offset: 0 }} style={{fontWeight: 'normal'}}>
               Message*
             </Form.Label>
             <Col xs={12} sm={10} lg={10}>
@@ -75,7 +75,7 @@ const ContactForm = () => {
                 placeholder={`Your message... `}
                 required
               />
-              <p style={{ padding: "0%", paddingTop: "1%" }}>
+              <p style={{ padding: "0%", paddingTop: "1%" }} style={{fontWeight: 'normal'}}>
                 (*) required fields
               </p>
             </Col>
