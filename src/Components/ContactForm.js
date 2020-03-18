@@ -75,7 +75,7 @@ const ContactForm = () => {
                 placeholder={`Your message... `}
                 required
               />
-              <p style={{ padding: "0%", paddingTop: "1%" }} style={{fontWeight: 'normal'}}>
+              <p style={{ padding: "0%", paddingTop: "1%", fontWeight: 'normal' }}>
                 (*) required fields
               </p>
             </Col>

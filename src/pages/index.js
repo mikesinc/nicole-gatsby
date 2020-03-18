@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react"
-import { useLax, useLaxElement } from "use-lax"
+import React, { useEffect } from "react"
+import { useLax } from "use-lax"
+import lax from 'lax.js/lib/lax'
 import Container from "react-bootstrap/Container"
 import Navbar from "../Components/Navbar"
 import ContactForm from "../Components/ContactForm"
@@ -14,7 +15,6 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 export default ({ data }) => {
   useLax()
-  const ref = useLaxElement()
 
   const setTop = height => {
     document.querySelector(height).scrollIntoView({
@@ -22,6 +22,18 @@ export default ({ data }) => {
       block: "center",
     })
   }
+
+  useEffect(() => {
+    // console.log('running')
+    document.querySelectorAll(".lax").forEach(element => {
+      lax.addElement(element)
+    })
+    window.addEventListener("resize", function() {
+      // console.log('changed')
+      lax.updateElements()
+    });
+  })
+  
 
   return (
     <>
@@ -31,7 +43,7 @@ export default ({ data }) => {
       </Router>
       <Store>
         <Navbar />
-        <Container fluid ref={ref} className="overall">
+        <Container fluid className="overall">
           <div
             style={{
               display: "flex",
@@ -46,12 +58,12 @@ export default ({ data }) => {
                 backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
               }}
               className="banner lax"
-              data-lax-bg-pos-y="0 (-0.2*vh), vh (-0.3*vh)"
+              data-lax-bg-pos-y="0 (-0.2*vh), vh (-0.1*vh)"
               data-lax-opacity="0 1, (0.3*vh) 1, (2*vh) 0"
             ></Container>
             <Container
               className="lax bannerText"
-              data-lax-translate-y="0 0, vh (0.8*vh)"
+              data-lax-translate-y="0 0, vh (0.6*elw)"
               data-lax-opacity="0 1, (0.5*vh) 0"
             >
               <h1>{data.contentfulWebsiteInformation.banner}</h1>
@@ -88,7 +100,7 @@ export default ({ data }) => {
             }}
             fluid
             className="banner lax"
-            data-lax-bg-pos-y="vh (0.1*elh), -vh (-0.1*elh)"
+            data-lax-bg-pos-y="vh (-0.05*elh), -vh (0.05*elh)"
             data-lax-opacity="(vh*2) 0, vh 1, -vh 1, (-vh*2) 0"
             data-lax-anchor="self"
           >
@@ -146,7 +158,7 @@ export default ({ data }) => {
             }}
             fluid
             className="banner lax"
-            data-lax-bg-pos-y="vh (0.1*elh), -vh (-0.1*elh)"
+            data-lax-bg-pos-y="vh (-0.05*elh), -vh (0.05*elh)"
             data-lax-opacity="(vh*2) 0, vh 1, -vh 1, (-vh*2) 0"
             data-lax-anchor="self"
           >
@@ -166,7 +178,7 @@ export default ({ data }) => {
             }}
             fluid
             className="banner lax"
-            data-lax-bg-pos-y="vh (0.1*elh), -vh (-0.1*elh)"
+            data-lax-bg-pos-y="vh (-0.05*elh), -vh (0.05*elh)"
             data-lax-opacity="(vh*2) 0, vh 1, -vh 1, (-vh*2) 0"
             data-lax-anchor="self"
           >
