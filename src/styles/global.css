@@ -300,18 +300,18 @@
 }
 .nav-link:hover {
   color: black !important;
-  background: rgba(255, 255, 255, 1);
+  background: #f3f3f3;
 }
 .black {
   padding: 10px !important;
 }
 .black:hover {
-  color: white !important;
+  color: #f3f3f3 !important;
   background: rgb(255, 208, 0) !important;
 }
 @media screen and (max-width: 997px) {
   .nav-link {
-    background: whitesmoke !important;
+    background: #f3f3f3 !important;
     color: black !important;
     padding: 20px !important;
     font-size: 18px;

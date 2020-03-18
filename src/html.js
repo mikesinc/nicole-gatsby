@@ -18,7 +18,6 @@ export default function HTML(props) {
           dangerouslySetInnerHTML={{ __html: props.body }}
         />
         {props.postBodyComponents}
-        <script src="https://cdn.jsdelivr.net/npm/lax.js" ></script>
       </body>
     </html>
   )

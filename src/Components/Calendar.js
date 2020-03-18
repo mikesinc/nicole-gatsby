@@ -153,7 +153,7 @@ const BookingCalendar = () => {
   }, [week, queryData.contentfulWebsiteInformation.email])
 
   const handleSelect = event => {
-    if (event.title === "booked") {
+    if (event.title === "Not Available") {
       return null
     } else {
       setBookingDetails({
@@ -275,7 +275,7 @@ const BookingCalendar = () => {
 
   if (!isLoaded) {
     return (
-      <div style={{height: "100vmin"}}>
+      <div style={{height: "90vh"}}>
         <h1>Loading</h1>
         <img
           alt="loading"
@@ -312,7 +312,7 @@ const BookingCalendar = () => {
           }
           components={{ toolbar: CustomToolbar }}
           views={{ week: MyWeek }}
-          style={{ height: "70vh", width: "30vw" }}
+          // style={{ height: "70vh", width: "30vw" }}
           onSelectEvent={event => handleSelect(event)}
           getNow={() => setDay(new Date(moment().startOf("day")))}
           min={new Date(0, 0, 0, 10, 0, 0)}
