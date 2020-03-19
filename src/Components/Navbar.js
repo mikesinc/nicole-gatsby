@@ -29,7 +29,7 @@ const NavBar = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > window.innerHeight * 0.4) {
+      if (window.pageYOffset > window.innerHeight * 0.4) {
         setIsTop(false)
         document.querySelectorAll(".nav-link").forEach(item => {
           item.classList.add("black")

@@ -9,6 +9,9 @@
   background-color: #f3f3f3;
   margin: 0 !important;
   padding: 0 !important;
+
+  /* border: solid;
+  border-color: blue; */
 }
 
 @media screen and (min-width: 765px) {
@@ -19,57 +22,57 @@
 
 .banner {
   background-blend-mode: darken;
-  background-attachment: scroll;
   background-position: center;
-  background-size: auto 95vmax;
+  background-size: cover;
   height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
   filter: opacity(0.85);
+
+  /* border: solid;
+  border-color: red; */
 }
 .banner h2 {
   font-size: 24px;
+
+  /* border: solid;
+  border-color: green; */
 }
 @media screen and (min-width: 760px) {
-  .banner {
-    background-attachment: fixed;
-    background-size: auto 110vmax;
-    /* background-size: cover; */
-  }
   .banner h2 {
     font-size: 36px;
-  }
-}
-@media screen and (min-width: 1020px) {
-  .banner {
-    background-attachment: fixed;
-    /* background-size: auto 90vmax; */
-    background-size: cover;
   }
 }
 @media screen and (min-width: 1370px) {
   .banner {
     background-attachment: fixed;
-    background-size: cover;
+    /* background-size: cover; */
+    background-size: auto 120vh;
   }
   .banner h2 {
     font-size: 42px;
   }
 }
-/* @supports (-webkit-overflow-scrolling: touch) {
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .banner {
-    background-attachment: scroll;
+      background-attachment: scroll;
   }
-} */
+}
 
 .bannerText {
   color: #f3f3f3;
   text-align: center;
   position: absolute;
+
+  /* border: solid;
+  border-color: purple; */
 }
 .bannerText h1 {
   font-size: 34px;
+
+  /* border: solid;
+  border-color: yellow; */
 }
 @media screen and (min-width: 765px) {
   .bannerText h1 {
@@ -117,7 +120,6 @@
 
 .about {
   text-align: center;
-  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -143,7 +145,7 @@
 @media screen and (min-width: 1025px) {
   .about {
     margin-bottom: 100px;
-    width: 50% !important;
+    max-width: 50%;
   }
   .about img {
     height: 300px;

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react"
-import { useLax } from "use-lax"
-import lax from 'lax.js/lib/lax'
+import lax from "lax.js"
 import Container from "react-bootstrap/Container"
 import Navbar from "../Components/Navbar"
 import ContactForm from "../Components/ContactForm"
@@ -14,8 +13,6 @@ import SEO from "../Components/Seo"
 import "bootstrap/dist/css/bootstrap.min.css"
 
 export default ({ data }) => {
-  useLax()
-
   const setTop = height => {
     document.querySelector(height).scrollIntoView({
       behavior: "smooth",
@@ -24,16 +21,25 @@ export default ({ data }) => {
   }
 
   useEffect(() => {
-    // console.log('running')
-    document.querySelectorAll(".lax").forEach(element => {
-      lax.addElement(element)
-    })
-    window.addEventListener("resize", function() {
-      // console.log('changed')
-      lax.updateElements()
-    });
+    if (window.document.documentMode) {
+      return null
+    } else {
+      lax.setup({
+        breakpoints: { small: 0, large: 1370 },
+      }) // init
+      const updateLax = () => {
+        lax.update(window.pageYOffset)
+        window.requestAnimationFrame(updateLax)
+      }
+      window.requestAnimationFrame(updateLax)
+      document.querySelectorAll(".lax").forEach(element => {
+        lax.addElement(element)
+      })
+      window.addEventListener("resize", function() {
+        lax.updateElements()
+      })
+    }
   })
-  
 
   return (
     <>
@@ -44,31 +50,25 @@ export default ({ data }) => {
       <Store>
         <Navbar />
         <Container fluid className="overall">
-          <div
+          <Container
+            fluid
             style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
+              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
             }}
+            className="banner lax"
+            data-lax-bg-pos-y_large="0 (-0.2*vh), vh (-0.1*vh)"
+            data-lax-bg-pos-y_small="0 0, 0 0"
           >
             <Container
-              fluid
-              style={{
-                backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
-              }}
-              className="banner lax"
-              data-lax-bg-pos-y="0 (-0.2*vh), vh (-0.1*vh)"
-              data-lax-opacity="0 1, (0.3*vh) 1, (2*vh) 0"
-            ></Container>
-            <Container
               className="lax bannerText"
-              data-lax-translate-y="0 0, vh (0.6*elw)"
-              data-lax-opacity="0 1, (0.5*vh) 0"
+              data-lax-translate-y_large="0 0, vh (0.6*elw)"
+              data-lax-translate-y_small="0 0, 0 0"
+              data-lax-opacity_large="0 1, (0.5*vh) 0"
+              data-lax-opacity_small="0 1, 0 1"
             >
               <h1>{data.contentfulWebsiteInformation.banner}</h1>
             </Container>
-          </div>
+          </Container>
 
           <Container fluid className="scrollDown">
             <h1>{data.contentfulWebsiteInformation.header}</h1>
@@ -100,8 +100,8 @@ export default ({ data }) => {
             }}
             fluid
             className="banner lax"
-            data-lax-bg-pos-y="vh (-0.05*elh), -vh (0.05*elh)"
-            data-lax-opacity="(vh*2) 0, vh 1, -vh 1, (-vh*2) 0"
+            data-lax-bg-pos-y_large="vh (-0.05*elh), -vh (0.05*elh)"
+            data-lax-bg-pos-y_small="0 0, 0 0"
             data-lax-anchor="self"
           >
             <Container className="bannerText">
@@ -158,8 +158,8 @@ export default ({ data }) => {
             }}
             fluid
             className="banner lax"
-            data-lax-bg-pos-y="vh (-0.05*elh), -vh (0.05*elh)"
-            data-lax-opacity="(vh*2) 0, vh 1, -vh 1, (-vh*2) 0"
+            data-lax-bg-pos-y_large="vh (-0.05*elh), -vh (0.05*elh)"
+            data-lax-bg-pos-y_small="0 0, 0 0"
             data-lax-anchor="self"
           >
             <Container className="bannerText">
@@ -178,8 +178,8 @@ export default ({ data }) => {
             }}
             fluid
             className="banner lax"
-            data-lax-bg-pos-y="vh (-0.05*elh), -vh (0.05*elh)"
-            data-lax-opacity="(vh*2) 0, vh 1, -vh 1, (-vh*2) 0"
+            data-lax-bg-pos-y_large="vh (-0.05*elh), -vh (0.05*elh)"
+            data-lax-bg-pos-y_small="0 0, 0 0"
             data-lax-anchor="self"
           >
             <Container className="bannerText">
