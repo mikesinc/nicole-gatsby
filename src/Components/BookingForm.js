@@ -124,7 +124,7 @@ const BookingForm = props => {
             </p>
             <Form.Group as={Row}>
               <Col sm={{ span: 5, offset: 2 }} lg={{ span: 3, offset: 2 }}>
-                <Button type="submit" variant="warning">
+                <Button type="submit" variant="info">
                   confirm booking
                 </Button>
               </Col>

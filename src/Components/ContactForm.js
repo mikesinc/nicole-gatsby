@@ -82,7 +82,7 @@ const ContactForm = () => {
           </Form.Group>
           <Form.Group as={Row}>
             <Col sm={{ span: 3, offset: 2 }} lg={{ span: 5, offset: 2 }}>
-              <Button type="submit" variant="warning">
+              <Button type="submit" variant="info">
                 send message
               </Button>
             </Col>

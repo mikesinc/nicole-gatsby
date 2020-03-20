@@ -321,8 +321,8 @@ const BookingCalendar = () => {
           eventPropGetter={event => ({
             style: {
               backgroundColor:
-                event.title === "Not Available" ? "grey" : "#ffbd00",
-              color: "black",
+                event.title === "Not Available" ? "grey" : "#3594a4",
+              color: event.title === "Not Available" ? "black" : "white",
               cursor: event.title === "Not Available" ? "default" : "pointer",
             },
           })}

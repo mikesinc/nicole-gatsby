@@ -53,7 +53,7 @@ export default ({ data }) => {
           <Container
             fluid
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
+              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
             }}
             className="banner lax"
             data-lax-bg-pos-y_large="0 (-0.2*vh), vh (-0.1*vh)"
@@ -71,15 +71,22 @@ export default ({ data }) => {
           </Container>
 
           <Container fluid className="scrollDown">
-            <h1>{data.contentfulWebsiteInformation.header}</h1>
-            <h2>{data.contentfulWebsiteInformation.subHeader}</h2>
             <Button
               onClick={() => setTop(".booking")}
               className="bookButton"
-              variant="warning"
+              variant="info"
             >
               Book Now
             </Button>
+            <span
+              style={{
+                borderBottom: "ridge",
+                borderColor: "rgba(53, 148, 164, 0.3)",
+                width: "50%",
+              }}
+            ></span>
+            <h1>{data.contentfulWebsiteInformation.header}</h1>
+            <h2>{data.contentfulWebsiteInformation.subHeader}</h2>
           </Container>
 
           <Container fluid className="about">
@@ -87,9 +94,17 @@ export default ({ data }) => {
               alt="Nicole Papadopoulos"
               src={data.contentfulWebsiteInformation.nicoleImage.file.url}
             ></img>
-            <h1>{data.contentfulWebsiteInformation.name}</h1>
-            <h2>{data.contentfulWebsiteInformation.qualifications}</h2>
-            <div className="iewrap-fix">
+            <div className="aboutTextWrapper">
+              <h1>{data.contentfulWebsiteInformation.name}</h1>
+              <span
+                style={{
+                  borderBottom: "ridge",
+                  borderColor: "rgba(53, 148, 164, 0.3)",
+                  width: "50%",
+                  marginBottom: '20px'
+                }}
+              ></span>
+              <h2>{data.contentfulWebsiteInformation.qualifications}</h2>
               <p>{data.contentfulWebsiteInformation.blurb.internal.content}</p>
             </div>
           </Container>
@@ -110,13 +125,27 @@ export default ({ data }) => {
           </Container>
 
           <Container fluid className="payment">
-            <div>
+            <div className="consulting">
+              <img
+                src={require("../assets/images/talk.png")}
+                alt="hours"
+                height="100px"
+                style={{ marginBottom: "40px" }}
+              ></img>
               <h1>
                 {
                   data.contentfulWebsiteInformation.workingDays.content[0]
                     .content[0].value
                 }
               </h1>
+              <span
+                style={{
+                  borderBottom: "ridge",
+                  borderColor: "rgba(53, 148, 164, 0.3)",
+                  width: "50%",
+                  margin: "0px 0px 20px",
+                }}
+              ></span>
               {data.contentfulWebsiteInformation.workingDays.content.map(
                 (item, index) => {
                   if (
@@ -130,13 +159,27 @@ export default ({ data }) => {
                 }
               )}
             </div>
-            <div>
+            <div className="consulting">
+              <img
+                src={require("../assets/images/payment.png")}
+                alt="hours"
+                height="100px"
+                style={{ marginBottom: "40px" }}
+              ></img>
               <h1>
                 {
                   data.contentfulWebsiteInformation.pricing.content[0]
                     .content[0].value
                 }
               </h1>
+              <span
+                style={{
+                  borderBottom: "ridge",
+                  borderColor: "rgba(53, 148, 164, 0.3)",
+                  width: "50%",
+                  margin: "0px 0px 20px",
+                }}
+              ></span>
               {data.contentfulWebsiteInformation.pricing.content.map(
                 (item, index) => {
                   if (
@@ -152,7 +195,7 @@ export default ({ data }) => {
             </div>
           </Container>
 
-          <Container
+          {/* <Container
             style={{
               backgroundImage: `url(${data.contentfulWebsiteInformation.banner3Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
             }}
@@ -165,10 +208,23 @@ export default ({ data }) => {
             <Container className="bannerText">
               <h2>{data.contentfulWebsiteInformation.banner3}</h2>
             </Container>
-          </Container>
-
+          </Container> */}
           <Container fluid className="booking">
+            <img
+              src={require("../assets/images/calendar.png")}
+              alt="hours"
+              height="100px"
+              style={{ margin: "20px 0px 20px" }}
+            ></img>
             <h1>{data.contentfulWebsiteInformation.bookingTitle}</h1>
+            <span
+              style={{
+                borderBottom: "ridge",
+                borderColor: "rgba(53, 148, 164, 0.3)",
+                width: "50%",
+                margin: "0px 0px 50px",
+              }}
+            ></span>
             <Calendar />
           </Container>
 
@@ -189,15 +245,50 @@ export default ({ data }) => {
 
           <Container fluid className="location">
             <div className="leftBox">
+              <img
+                src={require("../assets/images/book.png")}
+                alt="hours"
+                height="100px"
+                style={{ margin: "20px 0px 20px" }}
+              ></img>
+              <h3>
+                Contact
+              </h3>
+              <div
+              style={{
+                borderBottom: "ridge",
+                borderColor: "rgba(53, 148, 164, 0.3)",
+                width: "50%",
+                margin: "0px auto 20px",
+              }}
+            ></div>
               <h4>{data.contentfulWebsiteInformation.contactHeader}</h4>
               <ContactForm />
             </div>
+
             <div className="rightBox">
+              <img
+                src={require("../assets/images/pin.png")}
+                alt="hours"
+                height="100px"
+                style={{ margin: "20px 0px 20px" }}
+              ></img>
+              <h3>
+                Location
+              </h3>
+              <div
+              style={{
+                borderBottom: "ridge",
+                borderColor: "rgba(53, 148, 164, 0.3)",
+                width: "50%",
+                margin: "0px auto 20px",
+              }}
+            ></div>
               <h1>{data.contentfulWebsiteInformation.address}</h1>
               <h2>{data.contentfulWebsiteInformation.addressLine2}</h2>
+              <div className="map"></div>
             </div>
           </Container>
-
           <Container fluid className="author">
             <div>
               <a
@@ -207,9 +298,19 @@ export default ({ data }) => {
               >
                 <p>website by mikesinc</p>
               </a>
-              <a href="https://icons8.com/">
-                <p style={{ fontSize: "6px" }}>icon by icons8</p>
-              </a>
+              <div style={{ fontSize: "6px" }}>
+                Icons made by{" "}
+                <a
+                  href="https://www.flaticon.com/authors/freepik"
+                  title="Freepik"
+                >
+                  Freepik
+                </a>{" "}
+                from{" "}
+                <a href="https://www.flaticon.com/" title="Flaticon">
+                  www.flaticon.com
+                </a>
+              </div>
             </div>
           </Container>
         </Container>
