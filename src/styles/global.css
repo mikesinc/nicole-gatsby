@@ -145,6 +145,7 @@
 }
 .about h2 {
   font-size: 18px;
+  padding-bottom: 20px;
 }
 .about p {
   font-size: 14px;
@@ -174,7 +175,6 @@
   }
   .about h2 {
     font-size: 20px;
-    padding-bottom: 20px;
   }
   .about p {
     font-size: 16px;
@@ -230,6 +230,10 @@
 }
 .booking h1 {
   font-size: 28px;
+}
+.booking p {
+  margin-top: 20px !important;
+  font-size: 12px;
 }
 @media screen and (min-width: 765px) {
   .booking {
@@ -408,22 +412,17 @@
   min-height: 60px !important;
 }
 .rbc-time-view {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  width: 30vw;
-  border: 1px solid #ddd;
-  min-height: 100% !important;
+  /* display: flex; */
+  /* flex: 1; */
+  /* flex-direction: column; */
+  /* width: 30vw; */
+  /* border: 1px solid #ddd; */
+  /* min-height: 100% !important; */
   font-size: 16px;
 }
-.rbc-calendar {
-  box-sizing: border-box;
-  height: 100% !important;
-  width: 30vw !important;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+/* .rbc-calendar { */
+  /* border: solid; */
+/* } */
 .rbc-event {
   font-size: 18px;
 }
@@ -432,31 +431,55 @@
   font-size: 20px !important;
   flex-wrap: nowrap;
 }
-p {
-  padding-top: 10px;
-  font-size: 16px;
-}
 @media screen and (max-width: 1370px) {
   .rbc-timeslot-group {
-    min-height: 50px;
+    min-height: 60px !important;
   }
   .rbc-time-view {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    width: 90vw;
-    border: 1px solid #ddd;
-    min-height: 100% !important;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* flex: 1; */
+    /* width: 90vw; */
+    /* border: 1px solid #ddd; */
+    /* min-height: 100% !important; */
     font-size: 12px;
   }
-  .rbc-calendar {
-    box-sizing: border-box;
-    height: 100% !important;
-    width: 90vw !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  /* .rbc-calendar { */
+    /* box-sizing: border-box; */
+    /* width: 90vw !important; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+  /* } */
+  .rbc-event {
+    font-size: 12px;
   }
+  .rbc-toolbar {
+    width: 60vw !important;
+    font-size: 14px !important;
+    flex-wrap: nowrap;
+  }
+}
+@media screen and (max-width: 760px) {
+  .rbc-timeslot-group {
+    min-height: 50px !important;
+  }
+  .rbc-time-view {
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* flex: 1; */
+    /* width: 90vw; */
+    /* border: 1px solid #ddd; */
+    /* min-height: 100% !important; */
+    font-size: 12px;
+  }
+  /* .rbc-calendar { */
+    /* box-sizing: border-box; */
+    /* width: 90vw !important; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+  /* } */
   .rbc-event {
     font-size: 12px;
   }
@@ -464,9 +487,5 @@ p {
     width: 90vw !important;
     font-size: 14px !important;
     flex-wrap: nowrap;
-  }
-  p {
-    padding-top: 10px;
-    font-size: 12px;
   }
 }

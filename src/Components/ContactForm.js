@@ -16,7 +16,7 @@ const ContactForm = () => {
   `)
   return (
     <div>
-      <Container fluid className="form_container" style={{ padding: "0" }}>
+      <Container fluid className="form_container" style={{ padding: "0", textAlign: 'left' }}>
         <Form
           action={`https://formspree.io/${data.contentfulWebsiteInformation.email}`}
           method="POST"
