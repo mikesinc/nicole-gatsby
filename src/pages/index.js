@@ -61,6 +61,7 @@ export default ({ data }) => {
           >
             <Container
               className="lax bannerText"
+              fluid
               data-lax-translate-y_large="0 0, vh (0.6*elw)"
               data-lax-translate-y_small="0 0, 0 0"
               data-lax-opacity_large="0 1, (0.5*vh) 0"
@@ -94,7 +95,7 @@ export default ({ data }) => {
               alt="Nicole Papadopoulos"
               src={data.contentfulWebsiteInformation.nicoleImage.file.url}
             ></img>
-            <div className="aboutTextWrapper">
+            <Container className="aboutTextWrapper" fluid>
               <h1>{data.contentfulWebsiteInformation.name}</h1>
               <span
                 style={{
@@ -106,7 +107,7 @@ export default ({ data }) => {
               ></span>
               <h2>{data.contentfulWebsiteInformation.qualifications}</h2>
               <p>{data.contentfulWebsiteInformation.blurb.internal.content}</p>
-            </div>
+            </Container>
           </Container>
 
           <Container
@@ -119,7 +120,7 @@ export default ({ data }) => {
             data-lax-bg-pos-y_small="0 0, 0 0"
             data-lax-anchor="self"
           >
-            <Container className="bannerText">
+            <Container className="bannerText" fluid>
               <h2>{data.contentfulWebsiteInformation.banner2}</h2>
             </Container>
           </Container>
@@ -195,20 +196,6 @@ export default ({ data }) => {
             </div>
           </Container>
 
-          {/* <Container
-            style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner3Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
-            }}
-            fluid
-            className="banner lax"
-            data-lax-bg-pos-y_large="vh (-0.05*elh), -vh (0.05*elh)"
-            data-lax-bg-pos-y_small="0 0, 0 0"
-            data-lax-anchor="self"
-          >
-            <Container className="bannerText">
-              <h2>{data.contentfulWebsiteInformation.banner3}</h2>
-            </Container>
-          </Container> */}
           <Container fluid className="booking">
             <img
               src={require("../assets/images/calendar.png")}
@@ -238,7 +225,7 @@ export default ({ data }) => {
             data-lax-bg-pos-y_small="0 0, 0 0"
             data-lax-anchor="self"
           >
-            <Container className="bannerText">
+            <Container className="bannerText" fluid>
               <h2>{data.contentfulWebsiteInformation.banner4}</h2>
             </Container>
           </Container>

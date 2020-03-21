@@ -22,7 +22,7 @@ module.exports = {
           `scrollY`,
           `es7`,
           `es6`,
-          `es5`
+          `es5`,
         ],
       },
     },

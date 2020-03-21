@@ -312,7 +312,6 @@ const BookingCalendar = () => {
           }
           components={{ toolbar: CustomToolbar }}
           views={{ week: MyWeek }}
-          // style={{ height: "70vh", width: "30vw" }}
           onSelectEvent={event => handleSelect(event)}
           getNow={() => setDay(new Date(moment().startOf("day")))}
           min={new Date(0, 0, 0, 10, 0, 0)}

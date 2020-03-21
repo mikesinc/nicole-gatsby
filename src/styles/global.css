@@ -9,9 +9,6 @@
   background-color: #f3f3f3;
   margin: 0 !important;
   padding: 0 !important;
-
-  /* border: solid;
-  border-color: blue; */
 }
 
 @media screen and (min-width: 765px) {
@@ -29,54 +26,18 @@
   justify-content: center;
   align-items: center;
   filter: opacity(0.85);
-
-  /* border: solid;
-  border-color: red; */
-}
-.banner h2 {
-  font-size: 24px;
-
-  /* border: solid;
-  border-color: green; */
-}
-@media screen and (min-width: 760px) {
-  .banner h2 {
-    font-size: 36px;
-  }
-}
-@media screen and (min-width: 1370px) {
-  .banner {
-    background-attachment: fixed;
-    /* background-size: cover; */
-    background-size: auto 120vh;
-  }
-  .banner h2 {
-    font-size: 42px;
-  }
-}
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .banner {
-    background-attachment: scroll;
-  }
-}
-
-.bannerText {
-  color: #f3f3f3;
-  text-align: center;
-  position: absolute;
-
-  /* border: solid;
-  border-color: purple; */
 }
 .bannerText h1 {
-  font-size: 46px;
-
-  /* border: solid;
-  border-color: yellow; */
+  color: #f3f3f3;
+  text-align: center;
+  font-size: 36px;
+  margin: 0;
+  padding: 0;
 }
-.bookButton {
-  font-size: 20px !important;
-  margin: 30px 0px 30px;
+@media screen and (min-width: 400px) {
+  .bannerText h1 {
+    font-size: 46px;
+  }
 }
 @media screen and (min-width: 765px) {
   .bannerText h1 {
@@ -91,6 +52,31 @@
     font-size: 72px;
   }
 }
+.banner h2 {
+  font-size: 24px;
+  color: #f3f3f3;
+  text-align: center;
+}
+@media screen and (min-width: 760px) {
+  .banner h2 {
+    font-size: 36px;
+  }
+}
+@media screen and (min-width: 1370px) {
+  .banner {
+    background-attachment: fixed;
+    background-size: auto 120vh;
+  }
+  .banner h2 {
+    font-size: 42px;
+    padding: 0px 15% 0px;
+  }
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .banner {
+    background-attachment: scroll;
+  }
+}
 
 .scrollDown {
   display: flex;
@@ -98,6 +84,10 @@
   align-items: center;
   text-align: center;
   padding-bottom: 20px;
+}
+.bookButton {
+  font-size: 20px !important;
+  margin: 30px 0px 30px;
 }
 .scrollDown h1 {
   font-size: 21px;
@@ -128,17 +118,17 @@
   justify-content: space-between;
   flex-direction: column;
   padding: 20px 0px 0px !important;
-
-  /* border: solid; */
 }
 .about img {
   margin: 0px 0px 50px;
   width: 100%;
+  height: 100%;
 }
 .aboutTextWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 100%;
 }
 .about h1 {
   font-size: 28px;
@@ -151,6 +141,7 @@
   font-size: 14px;
   text-align: center;
   margin: 0px 20px 60px;
+  width: 95%;
 }
 
 @media screen and (min-width: 1025px) {
@@ -158,7 +149,6 @@
     flex-direction: row;
     padding: 0 !important;
     background-color: rgba(53, 148, 164, 0.1);
-    /* margin-bottom: 100px; */
   }
   .aboutTextWrapper {
     max-width: 40%;
@@ -167,7 +157,6 @@
   .about img {
     margin: 0;
     width: 50vw;
-    height: 100%;
   }
   .about h1 {
     font-size: 36px;
@@ -179,6 +168,7 @@
   .about p {
     font-size: 16px;
     text-align: justify;
+    width: 100%;
   }
 }
 
@@ -412,17 +402,8 @@
   min-height: 60px !important;
 }
 .rbc-time-view {
-  /* display: flex; */
-  /* flex: 1; */
-  /* flex-direction: column; */
-  /* width: 30vw; */
-  /* border: 1px solid #ddd; */
-  /* min-height: 100% !important; */
   font-size: 16px;
 }
-/* .rbc-calendar { */
-  /* border: solid; */
-/* } */
 .rbc-event {
   font-size: 18px;
 }
@@ -436,21 +417,8 @@
     min-height: 60px !important;
   }
   .rbc-time-view {
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* flex: 1; */
-    /* width: 90vw; */
-    /* border: 1px solid #ddd; */
-    /* min-height: 100% !important; */
     font-size: 12px;
   }
-  /* .rbc-calendar { */
-    /* box-sizing: border-box; */
-    /* width: 90vw !important; */
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* align-items: center; */
-  /* } */
   .rbc-event {
     font-size: 12px;
   }
@@ -465,21 +433,8 @@
     min-height: 50px !important;
   }
   .rbc-time-view {
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* flex: 1; */
-    /* width: 90vw; */
-    /* border: 1px solid #ddd; */
-    /* min-height: 100% !important; */
     font-size: 12px;
   }
-  /* .rbc-calendar { */
-    /* box-sizing: border-box; */
-    /* width: 90vw !important; */
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* align-items: center; */
-  /* } */
   .rbc-event {
     font-size: 12px;
   }
