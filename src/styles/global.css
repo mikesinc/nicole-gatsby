@@ -312,12 +312,12 @@
   }
   .leftBox {
     background-color: rgba(53, 148, 164, 0.1);
-    padding: 100px;
+    padding: 100px 0px 0px;
     width: 50%;
   }
   .rightBox {
     width: 50%;
-    padding: 100px;
+    padding: 100px 0px 0px;
   }
   .rightBox h1 {
     font-size: 22px;

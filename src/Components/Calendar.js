@@ -207,7 +207,7 @@ const BookingCalendar = () => {
         title: "Not Available",
         calId: queryData.contentfulWebsiteInformation.email,
         resource: {
-          summary: `${userDetails.userName} at ${bookingDetails.start} to ${bookingDetails.end}`,
+          summary: `${userDetails.userName} ${userDetails.userPhone} at ${bookingDetails.start} to ${bookingDetails.end}`,
           start: {
             dateTime: adjustTime(new Date(event.start), "origin").toISOString(),
           },
@@ -241,6 +241,7 @@ const BookingCalendar = () => {
           }, please see below confirmation of your booking with
           Dr. Nicole Papadopoulos.</h1>
           <h2>${bookingDetails.start} to ${bookingDetails.end} on ${monthNames[event.start.getMonth()]} ${event.start.getDate()}</h2>
+          <p>Contact Number provided: ${userDetails.userPhone}</p>
           <p>If you would like to cancel your booking, please click the below button</p>
           <a href="https://drnicolepapadopoulos.netlify.com/cancel/:${ // update this for host site.
             event.eventId

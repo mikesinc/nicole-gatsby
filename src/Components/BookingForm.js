@@ -46,7 +46,7 @@ const BookingForm = props => {
             </fieldset>
             <Form.Group as={Row}>
               <Form.Label column sm={{ span: 2, offset: 0 }}>
-                Name*
+                Full Name*
               </Form.Label>
               <Col xs={12} sm={8} lg={5}>
                 <Form.Control
@@ -94,7 +94,7 @@ const BookingForm = props => {
                   style={{ background: "transparent" }}
                   type="email"
                   name="_replyto"
-                  placeholder="Email"
+                  placeholder="example@gmail.com"
                   required
                   onInput={e =>
                     setUserDetails({ type: "EMAIL", payload: [e.target.value] })
@@ -105,14 +105,14 @@ const BookingForm = props => {
             </Form.Group>
             <Form.Group as={Row}>
               <Form.Label column sm={{ span: 2, offset: 0 }}>
-                Phone
+                Phone*
               </Form.Label>
               <Col xs={12} sm={8} lg={5}>
                 <Form.Control
                   style={{ background: "transparent" }}
                   type="tel"
                   name="tel"
-                  placeholder="(optional)"
+                  required
                   onInput={e =>
                     setUserDetails({ type: "TEL", payload: [e.target.value] })
                   }
