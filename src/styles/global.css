@@ -249,7 +249,15 @@
 }
 .leftBox {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 0px 20px 50px;
+}
+.specialisationText {
+  text-align: justify;
+  width: 80%;
+  padding-top: 20px;
 }
 .rightBox {
   text-align: center;
@@ -261,15 +269,16 @@
   font-size: 14px;
 }
 .map {
-  height: 50rem;
-  background: url("../assets/images/blackburnfilter.png");
-  background-size: 50rem;
-  background-position: center;
-  background-repeat: no-repeat;
+  margin: 50px 0px 0px;
+  height: 500px;
+  width: 90%;
 }
 @media screen and (min-width: 765px) {
   .location {
     padding: 50px;
+  }
+  .specialisationText {
+    width: 60%;
   }
   .location h3 {
     font-size: 36px;

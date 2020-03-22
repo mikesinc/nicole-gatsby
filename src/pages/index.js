@@ -64,7 +64,7 @@ export default ({ data }) => {
               fluid
               data-lax-translate-y_large="0 0, vh (0.6*elw)"
               data-lax-translate-y_small="0 0, 0 0"
-              data-lax-opacity_large="0 1, (0.5*vh) 0"
+              data-lax-opacity_large="0 1, (0.3*vh) 0"
               data-lax-opacity_small="0 1, 0 1"
             >
               <h1>{data.contentfulWebsiteInformation.banner}</h1>
@@ -233,6 +233,32 @@ export default ({ data }) => {
           <Container fluid className="location">
             <div className="leftBox">
               <img
+                src={require("../assets/images/idea.png")}
+                alt="hours"
+                height="100px"
+                style={{ margin: "20px 0px 20px" }}
+              ></img>
+              <h3>Specialisation</h3>
+              <div
+                style={{
+                  borderBottom: "ridge",
+                  borderColor: "rgba(53, 148, 164, 0.3)",
+                  width: "50%",
+                  margin: "0px auto 20px",
+                }}
+              ></div>
+              <div
+                className="specialisationText"
+                dangerouslySetInnerHTML={{
+                  __html:
+                    data.contentfulWebsiteInformation.specialisations
+                      .childMarkdownRemark.html,
+                }}
+              ></div>
+            </div>
+
+            <div className="rightBox">
+              <img
                 src={require("../assets/images/contact.png")}
                 alt="hours"
                 height="100px"
@@ -247,29 +273,18 @@ export default ({ data }) => {
                   margin: "0px auto 20px",
                 }}
               ></div>
-              <h4>{data.contentfulWebsiteInformation.contactHeader}</h4>
-              <ContactForm />
-            </div>
-
-            <div className="rightBox">
-              <img
-                src={require("../assets/images/pin.png")}
-                alt="hours"
-                height="100px"
-                style={{ margin: "20px 0px 20px" }}
-              ></img>
-              <h3>Location</h3>
-              <div
-                style={{
-                  borderBottom: "ridge",
-                  borderColor: "rgba(53, 148, 164, 0.3)",
-                  width: "50%",
-                  margin: "0px auto 20px",
-                }}
-              ></div>
               <h1>{data.contentfulWebsiteInformation.address}</h1>
+              <h2>Tel: (03) 9890 0031</h2>
               <h2>{data.contentfulWebsiteInformation.addressLine2}</h2>
-              <div className="map"></div>
+                <iframe
+                  className="map"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6301.593463198165!2d145.13210237901495!3d-37.8416442659673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3405f8cbbc9be4be!2sBlackburn%20South%20Medical%20Centre!5e0!3m2!1sen!2sau!4v1584874073465!5m2!1sen!2sau"
+                  frameborder="0"
+                  style={{ border: "0" }}
+                  allowfullscreen=""
+                  aria-hidden="false"
+                  tabindex="0"
+                ></iframe>
             </div>
           </Container>
           <Container fluid className="author">
@@ -307,10 +322,13 @@ export const query = graphql`
     contentfulWebsiteInformation {
       banner
       banner2
-      banner3
       banner4
       bookingTitle
-      contactHeader
+      specialisations {
+        childMarkdownRemark {
+          html
+        }
+      }
       header
       name
       qualifications
@@ -342,11 +360,6 @@ export const query = graphql`
         }
       }
       banner2image {
-        file {
-          url
-        }
-      }
-      banner3Image {
         file {
           url
         }
