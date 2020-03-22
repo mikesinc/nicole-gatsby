@@ -287,7 +287,14 @@ const BookingCalendar = () => {
     return (
       <p>{fetchError}.. cannot load calendar.. please refresh and try again.</p>
     )
-  } else {
+  } else if (window.document.documentMode) {
+    return (
+      <>
+      <p>Please use Chrome, Mozilla or Edge to make a booking!</p>
+      <p>Internet Explorer is not supported.</p>
+      </>
+    )
+ } else {
     return (
       <div>
         <Calendar

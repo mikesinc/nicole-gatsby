@@ -102,7 +102,7 @@ export default ({ data }) => {
                   borderBottom: "ridge",
                   borderColor: "rgba(53, 148, 164, 0.3)",
                   width: "50%",
-                  marginBottom: '20px'
+                  marginBottom: "20px",
                 }}
               ></span>
               <h2>{data.contentfulWebsiteInformation.qualifications}</h2>
@@ -233,22 +233,20 @@ export default ({ data }) => {
           <Container fluid className="location">
             <div className="leftBox">
               <img
-                src={require("../assets/images/book.png")}
+                src={require("../assets/images/contact.png")}
                 alt="hours"
                 height="100px"
                 style={{ margin: "20px 0px 20px" }}
               ></img>
-              <h3>
-                Contact
-              </h3>
+              <h3>Contact</h3>
               <div
-              style={{
-                borderBottom: "ridge",
-                borderColor: "rgba(53, 148, 164, 0.3)",
-                width: "50%",
-                margin: "0px auto 20px",
-              }}
-            ></div>
+                style={{
+                  borderBottom: "ridge",
+                  borderColor: "rgba(53, 148, 164, 0.3)",
+                  width: "50%",
+                  margin: "0px auto 20px",
+                }}
+              ></div>
               <h4>{data.contentfulWebsiteInformation.contactHeader}</h4>
               <ContactForm />
             </div>
@@ -260,17 +258,15 @@ export default ({ data }) => {
                 height="100px"
                 style={{ margin: "20px 0px 20px" }}
               ></img>
-              <h3>
-                Location
-              </h3>
+              <h3>Location</h3>
               <div
-              style={{
-                borderBottom: "ridge",
-                borderColor: "rgba(53, 148, 164, 0.3)",
-                width: "50%",
-                margin: "0px auto 20px",
-              }}
-            ></div>
+                style={{
+                  borderBottom: "ridge",
+                  borderColor: "rgba(53, 148, 164, 0.3)",
+                  width: "50%",
+                  margin: "0px auto 20px",
+                }}
+              ></div>
               <h1>{data.contentfulWebsiteInformation.address}</h1>
               <h2>{data.contentfulWebsiteInformation.addressLine2}</h2>
               <div className="map"></div>
