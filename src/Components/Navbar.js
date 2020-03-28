@@ -74,7 +74,7 @@ const NavBar = () => {
             <Nav.Link onClick={() => setTop(".booking")}>
               {data.contentfulWebsiteInformation.nav3Bookings}
             </Nav.Link>
-            <Nav.Link onClick={() => setTop(".location")}>
+            <Nav.Link onClick={() => setTop(".rightBox")}>
               {data.contentfulWebsiteInformation.nav4Contact}
             </Nav.Link>
           </Nav>

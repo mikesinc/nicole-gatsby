@@ -255,6 +255,14 @@ export default ({ data }) => {
                       .childMarkdownRemark.html,
                 }}
               ></div>
+              <div
+                className="therapeuticText"
+                dangerouslySetInnerHTML={{
+                  __html:
+                    data.contentfulWebsiteInformation.therapeuticPractice
+                      .childMarkdownRemark.html,
+                }}
+              ></div>
             </div>
 
             <div className="rightBox">
@@ -325,6 +333,11 @@ export const query = graphql`
       banner4
       bookingTitle
       specialisations {
+        childMarkdownRemark {
+          html
+        }
+      }
+      therapeuticPractice {
         childMarkdownRemark {
           html
         }
