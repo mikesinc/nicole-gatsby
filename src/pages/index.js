@@ -257,12 +257,12 @@ export default ({ data }) => {
               ></div>
               <div
                 className="therapeuticText"
-                dangerouslySetInnerHTML={{
+              dangerouslySetInnerHTML={{
                   __html:
                     data.contentfulWebsiteInformation.therapeuticPractice
                       .childMarkdownRemark.html,
-                }}
-              ></div>
+                }}>
+              </div>
             </div>
 
             <div className="rightBox">
