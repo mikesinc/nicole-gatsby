@@ -243,7 +243,7 @@ const BookingCalendar = () => {
           <h2>${bookingDetails.start} to ${bookingDetails.end} on ${monthNames[event.start.getMonth()]} ${event.start.getDate()}</h2>
           <p>Contact Number provided: ${userDetails.userPhone}</p>
           <p>If you would like to cancel your booking, please click the below button</p>
-          <a href="https://drnicolepapadopoulos.netlify.com/cancel/:${ // update this for host site.
+          <a href="https://drnicole.netlify.com/cancel/:${ // update this for host site.
             event.eventId
           }&${data.result.data.id}+${userDetails.userName.replace(/ +/g, "-")}=${
         userDetails.userEmail
