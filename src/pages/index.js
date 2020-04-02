@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import lax from "lax.js"
 import Container from "react-bootstrap/Container"
 import Navbar from "../Components/Navbar"
-import ContactForm from "../Components/ContactForm"
 import Calendar from "../Components/Calendar"
 import { Store } from "../Context/Store"
 import { Router } from "@reach/router"
@@ -285,6 +284,7 @@ export default ({ data }) => {
               <h2>Tel: (03) 9890 0031</h2>
               <h2>{data.contentfulWebsiteInformation.addressLine2}</h2>
                 <iframe
+                  title="googlemap"
                   className="map"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6301.593463198165!2d145.13210237901495!3d-37.8416442659673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3405f8cbbc9be4be!2sBlackburn%20South%20Medical%20Centre!5e0!3m2!1sen!2sau!4v1584874073465!5m2!1sen!2sau"
                   frameborder="0"
