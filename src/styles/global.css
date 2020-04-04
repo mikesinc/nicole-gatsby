@@ -264,13 +264,14 @@
   justify-content: center;
 }
 .rightBox {
-  text-align: center;
-}
-.rightBox h1 {
-  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px 20px 50px;
 }
 .rightBox h2 {
   font-size: 14px;
+  margin: 0px 0px 20px;
 }
 .map {
   margin: 50px 0px 0px;
@@ -298,12 +299,11 @@
   }
   .rightBox {
     width: 100%;
-  }
-  .rightBox h1 {
-    font-size: 36px;
+    padding: 0px 100px;
   }
   .rightBox h2 {
     font-size: 24px;
+    margin: 0px 0px 50px;
   }
 }
 @media screen and (min-width: 1350px) {
@@ -326,8 +326,8 @@
     width: 50%;
   }
   .rightBox {
-    width: 50%;
-    padding: 100px 0px 0px;
+    max-width: 50%;
+    padding: 100px 150px 0px;
   }
   .rightBox h1 {
     font-size: 22px;
@@ -345,7 +345,7 @@
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 0;
+  padding: 50px 0px 0px;
 }
 .author a {
   color: black;

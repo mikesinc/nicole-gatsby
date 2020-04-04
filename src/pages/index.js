@@ -10,6 +10,7 @@ import { graphql } from "gatsby"
 import Button from "react-bootstrap/Button"
 import SEO from "../Components/Seo"
 import "bootstrap/dist/css/bootstrap.min.css"
+import ContactForm from "../Components/ContactForm"
 
 export default ({ data }) => {
   const setTop = height => {
@@ -264,7 +265,7 @@ export default ({ data }) => {
               </div>
             </div>
 
-            <div className="rightBox">
+            <div fluid className="rightBox">
               <img
                 src={require("../assets/images/contact.png")}
                 alt="hours"
@@ -280,10 +281,12 @@ export default ({ data }) => {
                   margin: "0px auto 20px",
                 }}
               ></div>
-              <h1>{data.contentfulWebsiteInformation.address}</h1>
-              <h2>Tel: (03) 9890 0031</h2>
-              <h2>{data.contentfulWebsiteInformation.addressLine2}</h2>
-                <iframe
+              {/* <h1>{data.contentfulWebsiteInformation.address}</h1> */}
+              {/* <h2>Email: {data.contentfulWebsiteInformation.email}</h2> */}
+              <h2>Tel: {data.contentfulWebsiteInformation.contactNumber}</h2>
+              <ContactForm />
+              {/* <h2>{data.contentfulWebsiteInformation.addressLine2}</h2> */}
+                {/* <iframe
                   title="googlemap"
                   className="map"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6301.593463198165!2d145.13210237901495!3d-37.8416442659673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3405f8cbbc9be4be!2sBlackburn%20South%20Medical%20Centre!5e0!3m2!1sen!2sau!4v1584874073465!5m2!1sen!2sau"
@@ -292,7 +295,7 @@ export default ({ data }) => {
                   allowfullscreen=""
                   aria-hidden="false"
                   tabindex="0"
-                ></iframe>
+                ></iframe> */}
             </div>
           </Container>
           <Container fluid className="author">
@@ -346,8 +349,8 @@ export const query = graphql`
       name
       qualifications
       subHeader
-      address
-      addressLine2
+      contactNumber
+      email
       pricing {
         content {
           content {

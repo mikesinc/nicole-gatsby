@@ -6,7 +6,7 @@ module.exports = {
   siteMetadata: {
     title: `Dr. Nicole Papadopoulos`,
     author: `Michael Sinclair`,
-    description: `Private Clinical Private Clinical Psychologist Counselling services by Dr. Nicole Papadopoulos in Melbourne.`,
+    description: `Private Clinical Psychologist Counselling services by Dr. Nicole Papadopoulos in Melbourne.`,
     siteUrl: `https://drnicole.netlify.com`
   },
   plugins: [

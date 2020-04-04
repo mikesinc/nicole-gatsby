@@ -15,8 +15,8 @@ const ContactForm = () => {
     }
   `)
   return (
-    <div>
-      <Container fluid className="form_container" style={{ padding: "0", textAlign: 'left' }}>
+    // <div>
+      <Container fluid className="form_container">
         <Form
           action={`https://formspree.io/${data.contentfulWebsiteInformation.email}`}
           method="POST"
@@ -25,7 +25,7 @@ const ContactForm = () => {
             <Form.Label column sm={{ span: 2, offset: 0 }} style={{fontWeight: 'normal'}}>
               Name*
             </Form.Label>
-            <Col xs={12} sm={10} lg={10} xl={5}>
+            <Col xs={12} sm={5} lg={5} xl={5}>
               <Form.Control
                 style={{ background: "transparent", color: "black" }}
                 type="name"
@@ -38,7 +38,7 @@ const ContactForm = () => {
             <Form.Label column sm={{ span: 2, offset: 0 }} style={{fontWeight: 'normal'}}>
               Email*
             </Form.Label>
-            <Col xs={12} sm={10} lg={10} xl={5}>
+            <Col xs={12} sm={5} lg={5} xl={5}>
               <Form.Control
                 style={{ background: "transparent", color: "black" }}
                 type="email"
@@ -50,14 +50,15 @@ const ContactForm = () => {
           </Form.Group>
           <Form.Group as={Row}>
             <Form.Label column sm={{ span: 2, offset: 0 }} style={{fontWeight: 'normal'}}>
-              Phone
+              Phone*
             </Form.Label>
-            <Col xs={12} sm={10} lg={10} xl={5}>
+            <Col xs={12} sm={5} lg={5} xl={5}>
               <Form.Control
                 style={{ background: "transparent", color: "black" }}
                 type="tel"
                 name="tel"
                 placeholder="(optional)"
+                required
               />
             </Col>
           </Form.Group>
@@ -71,7 +72,7 @@ const ContactForm = () => {
                 name="description"
                 size="md"
                 as="textarea"
-                rows="10"
+                rows="8"
                 placeholder={`Your message... `}
                 required
               />
@@ -89,7 +90,7 @@ const ContactForm = () => {
           </Form.Group>
         </Form>
       </Container>
-    </div>
+    // </div>
   );
 };
 
