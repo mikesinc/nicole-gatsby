@@ -57,7 +57,7 @@ const ContactForm = () => {
                 style={{ background: "transparent", color: "black" }}
                 type="tel"
                 name="tel"
-                placeholder="(optional)"
+                placeholder="Mobile"
                 required
               />
             </Col>
