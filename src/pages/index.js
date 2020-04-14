@@ -281,21 +281,21 @@ export default ({ data }) => {
                   margin: "0px auto 20px",
                 }}
               ></div>
-              {/* <h1>{data.contentfulWebsiteInformation.address}</h1> */}
+              <h1>{data.contentfulWebsiteInformation.address}</h1>
+              <h2>{data.contentfulWebsiteInformation.addressLine2}</h2>
               {/* <h2>Email: {data.contentfulWebsiteInformation.email}</h2> */}
               <h2>Tel: {data.contentfulWebsiteInformation.contactNumber}</h2>
-              <ContactForm />
-              {/* <h2>{data.contentfulWebsiteInformation.addressLine2}</h2> */}
-                {/* <iframe
+              {/* <ContactForm /> */}
+                <iframe
                   title="googlemap"
                   className="map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6301.593463198165!2d145.13210237901495!3d-37.8416442659673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3405f8cbbc9be4be!2sBlackburn%20South%20Medical%20Centre!5e0!3m2!1sen!2sau!4v1584874073465!5m2!1sen!2sau"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3150.123313931144!2d145.12954531532!3d-37.85740497974449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad6407bd983af63%3A0x49a8178116f80c65!2s429%20Highbury%20Rd%2C%20Burwood%20East%20VIC%203151!5e0!3m2!1sen!2sau!4v1586841181822!5m2!1sen!2sau"
                   frameborder="0"
                   style={{ border: "0" }}
                   allowfullscreen=""
                   aria-hidden="false"
                   tabindex="0"
-                ></iframe> */}
+                ></iframe>
             </div>
           </Container>
           <Container fluid className="author">
@@ -350,6 +350,8 @@ export const query = graphql`
       qualifications
       subHeader
       contactNumber
+      address
+      addressLine2
       email
       pricing {
         content {
