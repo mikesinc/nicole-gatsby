@@ -10,7 +10,7 @@ import { graphql } from "gatsby"
 import Button from "react-bootstrap/Button"
 import SEO from "../Components/Seo"
 import "bootstrap/dist/css/bootstrap.min.css"
-import ContactForm from "../Components/ContactForm"
+// import ContactForm from "../Components/ContactForm"
 
 export default ({ data }) => {
   const setTop = height => {
@@ -257,12 +257,12 @@ export default ({ data }) => {
               ></div>
               <div
                 className="therapeuticText"
-              dangerouslySetInnerHTML={{
+                dangerouslySetInnerHTML={{
                   __html:
                     data.contentfulWebsiteInformation.therapeuticPractice
                       .childMarkdownRemark.html,
-                }}>
-              </div>
+                }}
+              ></div>
             </div>
 
             <div fluid className="rightBox">
@@ -286,16 +286,16 @@ export default ({ data }) => {
               {/* <h2>Email: {data.contentfulWebsiteInformation.email}</h2> */}
               <h2>Tel: {data.contentfulWebsiteInformation.contactNumber}</h2>
               {/* <ContactForm /> */}
-                <iframe
-                  title="googlemap"
-                  className="map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3150.123313931144!2d145.12954531532!3d-37.85740497974449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad6407bd983af63%3A0x49a8178116f80c65!2s429%20Highbury%20Rd%2C%20Burwood%20East%20VIC%203151!5e0!3m2!1sen!2sau!4v1586841181822!5m2!1sen!2sau"
-                  frameborder="0"
-                  style={{ border: "0" }}
-                  allowfullscreen=""
-                  aria-hidden="false"
-                  tabindex="0"
-                ></iframe>
+              <iframe
+                title="googlemap"
+                className="map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3150.123313931144!2d145.12954531532!3d-37.85740497974449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad6407bd983af63%3A0x49a8178116f80c65!2s429%20Highbury%20Rd%2C%20Burwood%20East%20VIC%203151!5e0!3m2!1sen!2sau!4v1586841181822!5m2!1sen!2sau"
+                frameBorder="0"
+                style={{ border: "0" }}
+                allowFullScreen=""
+                aria-hidden="false"
+                // tabindex="0"
+              ></iframe>
             </div>
           </Container>
           <Container fluid className="author">

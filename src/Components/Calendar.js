@@ -42,7 +42,7 @@ const adjustTime = (time, zone) => {
 
 const setDay = date => {
   date = new Date(date.getTime())
-  if(date.getDay() === 5) {
+  if (date.getDay() === 5) {
     date.setDate(date.getDate() - ((6 + 7 - date.getDay()) % 7))
   } else {
     date.setDate(date.getDate() + ((4 + 7 - date.getDay()) % 7))
@@ -75,21 +75,6 @@ const BookingCalendar = () => {
   const [userDetails] = useContext(UserContext)
 
   useEffect(() => {
-    const getEvents = week => {
-      axios
-        .post("https://nicole-papa-server.herokuapp.com/", {
-          week: week,
-        })
-        .then(res => {
-          // console.log(res.data.events, "fetched events")
-          checkEvents(res.data.events)
-        })
-        .catch(err => {
-          setFetchError(err.message)
-          setIsLoaded(true)
-        })
-    }
-
     const checkEvents = events => {
       axios
         .post("https://nicole-papa-server.herokuapp.com/checkbusybatch", {
@@ -97,9 +82,9 @@ const BookingCalendar = () => {
           id: queryData.contentfulWebsiteInformation.email,
         })
         .then(res => {
-          const checkEvents = res.data.busyArray
-
-          checkEvents.forEach(checkedEvent => {
+          let checkEventList = res.data.busyArray
+          console.log(checkEventList, "OK")
+          checkEventList.forEach(checkedEvent => {
             // console.log(checkedEvent, "checked event")
             if (checkedEvent.busyStatus === 1) {
               // console.log("patching, 1")
@@ -147,6 +132,22 @@ const BookingCalendar = () => {
           setFetchError(err.message)
           setIsLoaded(true)
         })
+      // setIsLoaded(true)
+    }
+
+    const getEvents = week => {
+      axios
+        .post("https://nicole-papa-server.herokuapp.com/", {
+          week: week,
+        })
+        .then(res => {
+          // console.log(res.data.events, "fetched events")
+          checkEvents(res.data.events)
+        })
+        .catch(err => {
+          setFetchError(err.message)
+          setIsLoaded(true)
+        })
     }
     setIsLoaded(false)
     getEvents(week)
@@ -159,15 +160,31 @@ const BookingCalendar = () => {
       setBookingDetails({
         title: "50 minute consultation with Dr. Papadopolous",
         day: `${monthNames[event.start.getMonth()]} ${event.start.getDate()}`,
-        start: `${event.start.getHours() > 12 ? event.start.getHours() - 12 : event.start.getHours()}:${
+        start: `${
+          event.start.getHours() > 12
+            ? event.start.getHours() - 12
+            : event.start.getHours()
+        }:${
           event.start.getMinutes() < 10
-            ? event.start.getHours() > 12 ? `${event.start.getMinutes()}0 pm`: `${event.start.getMinutes()}0 am`
-            : event.start.getHours() > 12 ? `${event.start.getMinutes()} pm` : `${event.start.getMinutes()}am`
+            ? event.start.getHours() > 12
+              ? `${event.start.getMinutes()}0 pm`
+              : `${event.start.getMinutes()}0 am`
+            : event.start.getHours() > 12
+            ? `${event.start.getMinutes()} pm`
+            : `${event.start.getMinutes()}am`
         }`,
-        end: `${event.end.getHours() > 12 ? event.end.getHours() - 12 : event.end.getHours()}:${
+        end: `${
+          event.end.getHours() > 12
+            ? event.end.getHours() - 12
+            : event.end.getHours()
+        }:${
           event.end.getMinutes() < 10
-            ? event.end.getHours() > 12 ? `${event.end.getMinutes()}0 pm`: `${event.end.getMinutes()}0 am`
-            : event.end.getHours() > 12 ? `${event.end.getMinutes()} pm` : `${event.end.getMinutes()}am`
+            ? event.end.getHours() > 12
+              ? `${event.end.getMinutes()}0 pm`
+              : `${event.end.getMinutes()}0 am`
+            : event.end.getHours() > 12
+            ? `${event.end.getMinutes()} pm`
+            : `${event.end.getMinutes()}am`
         }`,
         id: event.eventId,
       })
@@ -240,14 +257,20 @@ const BookingCalendar = () => {
             userDetails.userName
           }, please see below confirmation of your booking with
           Dr. Nicole Papadopoulos.</h1>
-          <h2>${bookingDetails.start} to ${bookingDetails.end} on ${monthNames[event.start.getMonth()]} ${event.start.getDate()}</h2>
+          <h2>${bookingDetails.start} to ${bookingDetails.end} on ${
+        monthNames[event.start.getMonth()]
+      } ${event.start.getDate()}</h2>
           <p>Contact Number provided: ${userDetails.userPhone}</p>
           <p>If you would like to cancel your booking, please click the below button</p>
-          <a href="https://drnicole.netlify.com/cancel/:${ // update this for host site.
+          <a href="https://drnicole.netlify.com/cancel/:${
+            // update this for host site.
             event.eventId
-          }&${data.result.data.id}+${userDetails.userName.replace(/ +/g, "-")}=${
-        userDetails.userEmail
-      }%${eventStart}*${eventEnd}~${monthNames[event.start.getMonth()]}!${event.start.getDate()}"><button>Cancel Booking</button></a>`,
+          }&${data.result.data.id}+${userDetails.userName.replace(
+        / +/g,
+        "-"
+      )}=${userDetails.userEmail}%${eventStart}*${eventEnd}~${
+        monthNames[event.start.getMonth()]
+      }!${event.start.getDate()}"><button>Cancel Booking</button></a>`,
     }
 
     emailjs
@@ -276,7 +299,7 @@ const BookingCalendar = () => {
 
   if (!isLoaded) {
     return (
-      <div style={{height: "90vh"}}>
+      <div style={{ height: "90vh" }}>
         <h1>Loading</h1>
         <img
           alt="loading"
@@ -291,11 +314,11 @@ const BookingCalendar = () => {
   } else if (window.document.documentMode) {
     return (
       <>
-      <p>Please use Chrome, Mozilla or Edge to make a booking!</p>
-      <p>Internet Explorer is not supported.</p>
+        <p>Please use Chrome, Mozilla or Edge to make a booking!</p>
+        <p>Internet Explorer is not supported.</p>
       </>
     )
- } else {
+  } else {
     return (
       <div>
         <Calendar
