@@ -212,7 +212,10 @@ export default ({ data }) => {
                 margin: "0px 0px 50px",
               }}
             ></span>
-            <Calendar />
+            {/* <Calendar /> */}
+            <div>
+              <h3>I am currently on leave until further notice.</h3>
+            </div>
           </Container>
 
           <Container
