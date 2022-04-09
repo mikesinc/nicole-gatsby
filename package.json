@@ -35,7 +35,7 @@
     "gatsby-transformer-sharp": "^2.5.16",
     "intersection-observer": "^0.7.0",
     "lax.js": "^1.2.5",
-    "moment": "^2.29.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.31",
     "node": "^16.14.0",
     "react": "^16.13.1",
