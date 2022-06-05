@@ -8,11 +8,10 @@ import { Router } from "@reach/router"
 import Cancel from "./cancel"
 import { graphql } from "gatsby"
 import Button from "react-bootstrap/Button"
-import SEO from "../Components/Seo"
+import Seo from "../Components/Seo"
 import "bootstrap/dist/css/bootstrap.min.css"
-// import ContactForm from "../Components/ContactForm"
 
-export default ({ data }) => {
+const Main = ({ data }) => {
   const setTop = height => {
     document.querySelector(height).scrollIntoView({
       behavior: "smooth",
@@ -43,7 +42,7 @@ export default ({ data }) => {
 
   return (
     <>
-      <SEO title={data.contentfulWebsiteInformation.name} />
+      <Seo title={data.contentfulWebsiteInformation.name} />
       <Router basepath="/">
         <Cancel path="/cancel/:id" />
       </Router>
@@ -128,15 +127,14 @@ export default ({ data }) => {
           <Container fluid className="payment">
             <div className="consulting">
               <img
-                src={require("../assets/images/talk.png")}
-                alt="hours"
+                src={require('../assets/images/talk.png').default}
+                alt="talk"
                 height="100px"
                 style={{ marginBottom: "40px" }}
               ></img>
               <h1>
                 {
-                  data.contentfulWebsiteInformation.workingDays.content[0]
-                    .content[0].value
+                  JSON.parse(data.contentfulWebsiteInformation.workingDays.raw).content[0].content[0].value
                 }
               </h1>
               <span
@@ -147,10 +145,10 @@ export default ({ data }) => {
                   margin: "0px 0px 20px",
                 }}
               ></span>
-              {data.contentfulWebsiteInformation.workingDays.content.map(
+              {JSON.parse(data.contentfulWebsiteInformation.workingDays.raw).content.map(
                 (item, index) => {
                   if (
-                    data.contentfulWebsiteInformation.workingDays.content.indexOf(
+                    JSON.parse(data.contentfulWebsiteInformation.workingDays.raw).content.indexOf(
                       item
                     ) !== 0
                   ) {
@@ -162,15 +160,14 @@ export default ({ data }) => {
             </div>
             <div className="consulting">
               <img
-                src={require("../assets/images/payment.png")}
-                alt="hours"
+                src={require("../assets/images/payment.png").default}
+                alt="payment"
                 height="100px"
                 style={{ marginBottom: "40px" }}
               ></img>
               <h1>
                 {
-                  data.contentfulWebsiteInformation.pricing.content[0]
-                    .content[0].value
+                  JSON.parse(data.contentfulWebsiteInformation.pricing.raw).content[0].content[0].value
                 }
               </h1>
               <span
@@ -181,10 +178,10 @@ export default ({ data }) => {
                   margin: "0px 0px 20px",
                 }}
               ></span>
-              {data.contentfulWebsiteInformation.pricing.content.map(
+              {JSON.parse(data.contentfulWebsiteInformation.pricing.raw).content.map(
                 (item, index) => {
                   if (
-                    data.contentfulWebsiteInformation.pricing.content.indexOf(
+                    JSON.parse(data.contentfulWebsiteInformation.pricing.raw).content.indexOf(
                       item
                     ) !== 0
                   ) {
@@ -198,8 +195,8 @@ export default ({ data }) => {
 
           <Container fluid className="booking">
             <img
-              src={require("../assets/images/calendar.png")}
-              alt="hours"
+              src={require("../assets/images/calendar.png").default}
+              alt="calendar"
               height="100px"
               style={{ margin: "20px 0px 20px" }}
             ></img>
@@ -212,10 +209,7 @@ export default ({ data }) => {
                 margin: "0px 0px 50px",
               }}
             ></span>
-            {/* <Calendar /> */}
-            <div>
-              <h3>I am currently on leave until further notice.</h3>
-            </div>
+            <Calendar />
           </Container>
 
           <Container
@@ -236,8 +230,8 @@ export default ({ data }) => {
           <Container fluid className="location">
             <div className="leftBox">
               <img
-                src={require("../assets/images/idea.png")}
-                alt="hours"
+                src={require("../assets/images/idea.png").default}
+                alt="idea"
                 height="100px"
                 style={{ margin: "20px 0px 20px" }}
               ></img>
@@ -270,8 +264,8 @@ export default ({ data }) => {
 
             <div fluid className="rightBox">
               <img
-                src={require("../assets/images/contact.png")}
-                alt="hours"
+                src={require("../assets/images/contact.png").default}
+                alt="contact"
                 height="100px"
                 style={{ margin: "20px 0px 20px" }}
               ></img>
@@ -286,9 +280,7 @@ export default ({ data }) => {
               ></div>
               <h1>{data.contentfulWebsiteInformation.address}</h1>
               <h2>{data.contentfulWebsiteInformation.addressLine2}</h2>
-              {/* <h2>Email: {data.contentfulWebsiteInformation.email}</h2> */}
               <h2>Tel: {data.contentfulWebsiteInformation.contactNumber}</h2>
-              {/* <ContactForm /> */}
               <iframe
                 title="googlemap"
                 className="map"
@@ -330,6 +322,7 @@ export default ({ data }) => {
     </>
   )
 }
+export default Main;
 
 export const query = graphql`
   {
@@ -355,20 +348,11 @@ export const query = graphql`
       contactNumber
       address
       addressLine2
-      email
       pricing {
-        content {
-          content {
-            value
-          }
-        }
+        raw
       }
       workingDays {
-        content {
-          content {
-            value
-          }
-        }
+        raw
       }
       blurb {
         internal {
