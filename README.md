@@ -1,4 +1,4 @@
-# Wesbite for Dr. Nicole Papadopoulos
+# Website for Dr. Nicole Papadopoulos
 ### (React | Hooks | Gatsby | JavaScript | CSS | GraphQL | Redux | Contentful)
 
 Hosted on Netlify, includes headless CMS (Contentful) integration to allow client to change/add/delete site content (titles, backgrounds, images, text etc.) at will.
