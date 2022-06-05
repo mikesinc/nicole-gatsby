@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import lax from "lax.js"
+import lax from 'lax.js'
 import Container from "react-bootstrap/Container"
 import Navbar from "../Components/Navbar"
 import Calendar from "../Components/Calendar"
@@ -20,24 +20,55 @@ const Main = ({ data }) => {
   }
 
   useEffect(() => {
-    if (window.document.documentMode) {
-      return null
-    } else {
-      lax.setup({
-        breakpoints: { small: 0, large: 1370 },
-      }) // init
-      const updateLax = () => {
-        lax.update(window.pageYOffset)
-        window.requestAnimationFrame(updateLax)
+    lax.init();
+
+    lax.addDriver('scrollY', 
+      () => {                     
+        return window.scrollY
       }
-      window.requestAnimationFrame(updateLax)
-      document.querySelectorAll(".lax").forEach(element => {
-        lax.addElement(element)
-      })
-      window.addEventListener("resize", function() {
-        lax.updateElements()
-      })
-    }
+    );
+
+
+    lax.addElements('.laxheader', {
+      scrollY: {
+        opacity: [
+          ["elCenterY", "elOutY"],
+          [1, 0]
+        ]
+      }
+    });
+
+    lax.addElements('.laxheadertext', {
+      scrollY: {
+        opacity: [
+          ["elCenterY", "elOutY"],
+          [1, 0]
+        ],
+        translateY: [
+          ["elInY", "elOutY"],
+          [-250, 250]
+        ]
+      }
+    });
+
+    lax.addElements('.lax', {
+      scrollY: {
+        translateY: [
+          ["elInY", "elOutY"],
+          ['-screenHeight/4', 'screenHeight/4']
+        ]
+      }
+    });
+
+    lax.addElements('.laxtext', {
+      scrollY: {
+        translateY: [
+          ["elInY", "elOutY"],
+          [250, -250]
+        ]
+      }
+    });
+
   }, [])
 
   return (
@@ -54,17 +85,11 @@ const Main = ({ data }) => {
             style={{
               backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
             }}
-            className="banner lax"
-            data-lax-bg-pos-y_large="0 (-0.2*vh), vh (-0.1*vh)"
-            data-lax-bg-pos-y_small="0 0, 0 0"
+            className="banner laxheader"
           >
             <Container
-              className="lax bannerText"
+              className="laxheadertext bannerText"
               fluid
-              data-lax-translate-y_large="0 0, vh (0.6*elw)"
-              data-lax-translate-y_small="0 0, 0 0"
-              data-lax-opacity_large="0 1, (0.3*vh) 0"
-              data-lax-opacity_small="0 1, 0 1"
             >
               <h1>{data.contentfulWebsiteInformation.banner}</h1>
             </Container>
@@ -75,6 +100,7 @@ const Main = ({ data }) => {
               onClick={() => setTop(".booking")}
               className="bookButton"
               variant="info"
+              style={{color: 'white'}}
             >
               Book Now
             </Button>
@@ -109,20 +135,20 @@ const Main = ({ data }) => {
             </Container>
           </Container>
 
-          <Container
-            style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
-            }}
-            fluid
-            className="banner lax"
-            data-lax-bg-pos-y_large="vh (-0.05*elh), -vh (0.05*elh)"
-            data-lax-bg-pos-y_small="0 0, 0 0"
-            data-lax-anchor="self"
-          >
-            <Container className="bannerText" fluid>
-              <h2>{data.contentfulWebsiteInformation.banner2}</h2>
+          <div style={{overflow: 'hidden'}}>
+            <Container
+              style={{
+                backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
+                scale: '1.1'
+              }}
+              fluid
+              className="banner lax"
+            >
+              <Container className="laxtext bannerText" fluid>
+                  <h2>{data.contentfulWebsiteInformation.banner2}</h2>
+              </Container>
             </Container>
-          </Container>
+          </div>
 
           <Container fluid className="payment">
             <div className="consulting">
@@ -215,20 +241,20 @@ const Main = ({ data }) => {
             </div>
           </Container>
 
-          <Container
-            style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
-            }}
-            fluid
-            className="banner lax"
-            data-lax-bg-pos-y_large="vh (-0.05*elh), -vh (0.05*elh)"
-            data-lax-bg-pos-y_small="0 0, 0 0"
-            data-lax-anchor="self"
-          >
-            <Container className="bannerText" fluid>
-              <h2>{data.contentfulWebsiteInformation.banner4}</h2>
+          <div style={{overflow: 'hidden'}}>
+            <Container
+              style={{
+                backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
+                scale: '1.1'
+              }}
+              fluid
+              className="banner lax"
+            >
+              <Container className="laxtext bannerText" fluid>
+                <h2>{data.contentfulWebsiteInformation.banner4}</h2>
+              </Container>
             </Container>
-          </Container>
+          </div>
 
           <Container fluid className="location">
             <div className="leftBox">
