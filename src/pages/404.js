@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container"
 import { useLax, useLaxElement } from "use-lax"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-export default ({ data }) => {
+const NotFound = ({ data }) => {
   useLax()
   const ref = useLaxElement()
   return (
@@ -25,6 +25,7 @@ export default ({ data }) => {
     </Container>
   )
 }
+export default NotFound;
 
 export const query = graphql`
   {

@@ -6,7 +6,7 @@ import emailjs from "emailjs-com"
 import { graphql } from "gatsby"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-export default ({ location: { pathname }, data }) => {
+const Cancel = ({ location: { pathname }, data }) => {
   useLax()
   const ref = useLaxElement()
 
@@ -97,6 +97,7 @@ export default ({ location: { pathname }, data }) => {
     </Container>
   )
 }
+export default Cancel;
 
 export const query = graphql`
   {

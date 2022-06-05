@@ -9,6 +9,8 @@ import { UserContext } from "../Context/Store"
 import emailjs from "emailjs-com"
 import { useStaticQuery, graphql } from "gatsby"
 import Toolbar from "react-big-calendar/lib/Toolbar"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const localizer = momentLocalizer(moment)
 const monthNames = [
@@ -74,84 +76,94 @@ const BookingCalendar = () => {
   const [bookingDetails, setBookingDetails] = useState({})
   const [userDetails] = useContext(UserContext)
 
-  useEffect(() => {
-    const checkEvents = events => {
-      axios
-        .post("https://nicole-papa-server.herokuapp.com/checkbusybatch", {
-          events: events,
-          id: queryData.contentfulWebsiteInformation.email,
-        })
-        .then(res => {
-          let checkEventList = res.data.busyArray
-          console.log(checkEventList, "OK")
-          checkEventList.forEach(checkedEvent => {
-            // console.log(checkedEvent, "checked event")
-            if (checkedEvent.busyStatus === 1) {
-              // console.log("patching, 1")
-              axios
-                .post("https://nicole-papa-server.herokuapp.com/patch", {
-                  eventId: checkedEvent.eventId,
-                  title: "Not Available",
-                })
-                .catch(err => {
-                  setFetchError(err.message)
-                  setIsLoaded(true)
-                })
-            } else if (
-              checkedEvent.busyStatus === 0 &&
-              events.filter(event => event.eventId === checkedEvent.eventId)[0]
-                .title !== "Available"
-            ) {
-              // console.log("patching, 2")
-              axios
-                .post("https://nicole-papa-server.herokuapp.com/patch", {
-                  eventId: checkedEvent.eventId,
-                  title: "Available",
-                })
-                .catch(err => {
-                  setFetchError(err.message)
-                  setIsLoaded(true)
-                })
-            }
-          })
 
-          events.forEach(event => {
-            event.start = new Date(event.start)
-            adjustTime(event.start, "melb")
-            event.end = new Date(event.end)
-            adjustTime(event.end, "melb")
-          })
-          // console.log(events, "checked events")
+  useEffect(() => {  
 
-          if (JSON.stringify(myEvents) !== JSON.stringify(events)) {
-            setMyEvents(events)
-          }
-          setIsLoaded(true)
-        })
-        .catch(err => {
-          setFetchError(err.message)
-          setIsLoaded(true)
-        })
-      // setIsLoaded(true)
-    }
-
-    const getEvents = week => {
-      axios
-        .post("https://nicole-papa-server.herokuapp.com/", {
-          week: week,
-        })
-        .then(res => {
-          // console.log(res.data.events, "fetched events")
-          checkEvents(res.data.events)
-        })
-        .catch(err => {
-          setFetchError(err.message)
-          setIsLoaded(true)
-        })
-    }
+    let isSubscribed = true;
     setIsLoaded(false)
-    getEvents(week)
+
+    const fetchEvents = async () => {
+
+        const patch = async data => {
+            const response = await fetch("https://nicole-papa-server.herokuapp.com/checkbusybatch", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    events: data.events,
+                    id: queryData.contentfulWebsiteInformation.email
+                })
+            });
+            const json = await response.json();
+
+            const promises = data.events.map(async (event, index) => {
+                if (json.busyArray[index].busyStatus === 1) {
+                    event.title = 'Not Available'
+                    await fetch("https://nicole-papa-server.herokuapp.com/patch", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            eventId: json.busyArray[index].eventId,
+                            title: "Not Available"
+                        })
+                    });
+                } else if (
+                    json.busyArray[index].busyStatus === 0 &&
+                    event.title !== "Available"
+                ) {
+                    event.title = 'Available'
+                    await fetch("https://nicole-papa-server.herokuapp.com/patch", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            eventId: json.busyArray[index].eventId,
+                            title: "Available",
+                        })
+                    });
+                }
+                event.start =  new Date(event.start)
+                adjustTime(event.start, "melb")
+                event.end = new Date(event.end)
+                adjustTime(event.end, "melb")
+                return event        
+            })
+
+            const cleanedEvents = await Promise.all(promises)
+
+            if (isSubscribed) {
+                setMyEvents(cleanedEvents)
+                setIsLoaded(true)
+            }
+        }
+
+        const response = await fetch("https://nicole-papa-server.herokuapp.com/", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                week: week
+            })
+        });
+        const json = await response.json();
+
+        patch(json)
+        .catch(e => setFetchError(e.message))
+
+    }
+
+    fetchEvents()
+    .catch(e => setFetchError(e.message))
+
+    return () => isSubscribed = false;
+
   }, [week, queryData.contentfulWebsiteInformation.email])
+
 
   const handleSelect = event => {
     if (event.title === "Not Available") {
@@ -235,7 +247,6 @@ const BookingCalendar = () => {
       }
     )
     let data = await res.data
-    // console.log(data)
 
     let eventStart = `${event.start.getHours()}${
       event.start.getMinutes() < 10
@@ -283,12 +294,12 @@ const BookingCalendar = () => {
       .then(
         response => {
           console.log("sent", response.status, response.text)
+          alert(
+            "Booking confirmed, a confirmation email will be sent to you shortly."
+          )
         },
         err => console.log(err, "error")
       )
-    alert(
-      "Booking confirmed, a confirmation email will be sent to you shortly."
-    )
     let newEventsList = myEvents.map(a => {
       return { ...a }
     })
@@ -301,10 +312,8 @@ const BookingCalendar = () => {
     return (
       <div style={{ height: "90vh" }}>
         <h1>Loading</h1>
-        <img
-          alt="loading"
-          src={require("../assets/images/ajax-loader.gif")}
-        ></img>
+        <br />
+        <FontAwesomeIcon icon={faSpinner} size="2x" spin />
       </div>
     )
   } else if (fetchError) {
@@ -323,14 +332,13 @@ const BookingCalendar = () => {
       <div>
         <Calendar
           onNavigate={e => {
-            if (
-              new Date().getDate() === e.getDate() ||
-              new Date().getDate() === e.getDate() + 1
-            ) {
-              return setWeek(matchHours(e))
-            } else if (e < new Date()) {
-              return null
+            if ((new Date().getYear() === e.getYear() && new Date().getMonth() === e.getMonth() && new Date().getDate() === e.getDate()) ||
+                (new Date().getYear() === e.getYear() && new Date().getMonth() === e.getMonth() && new Date().getDate() === e.getDate() + 1)) {
+                return setWeek(matchHours(e))
+            } else if (new Date().getTime() > (e.getTime() + 172800000)) { // if its in the past
+                return null
             }
+            // normal behaviour - show
             setWeek(e)
           }}
           localizer={localizer}

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import lax from "lax.js"
+import lax from 'lax.js'
 import Container from "react-bootstrap/Container"
 import Navbar from "../Components/Navbar"
 import Calendar from "../Components/Calendar"
@@ -8,11 +8,10 @@ import { Router } from "@reach/router"
 import Cancel from "./cancel"
 import { graphql } from "gatsby"
 import Button from "react-bootstrap/Button"
-import SEO from "../Components/Seo"
+import Seo from "../Components/Seo"
 import "bootstrap/dist/css/bootstrap.min.css"
-// import ContactForm from "../Components/ContactForm"
 
-export default ({ data }) => {
+const Main = ({ data }) => {
   const setTop = height => {
     document.querySelector(height).scrollIntoView({
       behavior: "smooth",
@@ -21,29 +20,60 @@ export default ({ data }) => {
   }
 
   useEffect(() => {
-    if (window.document.documentMode) {
-      return null
-    } else {
-      lax.setup({
-        breakpoints: { small: 0, large: 1370 },
-      }) // init
-      const updateLax = () => {
-        lax.update(window.pageYOffset)
-        window.requestAnimationFrame(updateLax)
+    lax.init();
+
+    lax.addDriver('scrollY', 
+      () => {                     
+        return window.scrollY
       }
-      window.requestAnimationFrame(updateLax)
-      document.querySelectorAll(".lax").forEach(element => {
-        lax.addElement(element)
-      })
-      window.addEventListener("resize", function() {
-        lax.updateElements()
-      })
-    }
-  })
+    );
+
+
+    lax.addElements('.laxheader', {
+      scrollY: {
+        opacity: [
+          ["elCenterY", "elOutY"],
+          [1, 0]
+        ]
+      }
+    });
+
+    lax.addElements('.laxheadertext', {
+      scrollY: {
+        opacity: [
+          ["elCenterY", "elOutY"],
+          [1, 0]
+        ],
+        translateY: [
+          ["elInY", "elOutY"],
+          [-250, 250]
+        ]
+      }
+    });
+
+    lax.addElements('.lax', {
+      scrollY: {
+        translateY: [
+          ["elInY", "elOutY"],
+          ['-screenHeight/4', 'screenHeight/4']
+        ]
+      }
+    });
+
+    lax.addElements('.laxtext', {
+      scrollY: {
+        translateY: [
+          ["elInY", "elOutY"],
+          [250, -250]
+        ]
+      }
+    });
+
+  }, [])
 
   return (
     <>
-      <SEO title={data.contentfulWebsiteInformation.name} />
+      <Seo title={data.contentfulWebsiteInformation.name} />
       <Router basepath="/">
         <Cancel path="/cancel/:id" />
       </Router>
@@ -53,19 +83,13 @@ export default ({ data }) => {
           <Container
             fluid
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
+              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
             }}
-            className="banner lax"
-            data-lax-bg-pos-y_large="0 (-0.2*vh), vh (-0.1*vh)"
-            data-lax-bg-pos-y_small="0 0, 0 0"
+            className="banner laxheader"
           >
             <Container
-              className="lax bannerText"
+              className="laxheadertext bannerText"
               fluid
-              data-lax-translate-y_large="0 0, vh (0.6*elw)"
-              data-lax-translate-y_small="0 0, 0 0"
-              data-lax-opacity_large="0 1, (0.3*vh) 0"
-              data-lax-opacity_small="0 1, 0 1"
             >
               <h1>{data.contentfulWebsiteInformation.banner}</h1>
             </Container>
@@ -76,6 +100,7 @@ export default ({ data }) => {
               onClick={() => setTop(".booking")}
               className="bookButton"
               variant="info"
+              style={{color: 'white'}}
             >
               Book Now
             </Button>
@@ -110,33 +135,32 @@ export default ({ data }) => {
             </Container>
           </Container>
 
-          <Container
-            style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
-            }}
-            fluid
-            className="banner lax"
-            data-lax-bg-pos-y_large="vh (-0.05*elh), -vh (0.05*elh)"
-            data-lax-bg-pos-y_small="0 0, 0 0"
-            data-lax-anchor="self"
-          >
-            <Container className="bannerText" fluid>
-              <h2>{data.contentfulWebsiteInformation.banner2}</h2>
+          <div style={{overflow: 'hidden'}}>
+            <Container
+              style={{
+                backgroundImage: `url(${data.contentfulWebsiteInformation.banner2image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
+                scale: '1.1'
+              }}
+              fluid
+              className="banner lax"
+            >
+              <Container className="laxtext bannerText" fluid>
+                  <h2>{data.contentfulWebsiteInformation.banner2}</h2>
+              </Container>
             </Container>
-          </Container>
+          </div>
 
           <Container fluid className="payment">
             <div className="consulting">
               <img
-                src={require("../assets/images/talk.png")}
-                alt="hours"
+                src={require('../assets/images/talk.png').default}
+                alt="talk"
                 height="100px"
                 style={{ marginBottom: "40px" }}
               ></img>
               <h1>
                 {
-                  data.contentfulWebsiteInformation.workingDays.content[0]
-                    .content[0].value
+                  JSON.parse(data.contentfulWebsiteInformation.workingDays.raw).content[0].content[0].value
                 }
               </h1>
               <span
@@ -147,10 +171,10 @@ export default ({ data }) => {
                   margin: "0px 0px 20px",
                 }}
               ></span>
-              {data.contentfulWebsiteInformation.workingDays.content.map(
+              {JSON.parse(data.contentfulWebsiteInformation.workingDays.raw).content.map(
                 (item, index) => {
                   if (
-                    data.contentfulWebsiteInformation.workingDays.content.indexOf(
+                    JSON.parse(data.contentfulWebsiteInformation.workingDays.raw).content.indexOf(
                       item
                     ) !== 0
                   ) {
@@ -162,15 +186,14 @@ export default ({ data }) => {
             </div>
             <div className="consulting">
               <img
-                src={require("../assets/images/payment.png")}
-                alt="hours"
+                src={require("../assets/images/payment.png").default}
+                alt="payment"
                 height="100px"
                 style={{ marginBottom: "40px" }}
               ></img>
               <h1>
                 {
-                  data.contentfulWebsiteInformation.pricing.content[0]
-                    .content[0].value
+                  JSON.parse(data.contentfulWebsiteInformation.pricing.raw).content[0].content[0].value
                 }
               </h1>
               <span
@@ -181,10 +204,10 @@ export default ({ data }) => {
                   margin: "0px 0px 20px",
                 }}
               ></span>
-              {data.contentfulWebsiteInformation.pricing.content.map(
+              {JSON.parse(data.contentfulWebsiteInformation.pricing.raw).content.map(
                 (item, index) => {
                   if (
-                    data.contentfulWebsiteInformation.pricing.content.indexOf(
+                    JSON.parse(data.contentfulWebsiteInformation.pricing.raw).content.indexOf(
                       item
                     ) !== 0
                   ) {
@@ -198,8 +221,8 @@ export default ({ data }) => {
 
           <Container fluid className="booking">
             <img
-              src={require("../assets/images/calendar.png")}
-              alt="hours"
+              src={require("../assets/images/calendar.png").default}
+              alt="calendar"
               height="100px"
               style={{ margin: "20px 0px 20px" }}
             ></img>
@@ -218,26 +241,26 @@ export default ({ data }) => {
             </div>
           </Container>
 
-          <Container
-            style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
-            }}
-            fluid
-            className="banner lax"
-            data-lax-bg-pos-y_large="vh (-0.05*elh), -vh (0.05*elh)"
-            data-lax-bg-pos-y_small="0 0, 0 0"
-            data-lax-anchor="self"
-          >
-            <Container className="bannerText" fluid>
-              <h2>{data.contentfulWebsiteInformation.banner4}</h2>
+          <div style={{overflow: 'hidden'}}>
+            <Container
+              style={{
+                backgroundImage: `url(${data.contentfulWebsiteInformation.banner4Image.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
+                scale: '1.1'
+              }}
+              fluid
+              className="banner lax"
+            >
+              <Container className="laxtext bannerText" fluid>
+                <h2>{data.contentfulWebsiteInformation.banner4}</h2>
+              </Container>
             </Container>
-          </Container>
+          </div>
 
           <Container fluid className="location">
             <div className="leftBox">
               <img
-                src={require("../assets/images/idea.png")}
-                alt="hours"
+                src={require("../assets/images/idea.png").default}
+                alt="idea"
                 height="100px"
                 style={{ margin: "20px 0px 20px" }}
               ></img>
@@ -270,8 +293,8 @@ export default ({ data }) => {
 
             <div fluid className="rightBox">
               <img
-                src={require("../assets/images/contact.png")}
-                alt="hours"
+                src={require("../assets/images/contact.png").default}
+                alt="contact"
                 height="100px"
                 style={{ margin: "20px 0px 20px" }}
               ></img>
@@ -286,9 +309,7 @@ export default ({ data }) => {
               ></div>
               <h1>{data.contentfulWebsiteInformation.address}</h1>
               <h2>{data.contentfulWebsiteInformation.addressLine2}</h2>
-              {/* <h2>Email: {data.contentfulWebsiteInformation.email}</h2> */}
               <h2>Tel: {data.contentfulWebsiteInformation.contactNumber}</h2>
-              {/* <ContactForm /> */}
               <iframe
                 title="googlemap"
                 className="map"
@@ -330,6 +351,7 @@ export default ({ data }) => {
     </>
   )
 }
+export default Main;
 
 export const query = graphql`
   {
@@ -355,20 +377,11 @@ export const query = graphql`
       contactNumber
       address
       addressLine2
-      email
       pricing {
-        content {
-          content {
-            value
-          }
-        }
+        raw
       }
       workingDays {
-        content {
-          content {
-            value
-          }
-        }
+        raw
       }
       blurb {
         internal {
