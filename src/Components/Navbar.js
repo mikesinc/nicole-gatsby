@@ -60,7 +60,9 @@ const NavBar = () => {
         />
         <Navbar.Collapse className="toggled" id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Navbar.Brand>
+            <Navbar.Brand style={{
+                marginLeft: '20px'
+              }}>
               {data.contentfulWebsiteInformation.name}
             </Navbar.Brand>
           </Nav>

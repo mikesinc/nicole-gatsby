@@ -38,7 +38,7 @@ const Main = ({ data }) => {
         lax.updateElements()
       })
     }
-  })
+  }, [])
 
   return (
     <>
@@ -52,7 +52,7 @@ const Main = ({ data }) => {
           <Container
             fluid
             style={{
-              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`,
+              backgroundImage: `url(${data.contentfulWebsiteInformation.bannerImage.file.url}), linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))`
             }}
             className="banner lax"
             data-lax-bg-pos-y_large="0 (-0.2*vh), vh (-0.1*vh)"
