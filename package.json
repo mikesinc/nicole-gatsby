@@ -35,6 +35,7 @@
     "lax.js": "^1.2.5",
     "moment-timezone": "^0.5.34",
     "node": "^16.14.2",
+    "npm": "^8.6.0",
     "react": "^17.0.2",
     "react-big-calendar": "^0.40.1",
     "react-bootstrap": "^2.4.0",
