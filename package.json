@@ -30,7 +30,7 @@
     "gatsby-react-router-scroll": "^5.15.0",
     "gatsby-script": "^1.0.1",
     "gatsby-source-contentful": "^7.13.1",
-    "gatsby-transformer-remark": "^5.15.1",
+    "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "^4.15.1",
     "lax.js": "^2.0.3",
     "moment-timezone": "^0.5.34",
